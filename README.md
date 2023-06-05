@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Simple Twitter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 專案介紹
 
-## Available Scripts
+使用React打造一個社交平台Alphitter，讓使用者可以在平台上註冊、登入、發文、點讚、回覆以及跟隨別人。
 
-In the project directory, you can run:
+## 專案功能
 
-### `npm start`
+- 使用者
+  - 註冊自己的帳號
+  - 登入個人首頁
+  - 瀏覽其他使用者的推文和回覆
+  - 推文/回覆/喜歡的內容
+  - 對其他使用者進行跟隨/取消跟隨
+  - 更新個人資料，修改帳戶設定、大頭照、個人首頁封面照
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 管理者
+  - 後台登入頁登入
+  - 在推文清單瀏覽/刪除所有使用者的推文
+  - 在使用者列表瀏覽所有已註冊的使用者，並可看到每位使用者的推文數、喜歡的推文數以及跟隨/被跟隨的數量
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 開始使用
 
-### `npm test`
+1.將專案 clone 到本機:
+```
+git clone  https://github.com/ZionYou/simple-twitter.git
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2.進入存放此專案的資料夾
+```
+cd simple-twitter
+```
 
-### `npm run build`
+3.安裝 npm 套件
+```
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4.啟動伺服器 
+```
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5.當終端機中出現以下訊息，該網頁將自動 在“ http://localhost:3000 ”中打開：
+```
+webpack compiled successfully
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+6.停止使用該網站：
+```
+ctrl + c
+```
 
-### `npm run eject`
+## 開發工具
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* react 18.2.0
+* node.js 14.18.1
+* sass 1.56.2
+* styled-components 5.3.5
