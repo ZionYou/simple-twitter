@@ -5,9 +5,9 @@ function App() {
   return (
     <div className="App">
       <HomePage />
-      <LoginPage />
+      {/* <LoginPage />
       <RegistPage />
-      <AdminLoginPage />
+      <AdminLoginPage /> */}
     </div>
   );
 }

@@ -1,6 +1,23 @@
 :root {
   --major: #ff6600;
   --gray: #767678;
+  --white: #FFFFFF;
+  --blue-primary: #0062FF; 
+  --grey-secondary: #6C757D;
+  --red-danger: #FC5A5A;
+
+  --greyscale-dark-20: #FAFAFB;
+  --greyscale-dark-70: #92929D;
+  --greyscale-dark-90: #44444F;
+  --greyscale-dark-100: #171725;
+
+  --border-grey: 1px solid #E6ECF0;
+  --border: #E6ECF0;
+
+
+  /* ↓↓ add new color root here ↓↓ */
+
+  /* ↑↑ add new color root here ↑↑ */
 }
 
 html,
@@ -8,6 +25,64 @@ body {
   background-color: #f4f4f4;
   font-family: 'Lato', 'Noto Sans TC', sans-serif;
 }
+
+
+/* ↓↓ new add here ↓↓ */
+body{
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+a,
+a:hover,
+a:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+input {
+  padding: 0;
+}
+
+input:required {
+  box-shadow: none;
+}
+
+input:invalid {
+  box-shadow: none;
+}
+
+/* ↑↑ new add here ↑↑ */
 
 .app {
   text-align: center;
@@ -35,7 +110,7 @@ body {
   margin: 0;
   padding: 0;
   border: 0;
-  background: none;
+  background: transparent;
   font-size: 100%;
   vertical-align: baseline;
   font-family: inherit;
@@ -46,3 +121,64 @@ body {
   cursor: pointer;
   outline: 0;
 }
+
+/* ↓↓ mixin here ↓↓ */
+@mixin font-adjust($size, $weight, $color) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+}
+
+@mixin svg-adjust($width, $height, $color) {
+  svg {
+    width: $width;
+    height: $height;
+
+    path {
+      fill: $color;
+    }
+  }
+}
+/* ↑↑ mixin here ↑↑ */
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+/* all btn type here */
+/* 
+  btn font size: 
+  font-size: 16px;
+  font-size: 20px;
+*/
+.orange-btn {
+  background-color: var(--major);
+  color: var(--white);
+  border: none;
+  &.radius-4 {
+    border-radius: 4px;
+  }
+  &.radius-50 {
+    border-radius: 50px;
+  }
+}
+
+.orange-border-btn{
+  border: 1px solid var(--major);
+  color: var(--major);
+  &.radius-4 {
+    border-radius: 4px;
+  }
+  &.radius-50 {
+    border-radius: 50px;
+  }
+}
+
+.link-btn{
+  text-decoration: underline;
+  color: var(--blue-primary);
+}
+
+@import "./components/styles/homepage";
+@import "./components/styles/personal";
+@import "./components/styles/personalDetail";
