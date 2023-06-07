@@ -28,64 +28,6 @@
       
     }
   }
-  .popup{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(23, 23, 37, .5);
-    .popup-bg{
-      max-width: 1140px;
-      margin: 0 auto;
-      position: sticky;
-      top: 56px;
-      .popup-container {
-        width: 50%;
-        margin: 56px auto 0;
-        background-color: var(--white);
-        border-radius: 14px;
-        // display: flex;
-        // flex-direction: column;
-        .close-group{
-          padding: 20.5px 19.5px;
-          .close{
-            @include font-adjust(16px, 400, var(--major));
-            border-bottom: var(--border-grey);
-          }
-        }
-        .type-area {
-          display: flex;
-          padding: 16px 24px;
-          img {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-right: 8px;
-          }
-          textarea{
-            margin-top: 16px;
-            width: 100%;
-            height: 100%;
-            border: none;
-            @include font-adjust(16px, 400, var(--grey-secondary));
-            &:focus{
-              outline: none;
-            }
-          }
-        }
-        .btn-group{
-          display: flex;
-          justify-content: end;
-          button {
-            padding: 8px 16px;
-            margin: 16px;
-          }
-        }
-      }
-    }
-  }
 }
 
 

@@ -83,7 +83,7 @@ const TweetListItem = ({tweet}) => {
   )
 }
 
-export const TweetListItemGroup = () => {
+export const UserProfileTwi = () => {
   return(
     <div className="tweet-list">
       {
@@ -97,12 +97,12 @@ export const TweetListItemGroup = () => {
 
 const MainHome = ({onClick}) => {
   return(
-    <section className="home" data-page="main-home">
+    <section className="home middle-container-border" data-page="main-home">
       <div className="title-section">
         <h5 className="sub-title">首頁</h5>
-        <div className="input-group">
-          <input type="checkbox" className="title-input" id="new-tweet" onClick={onClick}/>
-          <label htmlFor="new-tweet" className="title-label">
+        <div className="input-group cursor-pointer" onClick={onClick}>
+          <input type="checkbox" className="title-input cursor-pointer" id="new-tweet"/>
+          <label htmlFor="new-tweet" className="title-label cursor-pointer">
             <img src="https://picsum.photos/300/300?text=100" alt="" />
             <p className="label-word">有什麼新鮮事?</p>
           </label>
@@ -110,31 +110,8 @@ const MainHome = ({onClick}) => {
         </div>
       </div>
       <hr/>
-      <TweetListItemGroup/>
+      <UserProfileTwi/>
     </section>
-  )
-}
-
-export const NewTweetPopUp = ({onClick}) => {
-  return(
-    <>
-      <div className="popup">
-        <div className="popup-bg">
-          <div className="popup-container">
-            <div className="close-group">
-              <a href="#" className="close" onClick={onClick}>&#10005;</a>
-            </div>
-            <div className="type-area">
-              <img src="https://picsum.photos/300/300?text=400" alt="" />
-              <textarea name="new-tweet-type" id="tweet-textarea" maxLength={140}>有什麼新鮮事?</textarea>
-            </div>
-            <div className="btn-group">
-              <button className="orange-btn radius-50 cursor-pointer">推文</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
   )
 }
 

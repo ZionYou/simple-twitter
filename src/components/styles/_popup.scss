@@ -1,0 +1,364 @@
+.popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(23, 23, 37, .5);
+
+  .popup-bg {
+    max-width: 1140px;
+    margin: 0 auto;
+    position: sticky;
+    top: 56px;
+
+    .popup-container {
+      width: 50%;
+      margin: 56px auto 0;
+      background-color: var(--white);
+      border-radius: 14px;
+
+      // display: flex;
+      // flex-direction: column;
+      .close-group {
+        border-bottom: var(--border-grey);
+        padding: 20.5px 19.5px;
+        .close {
+          @include svg-adjust(15px, 15px, var(--major));
+        }
+      }
+      .type-area {
+        display: flex;
+        padding: 16px 24px;
+
+        img {
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+          border-radius: 50%;
+          margin-right: 8px;
+        }
+        .newtwi-textarea{
+          width: 100%;
+          height: 100%;
+          padding-top: 12px;
+          background-color: transparent;
+          border: none;
+          outline: 0;
+          resize: none;
+          overflow: hidden;
+          @include font-adjust(16px, 400, #1C1C1C);
+          &::placeholder{
+            @include font-adjust(16px, 400, var(--grey-secondary));
+          }
+        }
+      }
+
+      .btn-group {
+        display: flex;
+        justify-content: end;
+
+        button {
+          padding: 8px 16px;
+          margin: 16px;
+        }
+      }
+    }
+  }
+}
+
+
+.edit-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(23, 23, 37, .5);
+
+  .edit-popup-bg {
+    max-width: 1140px;
+    margin: 0 auto;
+    position: sticky;
+    top: 56px;
+
+    .edit-popup-container {
+      width: 50%;
+      margin: 56px auto 0;
+      background-color: var(--white);
+      border-radius: 14px;
+
+      // display: flex;
+      // flex-direction: column;
+      .close-group {
+        padding: 20.5px 19.5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        div{
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          .close {
+            @include svg-adjust(15px, 15px, var(--major));
+          }
+          .name{
+            @include font-adjust(18px, 700, var(--greyscale-dark-100));
+            margin-left: 16.5px;
+          }
+        }
+        button{
+          padding: 8px 16px;
+        }
+      }
+
+      .img-group{
+        position: relative;
+        .bg-img-group{
+          position: relative;
+          .bg-img{
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: center;
+          }
+          .bg-input-group{
+            width: 100%;
+            height: 200px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgb(23, 23, 37, .5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .bg-img-selection-label{
+              @include svg-adjust(auto, 15px, var(--white));
+              padding-right: 19.25px;
+            }
+            .bg-img-selection-input{
+              display: none;
+            }
+            .bg-delete-btn{
+              background-color: transparent;
+              border: none;
+              @include svg-adjust(15px, 15px, var(--white));
+              padding-left: 19.25px;
+            }
+          }
+        }
+        .user-img-group{
+          position: absolute;
+          top: 130px;
+          left: 16px;
+
+          div{
+            position: relative;
+            .user-img {
+              width: 140px;
+              height: 140px;
+              object-fit: cover;
+              object-position: center;
+              border: 4px solid var(--white);
+              border-radius: 50%;
+            }
+            .img-input-group{
+              width: 132px;
+              height: 132px;
+              position: absolute;
+              top: -136px;
+              left: 4px;
+              background-color: rgb(23, 23, 37, .5);
+              border-radius: 50%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              position: relative;
+              .user-img-selection-label {
+                @include svg-adjust(auto, 15px, var(--white));
+              }
+              .user-img-selection-input {
+                display: none;
+              }
+            }
+          }
+        }
+
+      }
+
+      .type-area {
+        // padding-top: 88px;
+        // display: flex;
+        padding: 88px 24px 16px;
+        .form-group:last-child{
+          margin-top: 10px;
+        }
+      }
+
+      .btn-group {
+        display: flex;
+        justify-content: end;
+
+        button {
+          padding: 8px 16px;
+          margin: 16px;
+        }
+      }
+    }
+  }
+}
+
+
+.reply-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(23, 23, 37, .5);
+
+  .reply-popup-bg {
+    max-width: 1140px;
+    margin: 0 auto;
+    position: sticky;
+    top: 56px;
+
+    .reply-popup-container {
+      width: 50%;
+      margin: 56px auto 0;
+      background-color: var(--white);
+      border-radius: 14px;
+
+      // display: flex;
+      // flex-direction: column;
+      .close-group {
+        border-bottom: var(--border-grey);
+        padding: 20.5px 19.5px;
+
+        .close {
+          @include svg-adjust(15px, 15px, var(--major));
+        }
+      }
+      .tweet-item {
+        display: flex;
+        align-items: top;
+        padding: 16px 24px 16px 29px;
+
+        position: relative;
+
+        img {
+          width: 50px;
+          height: 50px;
+          object-fit: contain;
+          border-radius: 50%;
+        }
+
+        .tweet-info {
+          padding-left: 8px;
+
+          .name-group {
+            .name {
+              @include font-adjust(16px, 700, var(--greyscale-dark-100));
+              margin-right: 8px;
+            }
+
+            .account,
+            .time {
+              @include font-adjust(14px, 400, var(--grey-secondary));
+            }
+          }
+
+          .content {
+            padding: 8px 0;
+            @include font-adjust(16px, 400, var(--greyscale-dark-100));
+          }
+
+          .reply-to {
+            padding-top: 8px;
+            @include font-adjust(14px, 400, var(--grey-secondary));
+
+            span {
+              color: var(--major);
+            }
+          }
+
+          .icon-group {
+            display: flex;
+            width: 100%;
+
+            .comment,
+            .like {
+              i {
+                @include svg-adjust(auto, 14px, var(--grey-secondary));
+                margin-right: 10px;
+              }
+
+              @include font-adjust(14px, 600, var(--grey-secondary));
+            }
+
+            .like-solid {
+              @include font-adjust(14px, 600, var(--grey-secondary));
+
+              i {
+                @include svg-adjust(auto, 14px, var(--red-danger));
+                margin-right: 10px;
+              }
+            }
+
+            .comment {
+              margin-right: 40px;
+            }
+          }
+        }
+
+        .link-line{
+          width: 2px;
+          height: 86px;
+          background-color: var(--greyscale-dark-60);
+
+          position:absolute;
+          left: 50px;
+          top: 98px;
+        }
+      }
+      .type-area {
+        display: flex;
+        padding: 16px 24px;
+
+        img {
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+          border-radius: 50%;
+          margin-right: 8px;
+        }
+
+        .newtwi-textarea {
+          width: 100%;
+          height: 100%;
+          padding-top: 12px;
+          background-color: transparent;
+          border: none;
+          outline: 0;
+          resize: none;
+          overflow: hidden;
+          @include font-adjust(16px, 400, #1C1C1C);
+
+          &::placeholder {
+            @include font-adjust(16px, 400, var(--grey-secondary));
+          }
+        }
+      }
+
+      .btn-group {
+        display: flex;
+        justify-content: end;
+
+        button {
+          padding: 8px 16px;
+          margin: 16px;
+        }
+      }
+    }
+  }
+}

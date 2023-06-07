@@ -1,0 +1,63 @@
+.twi-item{
+  .twi-item-body{
+    padding: 0 16px;
+    border-top: var(--border-grey);
+    .twi-item-user{
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      padding-top: 8px;
+      .twi-item-img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .twi-item-name-group {
+        margin-left: 8px;
+        .twi-item-name {
+          @include font-adjust(16px, 700, var(--greyscale-dark-100));
+          line-height: 26px;
+        }
+
+        .twi-item-account {
+          @include font-adjust(14px, 500, var(--greyscale-dark-70));
+        }
+      }
+}
+  }
+  .twi-item-content-group{
+    padding: 16px 0 8px;
+    border-bottom: var(--border-grey);
+    .twi-item-content{
+      @include font-adjust(24px, 400, var(--greyscale-dark-100));
+      line-height: 36px;
+    }
+    .twi-item-time{
+      @include font-adjust(14px, 500, var(--grey-secondary));
+    }
+  }
+  .twi-item-interac-group{
+    padding: 16px 0;
+    @include font-adjust(19px, 500, var(--grey-secondary));
+    border-bottom: var(--border-grey);
+    .reply, .like{
+      span{
+        @include font-adjust(19px, 700, var(--greyscale-dark-100));
+      }
+    }
+    .reply{
+      margin-right: 24px;
+    }
+  }
+  .twi-item-icon-group{
+    padding: 22px 0;
+    border-bottom: var(--border-grey);
+    span{
+      @include svg-adjust(25px, 25px, var(--grey-secondary));
+    }
+    .like{
+      margin-left: 133px;
+    }
+  }
+}

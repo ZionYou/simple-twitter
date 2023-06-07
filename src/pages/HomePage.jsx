@@ -1,33 +1,25 @@
 import MainHome from "../components/MainComponents/MainHome";
-import { NewTweetPopUp } from "../components/MainComponents/MainHome";
+import { NewTwiPopUp } from "../components/MainComponents/Popup";
 import { MainList, PopularFollow } from "components/MainComponents/HomeFixed";
-import Personal from "../components/MainComponents/Personal"
-import PersonalDetail from "components/MainComponents/PersonalDetail";
 
 import {useState} from 'react';
+
+import { ReplyTwiPopUp } from "../components/MainComponents/Popup";
 
 
 
 
 const HomePage = () => {
   const [isPopup, setIsPopup] = useState(false)
-
-  const handleClick = (event) => {
-    if(event.target.checked){
-      setIsPopup(true)
-    }
-  }
-
   return (
     <section className="main">
       <section className="main-container">
         <MainList/>
-        {/* <MainHome onClick={handleClick}/> */}
-        <Personal/>
-        {/* <PersonalDetail/> */}
+        <MainHome onClick={() => setIsPopup(true)}/>
         <PopularFollow/>
       </section>
-      {isPopup && <NewTweetPopUp onClick={() => setIsPopup(false)}/>}
+      {isPopup && <NewTwiPopUp onClick={() => setIsPopup(false)}/>}
+      {/* <ReplyTwiPopUp/> */}
     </section>
   )
 };

@@ -2,7 +2,8 @@ import {ReactComponent as BackArrow} from "assets/icons/BackArrow.svg";
 import {ReactComponent as Comment} from "assets/icons/comment.svg";
 import {ReactComponent as LikeSolid} from "assets/icons/like_solid.svg";
 
-import { TweetListItemGroup } from "./MainHome";
+import { UserProfileTwi } from "./MainHome";
+import { EditProfile } from "./Popup";
 
 import {useState} from 'react';
 
@@ -141,7 +142,7 @@ const TweetReplyListItem = ({tweet}) => {
   )
 }
 
-const TweetReplyItemGroup = () => {
+export const UserProfileTwiReply = () => {
   return(
     <div className="tweet-list">
       {
@@ -175,7 +176,7 @@ const TweetLikeListItem = ({tweet}) => {
   )
 }
 
-const TweetLikeItemGroup = () => {
+const UserProfileLike = () => {
   return(
     <div className="tweet-list">
       {
@@ -188,19 +189,22 @@ const TweetLikeItemGroup = () => {
 }
 
 const PersonalPageSwitch = ({value}) => {
-  if(value === 'tweet') return <TweetListItemGroup/>
-  if(value === 'reply') return <TweetReplyItemGroup/>
-  if(value === 'like') return <TweetLikeItemGroup/>
+  if(value === 'tweet') return <UserProfileTwi/>
+  if(value === 'reply') return <UserProfileTwiReply/>
+  if(value === 'like') return <UserProfileLike/>
 }
 
-const Personal = () => {
+
+
+const Personal = ({onClick}) => {
   const [currentValue, setCurrentValue] = useState('tweet')
+  // const [editIsOpen, setEditIsOpen] = useState(false)
 
   const handlePageClick = (e) => {
     setCurrentValue(e.target.value)
   }
   return(
-    <section className="person">
+    <section className="person middle-container-border">
       <div className="back-bar">
         <a href="" className="back-link">
           <span className="back-icon"><BackArrow/></span>
@@ -213,8 +217,11 @@ const Personal = () => {
       <div className="personal-area">
         <img src="https://picsum.photos/300/300?text=600" alt="" className="personal-bg-img"/>
         <img src="https://picsum.photos/300/300?text=1000" alt="" className="personal-img" />
-        <div className="btn-group">
-          <button className="orange-border-btn radius-50 cursor-pointer">編輯個人資料</button>
+        {/* <div className="btn-group" data-user="user">
+          <button className="orange-border-btn radius-50 cursor-pointer" onClick={onClick}>編輯個人資料</button>
+        </div> */}
+        <div className="btn-group" data-user="other">
+          <button className="orange-border-btn radius-50 cursor-pointer" onClick={onClick}>編輯個人資料</button>
         </div>
         <div className="personal-info">
           <div className="personal-info-name-group">
@@ -232,6 +239,9 @@ const Personal = () => {
       {/* <TweetListItemGroup/> */}
       {/* <TweetReplyItemGroup/> */}
       <PersonalPageSwitch value={currentValue}/>
+      {/* {
+        editIsOpen && <EditProfile onClick={() => setEditIsOpen(false)}/>
+      } */}
     </section>
   )
 }

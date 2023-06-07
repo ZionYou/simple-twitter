@@ -161,7 +161,7 @@ const PersonalDetail = () => {
     setCurrentFollowValue(e.target.value)
   }
   return(
-    <section className="personal-detail">
+    <section className="personal-detail middle-container-border">
       <div className="back-bar">
         <a href="" className="back-link">
           <span className="back-icon"><BackArrow/></span>

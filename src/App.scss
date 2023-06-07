@@ -7,12 +7,24 @@
   --red-danger: #FC5A5A;
 
   --greyscale-dark-20: #FAFAFB;
+  --greyscale-dark-60: #B5B5BE;
   --greyscale-dark-70: #92929D;
+  --greyscale-dark-80: #696974;
   --greyscale-dark-90: #44444F;
   --greyscale-dark-100: #171725;
 
   --border-grey: 1px solid #E6ECF0;
   --border: #E6ECF0;
+
+  --input-border-bottom: 2px solid #657786;
+  --input-border-bottom-focus: 2px solid #50B5FF;
+  --input-border-bottom-error: 2px solid #FC5A5A;
+  --input-border-bottom-disabled: 2px solid #D5D5DC;
+
+  --support-blue: #50B5FF;
+  --support-disabled-grey: #D5D5DC;
+
+  --input-bg: #F5FBFA;
 
 
   /* ↓↓ add new color root here ↓↓ */
@@ -145,40 +157,18 @@ input:invalid {
   cursor: pointer;
 }
 
-/* all btn type here */
-/* 
-  btn font size: 
-  font-size: 16px;
-  font-size: 20px;
-*/
-.orange-btn {
-  background-color: var(--major);
-  color: var(--white);
-  border: none;
-  &.radius-4 {
-    border-radius: 4px;
-  }
-  &.radius-50 {
-    border-radius: 50px;
-  }
+.middle-container-border{
+  border-left: var(--border-grey);
+  border-right: var(--border-grey);
 }
 
-.orange-border-btn{
-  border: 1px solid var(--major);
-  color: var(--major);
-  &.radius-4 {
-    border-radius: 4px;
-  }
-  &.radius-50 {
-    border-radius: 50px;
-  }
-}
 
-.link-btn{
-  text-decoration: underline;
-  color: var(--blue-primary);
-}
-
+@import "./components/styles/BtnTypeSettings";
+@import "./components/styles/defaultInputSettings";
 @import "./components/styles/homepage";
 @import "./components/styles/personal";
 @import "./components/styles/personalDetail";
+@import "./components/styles/settings";
+@import "./components//styles/TwiItem";
+@import "./components/styles/popup";
+
