@@ -1,4 +1,4 @@
-import {ReactComponent as BackArrow} from "assets/icons/BackArrow.svg";
+import { BackArrowIcon } from "assets/icons";
 import {useState} from 'react';
 
 
@@ -164,7 +164,7 @@ const PersonalDetail = () => {
     <section className="personal-detail middle-container-border">
       <div className="back-bar">
         <a href="" className="back-link">
-          <span className="back-icon"><BackArrow/></span>
+          <span className="back-icon"><BackArrowIcon/></span>
           <div className="title-group">
             <p className="name">John Doe</p>
             <p className="tweet-num"><span>25</span> 推文</p>

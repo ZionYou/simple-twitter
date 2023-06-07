@@ -1,9 +1,7 @@
-import {ReactComponent as BackArrow} from "assets/icons/BackArrow.svg";
-import {ReactComponent as Comment} from "assets/icons/comment.svg";
-import {ReactComponent as LikeSolid} from "assets/icons/like_solid.svg";
+import { BackArrowIcon, CommentIcon, LikeSolidIcon } from "assets/icons";
 
-import { UserProfileTwi } from "./MainHome";
-import { EditProfile } from "./Popup";
+import { UserProfileTwi } from "components";
+
 
 import {useState} from 'react';
 
@@ -142,7 +140,7 @@ const TweetReplyListItem = ({tweet}) => {
   )
 }
 
-export const UserProfileTwiReply = () => {
+const UserProfileTwiReply = () => {
   return(
     <div className="tweet-list">
       {
@@ -168,8 +166,8 @@ const TweetLikeListItem = ({tweet}) => {
           {tweet.content}
         </p>
         <div className="icon-group">
-          <div className="comment"><i><Comment/></i>{tweet.commentNum}</div>
-          <div className="like-solid"><i><LikeSolid/></i>{tweet.likeNum}</div>
+          <div className="comment"><i><CommentIcon/></i>{tweet.commentNum}</div>
+          <div className="like-solid"><i><LikeSolidIcon/></i>{tweet.likeNum}</div>
         </div>
       </div>
     </div>
@@ -207,7 +205,7 @@ const Personal = ({onClick}) => {
     <section className="person middle-container-border">
       <div className="back-bar">
         <a href="" className="back-link">
-          <span className="back-icon"><BackArrow/></span>
+          <span className="back-icon"><BackArrowIcon/></span>
           <div className="title-group">
             <p className="name">John Doe</p>
             <p className="tweet-num"><span>25</span> 推文</p>
@@ -246,4 +244,4 @@ const Personal = ({onClick}) => {
   )
 }
 
-export default Personal
+export { Personal, UserProfileTwiReply };

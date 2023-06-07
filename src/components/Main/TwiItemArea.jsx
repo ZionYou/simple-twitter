@@ -1,9 +1,5 @@
-import {ReactComponent as BackArrow} from "assets/icons/BackArrow.svg";
-
-import {ReactComponent as Comment} from "assets/icons/comment.svg";
-import {ReactComponent as Like} from "assets/icons/like.svg";
-
-import { UserProfileTwiReply } from "./Personal";
+import { BackArrowIcon, CommentIcon, LikeIcon } from "assets/icons";
+import { UserProfileTwiReply } from "components";
 
 
 const TwiItemArea = () => {
@@ -11,7 +7,7 @@ const TwiItemArea = () => {
     <section className="twi-item middle-container-border">
       <div className="back-bar">
         <a href="" className="back-link">
-          <span className="back-icon"><BackArrow/></span>
+          <span className="back-icon"><BackArrowIcon/></span>
           <div className="title-group">
             <p className="name">推文</p>
           </div>
@@ -36,8 +32,8 @@ const TwiItemArea = () => {
           <span className="like"><span>808</span>喜歡次數</span>
         </div>
         <div className="twi-item-icon-group">
-          <a className="rpely"><Comment/></a>
-          <a className="like"><Like/></a>
+          <a className="rpely"><CommentIcon/></a>
+          <a className="like"><LikeIcon/></a>
         </div>
       </div>
       <UserProfileTwiReply/>
@@ -45,4 +41,4 @@ const TwiItemArea = () => {
   )
 }
 
-export default TwiItemArea
+export default TwiItemArea;

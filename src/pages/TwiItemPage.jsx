@@ -1,5 +1,4 @@
-import TwiItemArea from "components/MainComponents/TwiItemArea"
-import { MainList, PopularFollow } from "components/MainComponents/HomeFixed";
+import { TwiItemArea, MainList, PopularFollow } from "components";
 
 const TwiItemPage = () => {
   return(

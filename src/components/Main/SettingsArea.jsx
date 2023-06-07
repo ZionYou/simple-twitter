@@ -64,4 +64,4 @@ const SettingsArea = () => {
   )
 }
 
-export default SettingsArea
+export default SettingsArea;

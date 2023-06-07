@@ -1,7 +1,4 @@
-
-import {ReactComponent as Comment} from "assets/icons/comment.svg";
-import {ReactComponent as Like} from "assets/icons/like.svg";
-
+import { CommentIcon, LikeIcon } from "assets/icons";
 
 const TweetListData = [
   {
@@ -75,15 +72,15 @@ const TweetListItem = ({tweet}) => {
           {tweet.content}
         </p>
         <div className="icon-group">
-          <div className="comment"><i><Comment/></i>{tweet.commentNum}</div>
-          <div className="like"><i><Like/></i>{tweet.likeNum}</div>
+          <div className="comment"><i><CommentIcon/></i>{tweet.commentNum}</div>
+          <div className="like"><i><LikeIcon/></i>{tweet.likeNum}</div>
         </div>
       </div>
     </div>
   )
 }
 
-export const UserProfileTwi = () => {
+const UserProfileTwi = () => {
   return(
     <div className="tweet-list">
       {
@@ -115,4 +112,4 @@ const MainHome = ({onClick}) => {
   )
 }
 
-export default MainHome;
+export { TweetListItem, MainHome, UserProfileTwi};

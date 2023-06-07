@@ -1,7 +1,4 @@
-import { EditProfile } from "../components/MainComponents/Popup";
-import { MainList, PopularFollow } from "components/MainComponents/HomeFixed";
-import Personal from "../components/MainComponents/Personal"
-
+import { EditProfile, MainList, PopularFollow, Personal  } from "components";
 import {useState} from 'react';
 
 

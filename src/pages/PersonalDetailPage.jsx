@@ -1,5 +1,5 @@
-import { MainList, PopularFollow } from "components/MainComponents/HomeFixed";
-import PersonalDetail from "components/MainComponents/PersonalDetail";
+import { MainList, PopularFollow } from "components/Main/HomeFixed";
+import PersonalDetail from "components/Main/PersonalDetail";
 
 
 const PersonalDetailPage = () => {

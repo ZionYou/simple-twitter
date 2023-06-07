@@ -1,29 +1,23 @@
-import { ACLogoIcon } from "assets/icons";
-import {ReactComponent as Home} from "assets/icons/home.svg";
-import {ReactComponent as HomeChecked} from "assets/icons/home_checked.svg";
-import {ReactComponent as Person} from "assets/icons/person.svg";
-import {ReactComponent as PersonChecked} from "assets/icons/person_checked.svg"
-import {ReactComponent as Settings} from "assets/icons/settings.svg";
-import {ReactComponent as SettingsChecked} from "assets/icons/settings_checked.svg";
-import {ReactComponent as Logout} from "assets/icons/Logout.svg";
+import { ACLogoIcon, HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon } from "assets/icons";
+
 
 const MainListData = [
   {
     id: "home",
-    icon: <Home/>,
-    icon_checked: <HomeChecked/>,
+    icon: <HomeIcon/>,
+    icon_checked: <HomeCheckedIcon/>,
     name: "首頁",
   },
   {
     id: "person",
-    icon: <Person/>,
-    icon_checked: <PersonChecked/>,
+    icon: <PersonIcon/>,
+    icon_checked: <PersonCheckedIcon/>,
     name: "個人資料",
   },
   {
     id: "settings",
-    icon: <Settings/>,
-    icon_checked: <SettingsChecked/>,
+    icon: <SettingsIcon/>,
+    icon_checked: <SettingsCheckedIcon/>,
     name: "設定",
   },
 ]
@@ -81,7 +75,7 @@ const PopularFollowData = [
 ]
 
 
-export const MainList = () => {
+const MainList = () => {
   return(
     <div className="main-list">
       <div className="icon">
@@ -106,7 +100,7 @@ export const MainList = () => {
       </div>
       <div className="logout-group">
         <span className="logout">
-          <Logout/>
+          <LogoutIcon/>
         </span>
         <p className="logout-name">登出</p>
       </div>
@@ -114,7 +108,7 @@ export const MainList = () => {
   )
 }
 
-export const PopularFollow = () => {
+const PopularFollow = () => {
   return(
     <div className="popular-follow">
       <h5 className="sub-title">推薦跟隨</h5>
@@ -137,3 +131,5 @@ export const PopularFollow = () => {
     </div>
   )
 }
+
+export { MainList, PopularFollow };

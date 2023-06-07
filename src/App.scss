@@ -163,12 +163,12 @@ input:invalid {
 }
 
 
-@import "./components/styles/BtnTypeSettings";
-@import "./components/styles/defaultInputSettings";
-@import "./components/styles/homepage";
-@import "./components/styles/personal";
-@import "./components/styles/personalDetail";
-@import "./components/styles/settings";
-@import "./components//styles/TwiItem";
-@import "./components/styles/popup";
+@import "./styles/btnTypeSettings.scss";
+@import "./styles/defaultInputSettings";
+@import "./styles/homepage";
+@import "./styles/personal";
+@import "./styles/personalDetail";
+@import "./styles/settings";
+@import "./styles/TwiItem";
+@import "./styles/popup";
 

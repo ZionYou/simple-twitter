@@ -1,16 +1,13 @@
-import {ReactComponent as Close} from "../../assets/icons/close.svg"
-import {ReactComponent as Camera} from "../../assets/icons/Camera.svg"
+import { CameraIcon, CloseIcon } from "assets/icons";
 
-
-
-export const NewTwiPopUp = ({onClick}) => {
+const NewTwiPopUp = ({onClick}) => {
   return(
     <>
       <div className="popup">
         <div className="popup-bg">
           <div className="popup-container">
              <div className="close-group">
-                <a href="#" className="close" onClick={onClick}><Close/></a>
+                <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
               </div>
             <div className="type-area">
               <img src="https://picsum.photos/300/300?text=400" alt="" />
@@ -26,7 +23,7 @@ export const NewTwiPopUp = ({onClick}) => {
   )
 }
 
-export const EditProfile = ({onClick}) => {
+const EditProfile = ({onClick}) => {
   return(
     <>
       <div className="edit-popup">
@@ -34,7 +31,7 @@ export const EditProfile = ({onClick}) => {
           <div className="edit-popup-container">
             <div className="close-group">
               <div>
-                <a href="#" className="close" onClick={onClick}><Close/></a>
+                <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
                 <p className="name">John Doe</p>
               </div>
               <button type="submit" className="orange-btn radius-50 cursor-pointer">儲存</button>
@@ -43,9 +40,9 @@ export const EditProfile = ({onClick}) => {
               <div className="bg-img-group">
                 <img src="https://picsum.photos/300/300?text=1400" alt="user-bg" className="bg-img user-post-bg" />
                 <div className="bg-input-group">
-                  <label htmlFor="bg-img-selection" className="bg-img-selection-label cursor-pointer"><Camera/></label>
+                  <label htmlFor="bg-img-selection" className="bg-img-selection-label cursor-pointer"><CameraIcon/></label>
                   <input type="file" accept="image/*" id="bg-img-selection" className="bg-img-selection-input edit-img-input"/>
-                  <button className="bg-delete-btn cursor-pointer"><Close/></button>
+                  <button className="bg-delete-btn cursor-pointer"><CloseIcon/></button>
                 </div>
               </div>
               <div className="user-img-group">
@@ -54,7 +51,7 @@ export const EditProfile = ({onClick}) => {
                   <div className="img-input-group">
                     <label htmlFor="user-img-selection" className="user-img-selection-label cursor-pointer">
                       <div>
-                        <Camera/>
+                        <CameraIcon/>
                       </div>
                     </label>
                     <input type="file" accept="image/*" id="user-img-selection" className="user-img-selection-input edit-img-input"/>
@@ -89,14 +86,14 @@ export const EditProfile = ({onClick}) => {
   )
 }
 
-export const ReplyTwiPopUp = ({onClick}) => {
+const ReplyTwiPopUp = ({onClick}) => {
   return(
     <>
       <div className="reply-popup">
         <div className="reply-popup-bg">
           <div className="reply-popup-container">
             <div className="close-group">
-              <a href="#" className="close" onClick={onClick}><Close/></a>
+              <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
             </div>
             <div className="tweet-item">
               <img src="https://picsum.photos/300/300?text=1200" alt="" />
@@ -126,3 +123,6 @@ export const ReplyTwiPopUp = ({onClick}) => {
     </>
   )
 }
+
+
+export { NewTwiPopUp, EditProfile, ReplyTwiPopUp};

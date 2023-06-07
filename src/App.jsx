@@ -1,23 +1,34 @@
 import './App.scss';
-import { HomePage, LoginPage, RegistPage, AdminLoginPage} from "pages"
-import UserProfilePage from 'pages/UserProfilePage';
-import PersonalDetailPage from 'pages/PersonalDetailPage';
-import SettingsPage from 'pages/SettingsPage';
-import TwiItemPage from 'pages/TwiItemPage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { 
+  HomePage, 
+  LoginPage, 
+  RegistPage, 
+  AdminLoginPage, 
+  MainHomePage, 
+  UserProfilePage, 
+  PersonalDetailPage, 
+  SettingsPage, 
+  TwiItemPage } from "pages"
 
 function App() {
   return (
     <div className="App">
-      <HomePage />
-      {/* TwiItemPage link from HomePage, catch by :id */}
-      {/* <TwiItemPage/> */}
-      {/* <UserProfilePage/> */}
-      {/* <PersonalDetailPage/> */}
-      {/* <SettingsPage/> */}
-      {/* <LoginPage />
-      <RegistPage />
-      <AdminLoginPage /> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="*" element={<HomePage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="regist" element={<RegistPage />} />
+          <Route path="adminLogin" element={<AdminLoginPage />} />
+          <Route path="main" element={<MainHomePage />} />
+          <Route path="user" element={<UserProfilePage />} />
+          <Route path="personalDetail" element={<PersonalDetailPage />} />
+          <Route path="setting" element={<SettingsPage />} />
+          <Route path="twiItem" element={<TwiItemPage/>} />
+        </Routes>
+      </BrowserRouter>
     </div>
+    
   );
 }
 
