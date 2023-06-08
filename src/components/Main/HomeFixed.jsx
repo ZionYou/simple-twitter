@@ -1,24 +1,29 @@
 import { ACLogoIcon, HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon } from "assets/icons";
+import {Link, useLocation} from 'react-router-dom'
 
 
 const MainListData = [
   {
-    id: "home",
+    id: "main",
     icon: <HomeIcon/>,
-    icon_checked: <HomeCheckedIcon/>,
+    icon_action: <HomeCheckedIcon/>,
     name: "首頁",
+    link: "/main",
   },
   {
-    id: "person",
+    id: "user",
     icon: <PersonIcon/>,
-    icon_checked: <PersonCheckedIcon/>,
+    icon_action: <PersonCheckedIcon/>,
     name: "個人資料",
+    link: "/user", 
+
   },
   {
-    id: "settings",
+    id: "setting",
     icon: <SettingsIcon/>,
-    icon_checked: <SettingsCheckedIcon/>,
+    icon_action: <SettingsCheckedIcon/>,
     name: "設定",
+    link: "/setting"
   },
 ]
 
@@ -74,8 +79,22 @@ const PopularFollowData = [
   },
 ]
 
+const MainListLink = ({data, className}) =>{
+  return(
+    <Link to={data.link} exact className={`main-list-link ${className}`}>
+      <span className="default">{data.icon}</span>
+      <span className="checked">{data.icon_action}</span>
+      <p className="main-list-name">{data.name}</p>
+    </Link>
+  )
+}
+
 
 const MainList = () => {
+  const location = useLocation()
+  const {pathname} = location
+  const splitLocation = pathname.split("/");
+
   return(
     <div className="main-list">
       <div className="icon">
@@ -83,17 +102,8 @@ const MainList = () => {
       </div>
       <div className="main-list-group">
         {
-          MainListData.map((item) => {
-            return(
-              <div key={item.id}>
-                <input type="radio" className="main-list-input" id={item.id} name="main-list" defaultChecked={item.id === "home"} value={item.id}/>
-                <label htmlFor={item.id} className="main-list-label cursor-pointer">
-                  <span className="default">{item.icon}</span>
-                  <span className="checked">{item.icon_checked}</span>
-                  <p className="label-name">{item.name}</p>
-                </label>
-              </div>
-            )
+          MainListData.map((data) => {
+            return <MainListLink data={data} key={data.id} className = {splitLocation[1] === data.id? "action" : ""}/>
           })
         }
         <button className="orange-btn radius-50">推文</button>
@@ -102,11 +112,44 @@ const MainList = () => {
         <span className="logout">
           <LogoutIcon/>
         </span>
-        <p className="logout-name">登出</p>
+        <Link to="/login" className="logout-name">登出</Link>
       </div>
     </div>
   )
 }
+
+// const MainList = () => {
+//   return(
+//     <div className="main-list">
+//       <div className="icon">
+//         <ACLogoIcon/>
+//       </div>
+//       <div className="main-list-group">
+//         {
+//           MainListData.map((item) => {
+//             return(
+//               <div key={item.id}>
+//                 <input type="radio" className="main-list-input" id={item.id} name="main-list" defaultChecked={item.id === "home"} value={item.id}/>
+//                 <label htmlFor={item.id} className="main-list-label cursor-pointer">
+//                   <span className="default">{item.icon}</span>
+//                   <span className="checked">{item.icon_checked}</span>
+//                   <p className="label-name">{item.name}</p>
+//                 </label>
+//               </div>
+//             )
+//           })
+//         }
+//         <button className="orange-btn radius-50">推文</button>
+//       </div>
+//       <div className="logout-group">
+//         <span className="logout">
+//           <LogoutIcon/>
+//         </span>
+//         <p className="logout-name">登出</p>
+//       </div>
+//     </div>
+//   )
+// }
 
 const PopularFollow = () => {
   return(

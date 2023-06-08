@@ -11,6 +11,11 @@
       .form-bar {
         width: 100%;
         height: 54px;
+        .form-input{
+          &::placeholder{
+            color: var(--greyscale-dark-60);
+          }
+        }
       }
     }
   }

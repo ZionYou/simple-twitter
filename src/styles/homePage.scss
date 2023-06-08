@@ -1,22 +1,23 @@
 .main{
-  position: relative;
+  // position: relative;
   .main-container{
     // width: 960px;
     max-width: 1140px;
     margin: 0 auto;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-gap: 25px;
+    // padding-top: 16px;
+    // padding-bottom: 16px;
+    // display: grid;
+    // grid-template-columns: 1fr 2fr 1fr;
+    // grid-gap: 25px;
     .main-list{
       // width: 1fr;
       // position: fixed;
       // top: 16px;
       // left: 0;
-      position: sticky;
-      top: 16px;
-      height: 100vh;
+      // position: sticky;
+      
+      // top: 16px;
+      // height: 100vh;
       // max-height: 100%;
     }
     .popular-follow{
@@ -41,17 +42,23 @@
 
 /* mainlist area */
 .main-list{
+  position: sticky;
+  top: 0;
+  left: 0;
   width: 100%;
+  padding-top: 13px;
+ 
+  max-height: 100vh;
   // height: 100%;
-  display: grid;
-  grid-template-rows: 40px 1fr 4fr;
-  grid-gap: 13px;
+  // display: grid;
+  // grid-template-rows: 40px 178px auto;
+  // grid-gap: 13px;
   &:last-child{
     align-items: end;
   }
   .icon{
-    margin-left: 16px;
-    margin-bottom: 32px;
+    margin-left: 13px;
+    // margin-bottom: 32px;
     svg{
       width: auto;
       height: 40px;
@@ -59,40 +66,38 @@
   }
 
   .main-list-group{
-    div{
-      padding: 0 16px;
-      height: 58px;
-      line-height: 58px;
-    }
-    .main-list-input{
-      display: none;
-    }
-    .main-list-input:checked + .main-list-label{
-      .default{
-        display: none;
-      }
-      .checked{
-        display: block;
-        padding-right: 16px;
-        @include svg-adjust(20px, auto, var(--major));
-      }
-      .label-name{
-        @include font-adjust(18px, 700, var(--major))
-      }
-    }
-    .main-list-label{
+    padding-top: 32px;
+    .main-list-link{
+      padding: 0 17px;
       display: flex;
       justify-content: start;
-      .default {
-        display: block;
-        padding-right: 16px;
+      &:not(:last-child){
+        margin-bottom: 45px;
+      }
+      &:last-child{
+        margin-bottom: 17px;
+      }
+      .default{
         @include svg-adjust(20px, auto, var(--greyscale-dark-90));
       }
-      .checked {
+      .checked{
         display: none;
       }
-      .label-name {
+      .main-list-name{
+        padding-left: 16px;
         @include font-adjust(18px, 700, var(--greyscale-dark-90))
+      }
+      &.action{
+        .default{
+          display: none;
+        }
+        .checked{
+          display: block;
+          @include svg-adjust(20px, auto, var(--major));
+        }
+        .main-list-name {
+          @include font-adjust(18px, 700, var(--major));
+        }
       }
     }
     button {
@@ -103,6 +108,14 @@
   }
   
   .logout-group{
+    // position: absolute;
+    // bottom: 16px;
+    // left: 19px;
+
+    position: fixed;
+    // left: 19px;
+    bottom: 16px;
+
     display: flex;
     // height: 100%;
     align-items: end;
@@ -123,6 +136,11 @@
 .popular-follow{
   background-color: var(--greyscale-dark-20);
   border-radius: 16px;
+  margin-top: 16px;
+
+  position: sticky;
+  top: 16px;
+  left: 0;
   .popular-follow-group{
     padding: 16px;
     

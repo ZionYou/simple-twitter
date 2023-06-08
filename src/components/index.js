@@ -8,7 +8,8 @@ import SettingsArea  from "./Main/SettingsArea";
 import TwiItemArea from "./Main/TwiItemArea";
 
 
-
+// Bootstrap
+import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
 
 

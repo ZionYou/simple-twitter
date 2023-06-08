@@ -36,9 +36,9 @@ const SettingsItemData = [
   },
 ]
 
-const SettingsItem = ({setting}) => {
+export const SettingsItem = ({setting, className}) => {
   return(
-     <div className="form-group setting-form-group">
+     <div className={`form-group ${className}`}>
         <div className="form-bar">
           <label for="" className="form-label">{setting.title}</label>
           <input type={setting.type} className="form-input" value={setting.value} placeholder={setting.placeholder}/>
@@ -54,7 +54,7 @@ const SettingsArea = () => {
         <h5 className="sub-title">首頁</h5>
         <div className="settings-group">
           {
-            SettingsItemData.map((setting) => {return <SettingsItem setting={setting} key={setting.id}/>})
+            SettingsItemData.map((setting) => {return <SettingsItem setting={setting} key={setting.id} className="setting-form-group"/>})
           }
         </div>
         <div className="btn-group">

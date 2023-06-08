@@ -5,6 +5,7 @@
   --blue-primary: #0062FF; 
   --grey-secondary: #6C757D;
   --red-danger: #FC5A5A;
+  --dark-black: #1C1C1C;
 
   --greyscale-dark-20: #FAFAFB;
   --greyscale-dark-60: #B5B5BE;
@@ -162,7 +163,7 @@ input:invalid {
   border-right: var(--border-grey);
 }
 
-
+@import "./styles/login";
 @import "./styles/btnTypeSettings.scss";
 @import "./styles/defaultInputSettings";
 @import "./styles/homepage";

@@ -1,17 +1,18 @@
 import { BackArrowIcon, CommentIcon, LikeIcon } from "assets/icons";
 import { UserProfileTwiReply } from "components";
+import {Link} from 'react-router-dom';
 
 
 const TwiItemArea = () => {
   return(
     <section className="twi-item middle-container-border">
       <div className="back-bar">
-        <a href="" className="back-link">
+        <Link to="/main" className="back-link">
           <span className="back-icon"><BackArrowIcon/></span>
           <div className="title-group">
             <p className="name">推文</p>
           </div>
-        </a>
+        </Link>
       </div>
       <div className="twi-item-body">
         <div className="twi-item-user">
