@@ -36,7 +36,7 @@ const SettingsItemData = [
   },
 ]
 
-export const SettingsItem = ({setting, className}) => {
+const SettingsItem = ({setting, className}) => {
   return(
      <div className={`form-group ${className}`}>
         <div className="form-bar">
@@ -46,7 +46,6 @@ export const SettingsItem = ({setting, className}) => {
       </div>
   )
 }
-
 
 const SettingsArea = () => {
   return(
@@ -64,4 +63,4 @@ const SettingsArea = () => {
   )
 }
 
-export default SettingsArea;
+export { SettingsItem, SettingsArea };

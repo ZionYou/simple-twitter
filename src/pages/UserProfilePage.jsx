@@ -1,6 +1,5 @@
-import { EditProfile, MainList, PopularFollow, Personal  } from "components";
+import { EditProfile, MainList, PopularFollow, Personal } from "components";
 import {useState} from 'react';
-
 import { Container, Row, Col } from "react-bootstrap";
 
 const UserProfilePage = () => {
@@ -26,6 +25,7 @@ const UserProfilePage = () => {
   )
 };
 
+export default UserProfilePage;
 
 // const UserProfilePage = () => {
 //   const [isPopup, setIsPopup] = useState(false)
@@ -41,5 +41,3 @@ const UserProfilePage = () => {
 //     </section>
 //   )
 // };
-
-export default UserProfilePage;

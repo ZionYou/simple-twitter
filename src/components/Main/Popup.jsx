@@ -27,29 +27,6 @@ const NewTwiPopUp = ({onClick}) => {
   )
 }
 
-// const NewTwiPopUp = ({onClick}) => {
-//   return(
-//     <>
-//       <div className="popup">
-//         <div className="popup-bg">
-//           <div className="popup-container">
-//              <div className="close-group">
-//                 <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
-//               </div>
-//             <div className="type-area">
-//               <img src="https://picsum.photos/300/300?text=400" alt="" />
-//               <textarea name="new-tweet-type" className="newtwi-textarea" id="tweet-textarea" maxLength={140} placeholder="有什麼新鮮事?"/>
-//             </div>
-//             <div className="btn-group">
-//               <button className="orange-btn radius-50 cursor-pointer">推文</button>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
-
 const EditProfile = ({onClick}) => {
   return(
     <>
@@ -159,5 +136,27 @@ const ReplyTwiPopUp = ({onClick}) => {
   )
 }
 
-
 export { NewTwiPopUp, EditProfile, ReplyTwiPopUp};
+
+// const NewTwiPopUp = ({onClick}) => {
+//   return(
+//     <>
+//       <div className="popup">
+//         <div className="popup-bg">
+//           <div className="popup-container">
+//              <div className="close-group">
+//                 <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
+//               </div>
+//             <div className="type-area">
+//               <img src="https://picsum.photos/300/300?text=400" alt="" />
+//               <textarea name="new-tweet-type" className="newtwi-textarea" id="tweet-textarea" maxLength={140} placeholder="有什麼新鮮事?"/>
+//             </div>
+//             <div className="btn-group">
+//               <button className="orange-btn radius-50 cursor-pointer">推文</button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   )
+// }

@@ -7,8 +7,7 @@ import UserProfilePage from './UserProfilePage';
 import PersonalDetailPage from './PersonalDetailPage';
 import SettingsPage from './SettingsPage';
 import TwiItemPage from './TwiItemPage';
-// Bootstrap
-import 'bootstrap/dist/css/bootstrap-grid.min.css';
+
 export {
   HomePage,
   LoginPage,

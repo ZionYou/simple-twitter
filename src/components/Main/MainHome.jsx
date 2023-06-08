@@ -57,7 +57,6 @@ const TweetListData = [
   },
 ]
 
-
 const TweetListItem = ({tweet}) => {
   return(
     <div className="tweet-item">

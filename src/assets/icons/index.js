@@ -13,7 +13,6 @@ import { ReactComponent as SettingsIcon } from "./settings.svg";
 import { ReactComponent as SettingsCheckedIcon } from "./settings-checked.svg";
 import { ReactComponent as LogoutIcon } from "./logout.svg";
 
-
 //Main/MainHome
 import { ReactComponent as CommentIcon } from "./comment.svg";
 import { ReactComponent as LikeIcon } from "./like.svg";
@@ -22,11 +21,9 @@ import { ReactComponent as LikeIcon } from "./like.svg";
 import { ReactComponent as BackArrowIcon } from "./back-arrow.svg";
 import { ReactComponent as LikeSolidIcon } from "./like-solid.svg";
 
-// other
+//Main/Popup
 import { ReactComponent as CameraIcon } from "./cameraIcon.svg";
 import { ReactComponent as CloseIcon } from "./closeIcon.svg";
-
-
 
 //AuthInput
 export { ACLogoIcon, CheckActiveIcon, CheckHoverIcon, CheckCircleIcon };
@@ -40,6 +37,6 @@ export { CommentIcon, LikeIcon };
 //Main/Personal
 export { BackArrowIcon, LikeSolidIcon };
 
-//other
+//Main/Popup
 export { CameraIcon, CloseIcon };
 
