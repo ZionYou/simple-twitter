@@ -1,6 +1,6 @@
 import { ACLogoIcon, HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon } from "assets/icons";
 import {Link, useLocation} from 'react-router-dom'
-
+import { useNavigate } from 'react-router-dom';
 
 const MainListData = [
   {
@@ -112,6 +112,12 @@ const MainList = () => {
   const location = useLocation()
   const {pathname} = location
   const splitLocation = pathname.split("/");
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    localStorage.removeItem('authToken');
+    navigate('/login')
+  }
 
   return(
     <div className="main-list">
@@ -126,12 +132,12 @@ const MainList = () => {
         }
         <button className="orange-btn radius-50">推文</button>
       </div>
-      <div className="logout-group">
+      <a className="logout-group" onClick={handleClick}>
         <span className="logout">
           <LogoutIcon/>
         </span>
-        <Link to="/login" className="logout-name">登出</Link>
-      </div>
+        <a herf="" className="logout-name">登出</a>
+      </a>
     </div>
   )
 }
@@ -197,6 +203,12 @@ const AdminList = () => {
   const location = useLocation()
   const {pathname} = location
   const splitLocation = pathname.split("/");
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    localStorage.removeItem('authToken');
+    navigate('/adminLogin')
+  }
 
   return(
     <div className="main-list">
@@ -210,12 +222,12 @@ const AdminList = () => {
           })
         }
       </div>
-      <div className="logout-group">
+      <a className="logout-group" onClick={handleClick}>
         <span className="logout">
           <LogoutIcon/>
         </span>
-        <Link to="/login" className="logout-name">登出</Link>
-      </div>
+        <a herf="" className="logout-name">登出</a>
+      </a>
     </div>
   )
 }

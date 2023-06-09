@@ -4,31 +4,46 @@ import {
   AuthButton,
   AuthLinkText,
 } from 'components/common/auth.styled';
-import { ACLogoIcon } from 'assets/icons';
+
 import { AuthInput } from 'components';
-import {Link} from 'react-router-dom'
+
+/* add here edit later */
+import {FormInput} from '../components/Main/formValue/FormInput';
+/* add here edit later */
+import { ACLogoIcon } from 'assets/icons';
+import {Link} from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
-
-import {SettingsItem} from '../components/Main/SettingsArea'
-
-const LoginItemData = [
-  {
-    id: 1,
-    title: "帳號",
-    type: "text",
-    value: "",
-    placeholder: "請輸入帳號"
-  },
-  {
-    id: 2,
-    title: "密碼",
-    type: "text",
-    value: "",
-    placeholder: "請輸入密碼"
-  },
-]
+import {useState} from 'react';
+import {login} from '../api/auth';
+/* havent use yet */
+import Swal from 'sweetalert2';
 
 const LoginPage = () => {
+  const [account, setAccount] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleClick = async () => {
+    if(account.length === 0){
+      return;
+    }
+    if(password.length === 0){
+      return;
+    }
+
+    const {success, authToken} = await login({
+      account, 
+      password
+    });
+    if(success) {
+      localStorage.setItem('authToken', authToken)
+
+      // add login success message here 
+      // return
+    }
+
+    // add login failed message here
+  }
+
   return(
     <section className="login">
       <Container>
@@ -39,12 +54,22 @@ const LoginPage = () => {
             </div>
             <h1 className="title">登入 Alphitter</h1>
             <div className="login-group">
-              {
-                LoginItemData.map((setting) => {return <SettingsItem setting={setting} key={setting.id} className="login-form-group"/>})
-              }
+              <FormInput
+                label="帳號"
+                value={account}
+                placeholder="請輸入帳號"
+                onChange={(accountInputValue) => setAccount(accountInputValue)}
+              />
+              <FormInput
+                label="密碼"
+                type="password"
+                value={password}
+                placeholder="請輸入帳號"
+                onChange={(passwordInputValue) => setPassword(passwordInputValue)}
+              />
             </div>
             <div className="login-btn-group">
-              <button className="orange-btn radius-50 login-btn">登入</button>
+              <button className="orange-btn radius-50 login-btn" onClick={handleClick}>登入</button>
               <div className="other-login">
                 <Link to="/regist" className="link-btn">註冊</Link>
                 <p className="dot">・</p>

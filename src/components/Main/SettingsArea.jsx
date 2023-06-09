@@ -1,37 +1,38 @@
+import {FormInput} from './formValue/FormInput'
 const SettingsItemData = [
   {
     id: 1,
     title: "帳號",
     type: "text",
-    value: "wonderwomen",
+    name: "userAccount",
     placeholder: "請設定帳號"
   },
   {
     id: 2,
     title: "名稱",
     type: "text",
-    value: "Diana",
+    name: "userName",
     placeholder: "請設定名稱"
   },
   {
     id: 3,
     title: "Email",
     type: "email",
-    value: "diana@gmail.com",
+    name: "userEmail",
     placeholder: "請設定Email"
   },
   {
     id: 4,
     title: "密碼",
     type: "text",
-    value: "",
+    name: "userPassword",
     placeholder: "請設定密碼"
   },
   {
     id: 5,
     title: "密碼再確認",
-    type: "text",
-    value: "",
+    type: "password",
+    name: "userPasswordConfirm",
     placeholder: "請再次輸入密碼"
   },
 ]
@@ -49,18 +50,22 @@ export const SettingsItem = ({setting, className}) => {
 
 
 const SettingsArea = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  
   return(
-    <section className="settings middle-container-border">
+    <form className="settings middle-container-border" onSubmit={handleSubmit}>
         <h5 className="sub-title">首頁</h5>
         <div className="settings-group">
           {
-            SettingsItemData.map((setting) => {return <SettingsItem setting={setting} key={setting.id} className="setting-form-group"/>})
+            SettingsItemData.map((setting) => {return <SettingsItem prop={setting} key={setting.id} className="setting-form-group"/>} )
           }
         </div>
         <div className="btn-group">
-          <button className="orange-btn radius-50">儲存</button>
+          <button className="orange-btn radius-50 cursor-pointer">儲存</button>
         </div>
-    </section>
+    </form>
   )
 }
 

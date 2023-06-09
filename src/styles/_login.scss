@@ -10,7 +10,7 @@
   }
   .login-group{
     margin: 40px 0;
-    .login-form-group{
+    .form-group{
       &:first-child{
         margin-bottom: 32px;
       }
@@ -63,7 +63,7 @@
   .admin-login-group {
     margin: 40px 0;
 
-    .admin-login-form-group {
+    .form-group {
       &:first-child {
         margin-bottom: 32px;
       }
@@ -121,7 +121,7 @@
   .regist-login-group {
     margin: 40px 0;
 
-    .regist-login-form-group {
+    .form-group {
       &:not(:last-child) {
         margin-bottom: 32px;
       }

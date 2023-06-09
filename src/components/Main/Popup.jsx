@@ -1,5 +1,7 @@
 import { CameraIcon, CloseIcon } from "assets/icons";
 import { Container, Row, Col } from "react-bootstrap";
+import {useState} from 'react'
+
 const NewTwiPopUp = ({onClick}) => {
   return(
     <>
@@ -51,6 +53,7 @@ const NewTwiPopUp = ({onClick}) => {
 // }
 
 const EditProfile = ({onClick}) => {
+  
   return(
     <>
       <div className="edit-popup">
