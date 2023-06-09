@@ -79,6 +79,24 @@ const PopularFollowData = [
   },
 ]
 
+const AdminListData = [
+  {
+    id: "adminTwi",
+    icon: <HomeIcon/>,
+    icon_action: <HomeCheckedIcon/>,
+    name: "推文清單",
+    link: "/adminTwi",
+  },
+  {
+    id: "adminUser",
+    icon: <PersonIcon/>,
+    icon_action: <PersonCheckedIcon/>,
+    name: "使用者列表",
+    link: "/adminUser", 
+
+  },
+]
+
 const MainListLink = ({data, className}) =>{
   return(
     <Link to={data.link} exact className={`main-list-link ${className}`}>
@@ -97,9 +115,9 @@ const MainList = () => {
 
   return(
     <div className="main-list">
-      <div className="icon">
+      <Link to="/main" className="icon">
         <ACLogoIcon/>
-      </div>
+      </Link>
       <div className="main-list-group">
         {
           MainListData.map((data) => {
@@ -175,4 +193,31 @@ const PopularFollow = () => {
   )
 }
 
-export { MainList, PopularFollow };
+const AdminList = () => {
+  const location = useLocation()
+  const {pathname} = location
+  const splitLocation = pathname.split("/");
+
+  return(
+    <div className="main-list">
+      <Link to="/adminTwi" className="icon">
+        <ACLogoIcon/>
+      </Link>
+      <div className="main-list-group">
+        {
+          AdminListData.map((data) => {
+            return <MainListLink data={data} key={data.id} className = {splitLocation[1] === data.id? "action" : ""}/>
+          })
+        }
+      </div>
+      <div className="logout-group">
+        <span className="logout">
+          <LogoutIcon/>
+        </span>
+        <Link to="/login" className="logout-name">登出</Link>
+      </div>
+    </div>
+  )
+}
+
+export { MainList, PopularFollow, AdminList };

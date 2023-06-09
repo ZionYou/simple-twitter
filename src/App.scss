@@ -27,6 +27,8 @@
 
   --input-bg: #F5FBFA;
 
+  --admin-card-bg: #F6F7F8;
+
 
   /* ↓↓ add new color root here ↓↓ */
 
@@ -171,5 +173,6 @@ input:invalid {
 @import "./styles/personalDetail";
 @import "./styles/settings";
 @import "./styles/TwiItem";
+@import "./styles/admin";
 @import "./styles/popup";
 

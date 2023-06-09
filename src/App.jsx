@@ -9,7 +9,10 @@ import {
   UserProfilePage, 
   PersonalDetailPage, 
   SettingsPage, 
-  TwiItemPage } from "pages"
+  TwiItemPage,
+  AdminTwiListPage,
+  AdminUserListPage
+} from "pages"
 
 function App() {
   return (
@@ -25,6 +28,8 @@ function App() {
           <Route path="personalDetail" element={<PersonalDetailPage />} />
           <Route path="setting" element={<SettingsPage />} />
           <Route path="twiItem" element={<TwiItemPage/>} />
+          <Route path="adminTwi" element={<AdminTwiListPage/>} />
+          <Route path="adminUser" element={<AdminUserListPage/>} />
         </Routes>
       </BrowserRouter>
     </div>

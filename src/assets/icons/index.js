@@ -26,10 +26,14 @@ import { ReactComponent as LikeSolidIcon } from "./like-solid.svg";
 import { ReactComponent as CameraIcon } from "./cameraIcon.svg";
 import { ReactComponent as CloseIcon } from "./closeIcon.svg";
 
-
+//AuthUserList
+import { ReactComponent as FeatherIcon } from "./feather.svg";
 
 //AuthInput
 export { ACLogoIcon, CheckActiveIcon, CheckHoverIcon, CheckCircleIcon };
+
+//AuthUserList
+export {FeatherIcon};
 
 //Main/HomeFixed
 export { HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon };
