@@ -1,14 +1,15 @@
-// import {
-//   AuthContainer,
-//   AuthInputContainer,
-//   AuthButton,
-//   AuthLinkText,
-// } from 'components/common/auth.styled';
-// import { AuthInput } from 'components';
+import {
+  AuthContainer,
+  AuthInputContainer,
+  AuthButton,
+  AuthLinkText,
+} from 'components/common/auth.styled';
 import { ACLogoIcon } from 'assets/icons';
-import {Link } from 'react-router-dom';
+import { AuthInput } from 'components';
+import {Link} from 'react-router-dom'
 import { Container, Row, Col } from "react-bootstrap";
-import { SettingsItem } from 'components';
+
+import {SettingsItem} from '../components/Main/SettingsArea'
 
 const LoginItemData = [
   {

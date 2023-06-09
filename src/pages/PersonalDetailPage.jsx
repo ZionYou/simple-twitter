@@ -1,7 +1,9 @@
-import { MainList, PopularFollow, PersonalDetail} from "components";
+import { MainList, PopularFollow } from "components/Main/HomeFixed";
+import PersonalDetail from "components/Main/PersonalDetail";
 import { Container, Row, Col } from "react-bootstrap";
 
 const PersonalDetailPage = () => {
+
   return (
     <>
       <Container>

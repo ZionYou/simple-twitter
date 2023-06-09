@@ -1,7 +1,16 @@
+import {
+  AuthContainer,
+  AuthInputContainer,
+  AuthButton,
+  AuthLinkText,
+} from 'components/common/auth.styled';
 import { ACLogoIcon } from 'assets/icons';
+import { AuthInput } from 'components';
 import {Link} from 'react-router-dom'
 import { Container, Row, Col } from "react-bootstrap";
-import { SettingsItem } from 'components'
+
+
+import {SettingsItem} from '../components/Main/SettingsArea'
 
 const AdminLoginItemData = [
   {
@@ -48,15 +57,6 @@ const AdminLoginPage = () => {
   )
 }
 
-export default AdminLoginPage;
-
-// import {
-//   AuthContainer,
-//   AuthInputContainer,
-//   AuthButton,
-//   AuthLinkText,
-// } from 'components/common/auth.styled';
-// import { AuthInput } from 'components';
 
 // const AdminLoginPage = () => {
 //   return (
@@ -78,3 +78,5 @@ export default AdminLoginPage;
 //     </AuthContainer>
 //   );
 // };
+
+export default AdminLoginPage;

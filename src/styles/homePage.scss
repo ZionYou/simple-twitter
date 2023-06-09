@@ -31,6 +31,9 @@
   }
 }
 
+
+
+
 .sub-title {
   @include font-adjust(24px, 700, var(--greyscale-dark-100));
   padding: 24px;
@@ -143,6 +146,8 @@
     
     .popular-follow-item{
       height: 82px;
+      // display: flex;
+      // justify-content: space-between;
       display: grid;
       grid-template-columns: 50px 1fr auto;
       grid-gap: 8px;
@@ -157,11 +162,11 @@
     
       // text-overflow重新設定
       .popular-follow-name-group {
-        // width: 90px;
+        width: 80px;
+        // width: 100%;
         .popular-follow-name {
-          white-space: nowrap;
-          // width: 90px;
           overflow: hidden;
+          white-space: nowrap;
           text-overflow: ellipsis;
           @include font-adjust(16px, 700, var(--greyscale-dark-100));
           line-height: 26px;

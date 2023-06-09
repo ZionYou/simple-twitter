@@ -1,6 +1,7 @@
 import { ACLogoIcon, HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon } from "assets/icons";
 import {Link, useLocation} from 'react-router-dom'
 
+
 const MainListData = [
   {
     id: "main",
@@ -88,6 +89,7 @@ const MainListLink = ({data, className}) =>{
   )
 }
 
+
 const MainList = () => {
   const location = useLocation()
   const {pathname} = location
@@ -115,32 +117,6 @@ const MainList = () => {
     </div>
   )
 }
-
-const PopularFollow = () => {
-  return(
-    <div className="popular-follow">
-      <h5 className="sub-title">推薦跟隨</h5>
-      <div className="popular-follow-group">
-        {
-          PopularFollowData.map((item) => {
-            return(
-              <div className="popular-follow-item" key={item.id}>
-                <img src={`https://picsum.photos/300/300?text=${item.id}`} alt={item.name} className="popular-follow-img" />
-                <div className="popular-follow-name-group">
-                  <a herf="" className="popular-follow-name">{item.name}</a>
-                  <p className="popular-follow-account">@<span>{item.name.toLowerCase().replaceAll(' ', '')}</span></p>
-                </div>
-                <button className={`radius-50 cursor-pointer ${item.isFollow ? "orange-btn" : "orange-border-btn"}`}>{item.isFollow ? "正在跟隨" : "跟隨"}</button>
-              </div>
-            )
-          })
-        }
-      </div>
-    </div>
-  )
-}
-
-export { MainList, PopularFollow };
 
 // const MainList = () => {
 //   return(
@@ -174,3 +150,29 @@ export { MainList, PopularFollow };
 //     </div>
 //   )
 // }
+
+const PopularFollow = () => {
+  return(
+    <div className="popular-follow">
+      <h5 className="sub-title">推薦跟隨</h5>
+      <div className="popular-follow-group">
+        {
+          PopularFollowData.map((item) => {
+            return(
+              <div className="popular-follow-item" key={item.id}>
+                <img src={`https://picsum.photos/300/300?text=${item.id}`} alt={item.name} className="popular-follow-img" />
+                <div className="popular-follow-name-group">
+                  <a herf="" className="popular-follow-name">{item.name}</a>
+                  <p className="popular-follow-account">@<span>{item.name.toLowerCase().replaceAll(' ', '')}</span></p>
+                </div>
+                <button className={`radius-50 cursor-pointer ${item.isFollow ? "orange-btn" : "orange-border-btn"}`}>{item.isFollow ? "正在跟隨" : "跟隨"}</button>
+              </div>
+            )
+          })
+        }
+      </div>
+    </div>
+  )
+}
+
+export { MainList, PopularFollow };

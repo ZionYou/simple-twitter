@@ -1,7 +1,11 @@
 import { BackArrowIcon, CommentIcon, LikeSolidIcon } from "assets/icons";
+
 import { UserProfileTwi } from "components";
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+
+
+
+import {useState} from 'react';
+import {Link} from 'react-router-dom';
 
 const PersonalSwitchData = [
   {
@@ -16,6 +20,7 @@ const PersonalSwitchData = [
     id: "like",
     name: "喜歡的內容",
   },
+
 ]
 
 const ReplyTweetData = [
@@ -99,6 +104,7 @@ const LikeTweetData = [
   },
 ]
 
+
 const PersonSwitchBar = ({onClick}) => {
   return(
     <div className="page-tab">
@@ -115,6 +121,7 @@ const PersonSwitchBar = ({onClick}) => {
     </div>
   )
 }
+
 
 const TweetReplyListItem = ({tweet}) => {
   return(
@@ -186,6 +193,8 @@ const PersonalPageSwitch = ({value}) => {
   if(value === 'reply') return <UserProfileTwiReply/>
   if(value === 'like') return <UserProfileLike/>
 }
+
+
 
 const Personal = ({onClick}) => {
   const [currentValue, setCurrentValue] = useState('tweet')
