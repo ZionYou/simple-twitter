@@ -69,7 +69,7 @@ const RegistPage = () => {
             <FormInput
               label="Email"
               type="email"
-              value={account}
+              value={email}
               placeholder="請輸入Email"
               onChange={(emailInputValue) => setEmail(emailInputValue)}
             />
