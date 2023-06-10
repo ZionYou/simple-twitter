@@ -1,4 +1,4 @@
-export const FormInput = ({label, type, value, placeholder, onChange, defaultValue}) => {
+const FormInput = ({label, type, value, placeholder, onChange, defaultValue}) => {
   return(
      <div className="form-group">
         <div className="form-bar">
@@ -15,4 +15,6 @@ export const FormInput = ({label, type, value, placeholder, onChange, defaultVal
       </div>
   )
 }
+
+export default FormInput;
 

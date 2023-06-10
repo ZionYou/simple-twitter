@@ -1,7 +1,8 @@
-import { MainList , SettingsArea} from "components";
-import {useState} from 'react';
+import { MainList , SettingsArea } from "components";
+import { useState } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 
+// 設定頁面
 const SettingsPage = () => {
   return(
     <>
@@ -21,6 +22,7 @@ const SettingsPage = () => {
   )
 };
 
+export default SettingsPage;
 
 // const SettingsPage = () => {
 //   const [isPopup, setIsPopup] = useState(false)
@@ -35,5 +37,3 @@ const SettingsPage = () => {
 //     </section>
 //   )
 // };
-
-export default SettingsPage;

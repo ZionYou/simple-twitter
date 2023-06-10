@@ -1,57 +1,11 @@
-// import {
-//   AuthContainer,
-//   AuthInputContainer,
-//   AuthButton,
-//   AuthLinkText,
-// } from 'components/common/auth.styled';
-// import {SettingsItem} from '../components/Main/SettingsArea'
-// import { AuthInput } from 'components';
 import { ACLogoIcon } from 'assets/icons';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Container, Row, Col } from "react-bootstrap";
-import {FormInput} from '../components/Main/formValue/FormInput'
-import {useState} from 'react'
-import {register} from '../api/auth';
+import { FormInput } from 'components'
+import { useState } from 'react'
+import { register } from '../api/auth';
 /* havent use yet */
 import Swal from 'sweetalert2';
-
-// const RegistItemData = [
-//   {
-//     id: 1,
-//     title: "帳號",
-//     type: "text",
-//     value: "",
-//     placeholder: "請輸入帳號"
-//   },
-//   {
-//     id: 2,
-//     title: "名稱",
-//     type: "text",
-//     value: "",
-//     placeholder: "請輸入使用者名稱"
-//   },
-//   {
-//     id: 3,
-//     title: "Email",
-//     type: "email",
-//     value: "",
-//     placeholder: "請輸入Email"
-//   },
-//   {
-//     id: 4,
-//     title: "密碼",
-//     type: "text",
-//     value: "",
-//     placeholder: "請設定密碼"
-//   },
-//   {
-//     id: 5,
-//     title: "密碼再確認",
-//     type: "text",
-//     value: "",
-//     placeholder: "請再次輸入密碼"
-//   },
-// ]
 
 const RegistPage = () => {
   const [account, setAccount] = useState('');
@@ -147,6 +101,54 @@ const RegistPage = () => {
   )
 }
 
+export default RegistPage;
+
+// import {
+//   AuthContainer,
+//   AuthInputContainer,
+//   AuthButton,
+//   AuthLinkText,
+// } from 'components/common/auth.styled';
+// import {SettingsItem} from '../components/Main/SettingsArea'
+// import { AuthInput } from 'components';
+
+// const RegistItemData = [
+//   {
+//     id: 1,
+//     title: "帳號",
+//     type: "text",
+//     value: "",
+//     placeholder: "請輸入帳號"
+//   },
+//   {
+//     id: 2,
+//     title: "名稱",
+//     type: "text",
+//     value: "",
+//     placeholder: "請輸入使用者名稱"
+//   },
+//   {
+//     id: 3,
+//     title: "Email",
+//     type: "email",
+//     value: "",
+//     placeholder: "請輸入Email"
+//   },
+//   {
+//     id: 4,
+//     title: "密碼",
+//     type: "text",
+//     value: "",
+//     placeholder: "請設定密碼"
+//   },
+//   {
+//     id: 5,
+//     title: "密碼再確認",
+//     type: "text",
+//     value: "",
+//     placeholder: "請再次輸入密碼"
+//   },
+// ]
 
 // const RegistPage = () => {
 //   return (
@@ -188,5 +190,3 @@ const RegistPage = () => {
 //     </>
 //   );
 // };
-
-export default RegistPage;

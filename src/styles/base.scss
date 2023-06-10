@@ -1,0 +1,167 @@
+:root {
+  --major: #ff6600;
+  --gray: #767678;
+  --white: #FFFFFF;
+  --blue-primary: #0062FF;
+  --grey-secondary: #6C757D;
+  --red-danger: #FC5A5A;
+  --dark-black: #1C1C1C;
+
+  --greyscale-dark-20: #FAFAFB;
+  --greyscale-dark-60: #B5B5BE;
+  --greyscale-dark-70: #92929D;
+  --greyscale-dark-80: #696974;
+  --greyscale-dark-90: #44444F;
+  --greyscale-dark-100: #171725;
+
+  --border-grey: 1px solid #E6ECF0;
+  --border: #E6ECF0;
+
+  --input-border-bottom: 2px solid #657786;
+  --input-border-bottom-focus: 2px solid #50B5FF;
+  --input-border-bottom-error: 2px solid #FC5A5A;
+  --input-border-bottom-disabled: 2px solid #D5D5DC;
+
+  --support-blue: #50B5FF;
+  --support-disabled-grey: #D5D5DC;
+
+  --input-bg: #F5FBFA;
+
+  --admin-card-bg: #F6F7F8;
+
+
+  /* ↓↓ add new color root here ↓↓ */
+
+  /* ↑↑ add new color root here ↑↑ */
+}
+
+html,
+body {
+  background-color: #f4f4f4;
+  font-family: 'Lato', 'Noto Sans TC', sans-serif;
+}
+
+
+/* ↓↓ new add here ↓↓ */
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+a,
+a:hover,
+a:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+input {
+  padding: 0;
+}
+
+input:required {
+  box-shadow: none;
+}
+
+input:invalid {
+  box-shadow: none;
+}
+
+/* ↑↑ new add here ↑↑ */
+
+.app {
+  text-align: center;
+  margin: 45px auto;
+  max-width: 600px;
+  min-width: 320px;
+  width: 100%;
+  background-color: white;
+  padding: 12px 16px;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  color: var(--major);
+  fill: var(--major);
+}
+
+// utilties
+.btn-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 100%;
+  vertical-align: baseline;
+  font-family: inherit;
+  font-weight: inherit;
+  appearance: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+  outline: 0;
+}
+
+/* ↓↓ mixin here ↓↓ */
+@mixin font-adjust($size, $weight, $color) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+}
+
+@mixin svg-adjust($width, $height, $color) {
+  svg {
+    width: $width;
+    height: $height;
+
+    path {
+      fill: $color;
+    }
+  }
+}
+
+/* ↑↑ mixin here ↑↑ */
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.middle-container-border {
+  border-left: var(--border-grey);
+  border-right: var(--border-grey);
+}

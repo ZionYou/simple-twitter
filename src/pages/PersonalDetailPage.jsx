@@ -1,9 +1,8 @@
-import { MainList, PopularFollow } from "components/Main/HomeFixed";
-import PersonalDetail from "components/Main/PersonalDetail";
+import { MainList, PopularFollow, PersonalDetail } from "components";
 import { Container, Row, Col } from "react-bootstrap";
 
+//個人追隨動態頁面
 const PersonalDetailPage = () => {
-
   return (
     <>
       <Container>
@@ -23,9 +22,7 @@ const PersonalDetailPage = () => {
   )
 };
 
-
-
-
+export default PersonalDetailPage;
 
 // const PersonalDetailPage = () => {
 
@@ -40,4 +37,3 @@ const PersonalDetailPage = () => {
 //   )
 // };
 
-export default PersonalDetailPage;

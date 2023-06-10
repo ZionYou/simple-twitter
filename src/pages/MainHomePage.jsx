@@ -1,9 +1,8 @@
 import { MainHome, NewTwiPopUp, MainList, PopularFollow, ReplyTwiPopUp } from "components";
-import {useState} from 'react';
-
+import { useState } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 
-
+// 首頁
 const MainHomePage = () => {
   const [isPopup, setIsPopup] = useState(false)
   return (
@@ -26,6 +25,7 @@ const MainHomePage = () => {
   )
 };
 
+export default MainHomePage;
 
 // const MainHomePage = () => {
 //   const [isPopup, setIsPopup] = useState(false)
@@ -42,4 +42,3 @@ const MainHomePage = () => {
 //   )
 // };
 
-export default MainHomePage;

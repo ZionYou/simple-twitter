@@ -1,4 +1,5 @@
-import {FormInput} from './formValue/FormInput'
+import { FormInput } from 'components'
+
 const SettingsItemData = [
   {
     id: 1,
@@ -37,17 +38,22 @@ const SettingsItemData = [
   },
 ]
 
-export const SettingsItem = ({setting, className}) => {
+const SettingsItem = ({setting, className}) => {
   return(
      <div className={`form-group ${className}`}>
         <div className="form-bar">
-          <label for="" className="form-label">{setting.title}</label>
-          <input type={setting.type} className="form-input" value={setting.value} placeholder={setting.placeholder}/>
+          <label for="" className="form-label">   
+            {setting.title}
+          </label>
+          <input 
+            className="form-input" 
+            type={setting.type} 
+            value={setting.value} 
+            placeholder={setting.placeholder}/>
         </div>
       </div>
   )
 }
-
 
 const SettingsArea = () => {
   const handleSubmit = (e) => {
@@ -55,18 +61,20 @@ const SettingsArea = () => {
   };
   
   return(
-    <form className="settings middle-container-border" onSubmit={handleSubmit}>
-        <h5 className="sub-title">首頁</h5>
-        <div className="settings-group">
-          {
-            SettingsItemData.map((setting) => {return <SettingsItem prop={setting} key={setting.id} className="setting-form-group"/>} )
-          }
-        </div>
-        <div className="btn-group">
-          <button className="orange-btn radius-50 cursor-pointer">儲存</button>
-        </div>
+    <form 
+      className="settings middle-container-border" onSubmit={handleSubmit}
+    >
+      <h5 className="sub-title">首頁</h5>
+      <div className="settings-group">
+        {
+          SettingsItemData.map((setting) => {return <SettingsItem prop={setting} key={setting.id} className="setting-form-group"/>} )
+        }
+      </div>
+      <div className="btn-group">
+        <button className="orange-btn radius-50 cursor-pointer">儲存</button>
+      </div>
     </form>
   )
 }
 
-export default SettingsArea;
+export { SettingsItem, SettingsArea };

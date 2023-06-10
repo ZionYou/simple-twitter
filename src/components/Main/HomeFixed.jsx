@@ -1,6 +1,5 @@
 import { ACLogoIcon, HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon } from "assets/icons";
-import {Link, useLocation} from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
+import {Link, useLocation, useNavigate } from 'react-router-dom';
 
 const MainListData = [
   {
@@ -107,7 +106,7 @@ const MainListLink = ({data, className}) =>{
   )
 }
 
-
+// 主要列表元件
 const MainList = () => {
   const location = useLocation()
   const {pathname} = location
@@ -142,39 +141,7 @@ const MainList = () => {
   )
 }
 
-// const MainList = () => {
-//   return(
-//     <div className="main-list">
-//       <div className="icon">
-//         <ACLogoIcon/>
-//       </div>
-//       <div className="main-list-group">
-//         {
-//           MainListData.map((item) => {
-//             return(
-//               <div key={item.id}>
-//                 <input type="radio" className="main-list-input" id={item.id} name="main-list" defaultChecked={item.id === "home"} value={item.id}/>
-//                 <label htmlFor={item.id} className="main-list-label cursor-pointer">
-//                   <span className="default">{item.icon}</span>
-//                   <span className="checked">{item.icon_checked}</span>
-//                   <p className="label-name">{item.name}</p>
-//                 </label>
-//               </div>
-//             )
-//           })
-//         }
-//         <button className="orange-btn radius-50">推文</button>
-//       </div>
-//       <div className="logout-group">
-//         <span className="logout">
-//           <LogoutIcon/>
-//         </span>
-//         <p className="logout-name">登出</p>
-//       </div>
-//     </div>
-//   )
-// }
-
+// 推薦跟隨元件
 const PopularFollow = () => {
   return(
     <div className="popular-follow">
@@ -199,6 +166,7 @@ const PopularFollow = () => {
   )
 }
 
+// 後台列表元件
 const AdminList = () => {
   const location = useLocation()
   const {pathname} = location
@@ -233,3 +201,36 @@ const AdminList = () => {
 }
 
 export { MainList, PopularFollow, AdminList };
+
+// const MainList = () => {
+//   return(
+//     <div className="main-list">
+//       <div className="icon">
+//         <ACLogoIcon/>
+//       </div>
+//       <div className="main-list-group">
+//         {
+//           MainListData.map((item) => {
+//             return(
+//               <div key={item.id}>
+//                 <input type="radio" className="main-list-input" id={item.id} name="main-list" defaultChecked={item.id === "home"} value={item.id}/>
+//                 <label htmlFor={item.id} className="main-list-label cursor-pointer">
+//                   <span className="default">{item.icon}</span>
+//                   <span className="checked">{item.icon_checked}</span>
+//                   <p className="label-name">{item.name}</p>
+//                 </label>
+//               </div>
+//             )
+//           })
+//         }
+//         <button className="orange-btn radius-50">推文</button>
+//       </div>
+//       <div className="logout-group">
+//         <span className="logout">
+//           <LogoutIcon/>
+//         </span>
+//         <p className="logout-name">登出</p>
+//       </div>
+//     </div>
+//   )
+// }

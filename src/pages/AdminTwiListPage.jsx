@@ -1,7 +1,8 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import { AdminList, AdminTwiList } from 'components';
 
+// 後臺推文清單頁面
 const AdminTwiListPage = () => {
   return (
     <>
@@ -19,4 +20,4 @@ const AdminTwiListPage = () => {
   )
 };
 
-export default AdminTwiListPage
+export default AdminTwiListPage;
