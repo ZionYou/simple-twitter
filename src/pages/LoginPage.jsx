@@ -31,11 +31,25 @@ const LoginPage = () => {
 
       // add login success message here
       // console.log("success") 
-      
-      // return
-    }
-
-    // add login failed message here
+      Swal.fire({
+        position: 'top',
+        title: '登入成功',
+        timer: 1000,
+        icon: 'success',
+        showConfirmButton: false,
+      })
+      return;
+    } 
+      // add login failed message here
+      Swal.fire({
+        position: 'top',
+        title: '登入失敗',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      setAccount('');
+      setPassword('');  
   }
 
   return(

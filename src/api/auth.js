@@ -1,6 +1,9 @@
 import axios from 'axios'
+import Swal from 'sweetalert2';
+
 const authURL = 'https://twitter-azx79115.herokuapp.com/api';
 
+// 使用者登入驗證
 export const login = async ({account, password}) => {
   try{
     const {data} = await axios.post(`${authURL}/users/login`, {
@@ -17,6 +20,7 @@ export const login = async ({account, password}) => {
   }
 }
 
+// 註冊新使用者資料
 export const register = async ({account, name, email, password, confirmPassword}) => {
   try{
     const {data} = await axios.post(`${authURL}/users`, {
@@ -29,22 +33,12 @@ export const register = async ({account, name, email, password, confirmPassword}
     return data;
   } catch (error) {
     console.error('[Register Failed]:', error)
-  }
-}
-
-
-export const adminLogin = async ({account, password}) => {
-  try{
-    const {data} = await axios.post(`${authURL}/admin/login`, {
-      account, 
-      password,
-    });
-    const {authToken} = data;
-    if(authToken) {
-      return { success: true, ...data}
-    }
-    return data;
-  } catch (error) {
-    console.error('[Admin Login Failed]:', error)
+    // Swal.fire({
+    //   position: 'top',
+    //   title: error.response.data,
+    //   timer: 1000,
+    //   icon: 'error',
+    //   showConfirmButton: false,
+    // });
   }
 }
