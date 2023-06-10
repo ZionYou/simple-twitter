@@ -107,7 +107,7 @@ const AdminUserCardGroup = () => {
   )
 }
 
-
+// 後台使用者列表元件
 const AdminUserList = () => {
   return(
     <section className="admin-user middle-container-border">
@@ -117,4 +117,4 @@ const AdminUserList = () => {
   )
 }
 
-export default AdminUserList
+export default AdminUserList;

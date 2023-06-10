@@ -1,6 +1,6 @@
 import { BackArrowIcon, CommentIcon, LikeIcon } from "assets/icons";
 import { UserProfileTwiReply } from "components";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const TwiItemArea = () => {

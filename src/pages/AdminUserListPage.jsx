@@ -1,7 +1,8 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import { AdminList, AdminUserList } from 'components';
 
+// 後台使用者列表頁面
 const AdminUserListPage = () => {
   return (
     <>
@@ -19,4 +20,4 @@ const AdminUserListPage = () => {
   )
 };
 
-export default AdminUserListPage
+export default AdminUserListPage;

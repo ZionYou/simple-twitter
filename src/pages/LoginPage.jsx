@@ -1,23 +1,15 @@
-import {
-  AuthContainer,
-  AuthInputContainer,
-  AuthButton,
-  AuthLinkText,
-} from 'components/common/auth.styled';
-
-import { AuthInput } from 'components';
-
 /* add here edit later */
-import {FormInput} from '../components/Main/formValue/FormInput';
+import { FormInput } from 'components';
 /* add here edit later */
 import { ACLogoIcon } from 'assets/icons';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
-import {useState} from 'react';
-import {login} from '../api/auth';
+import { useState } from 'react';
+import { login } from '../api/auth';
 /* havent use yet */
 import Swal from 'sweetalert2';
 
+// 登入頁面
 const LoginPage = () => {
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
@@ -71,7 +63,7 @@ const LoginPage = () => {
             <div className="login-btn-group">
               <button className="orange-btn radius-50 login-btn" onClick={handleClick}>登入</button>
               <div className="other-login">
-                <Link to="/regist" className="link-btn">註冊</Link>
+                <Link to="/regist" className="link-btn">註冊 Alphitter</Link>
                 <p className="dot">・</p>
                 <Link to="/adminLogin" className="link-btn">後台登入</Link>
               </div>
@@ -83,7 +75,15 @@ const LoginPage = () => {
   )
 }
 
+export default LoginPage;
 
+// import {
+//   AuthContainer,
+//   AuthInputContainer,
+//   AuthButton,
+//   AuthLinkText,
+// } from 'components/common/auth.styled';
+// import { AuthInput } from 'components';
 
 // const LoginPage = () => {
 //   return (
@@ -108,4 +108,3 @@ const LoginPage = () => {
 //   );
 // };
 
-export default LoginPage;

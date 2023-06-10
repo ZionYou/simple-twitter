@@ -1,6 +1,6 @@
 import { BackArrowIcon } from "assets/icons";
-import {useState} from 'react';
-import {Link} from 'react-router-dom'
+import { useState } from 'react';
+import { Link } from 'react-router-dom'
 
 
 const PersonalDetailSwitchData = [
@@ -155,6 +155,7 @@ const PersonalFollowPageSwitch = ({value}) => {
   if(value === 'following') return <PersonalFollowingList/>
 }
 
+// 追隨動態元件
 const PersonalDetail = () => {
   const [currentFollowValue, setCurrentFollowValue] = useState('follower')
 
@@ -177,4 +178,4 @@ const PersonalDetail = () => {
     </section>
   )
 }
-export default PersonalDetail
+export default PersonalDetail;

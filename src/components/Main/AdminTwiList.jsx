@@ -1,7 +1,5 @@
-
 import { CloseIcon } from "assets/icons";
-
-import {useState} from "react";
+import { useState } from "react";
 
 const TwiListData = [
   {
@@ -96,6 +94,7 @@ const AdminTwiListGroup = () => {
   )
 }
 
+// 後台推文列表元件
 const AdminTwiList = () => {
   return(
     <section className="admin-twi middle-container-border">
@@ -105,4 +104,4 @@ const AdminTwiList = () => {
   )
 }
 
-export default AdminTwiList
+export default AdminTwiList;

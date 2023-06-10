@@ -1,42 +1,15 @@
-// import {
-//   AuthContainer,
-//   AuthInputContainer,
-//   AuthButton,
-//   AuthLinkText,
-// } from 'components/common/auth.styled';
-// import { AuthInput } from 'components';
-
 import { ACLogoIcon } from 'assets/icons';
 /* add here edit later */
-import {FormInput} from '../components/Main/formValue/FormInput'
+import { FormInput } from 'components'
 /* add here edit later */
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Container, Row, Col } from "react-bootstrap";
-import {useState} from 'react'
-
-import {adminLogin} from '../api/auth';
+import { useState } from 'react'
+import { adminLogin } from '../api/auth';
 /* havent use yet */
 import Swal from 'sweetalert2';
 
-// import {SettingsItem} from '../components/Main/SettingsArea'
-
-// const AdminLoginItemData = [
-//   {
-//     id: 1,
-//     title: "帳號",
-//     type: "text",
-//     value: "",
-//     placeholder: "請輸入帳號"
-//   },
-//   {
-//     id: 2,
-//     title: "密碼",
-//     type: "text",
-//     value: "",
-//     placeholder: "請輸入密碼"
-//   },
-// ]
-
+// 後台登入頁面
 const AdminLoginPage = () => {
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
@@ -100,6 +73,36 @@ const AdminLoginPage = () => {
   )
 }
 
+export default AdminLoginPage;
+
+// import {
+//   AuthContainer,
+//   AuthInputContainer,
+//   AuthButton,
+//   AuthLinkText,
+// } from 'components/common/auth.styled';
+// import { AuthInput } from 'components';
+
+
+// import {SettingsItem} from '../components/Main/SettingsArea'
+
+// const AdminLoginItemData = [
+//   {
+//     id: 1,
+//     title: "帳號",
+//     type: "text",
+//     value: "",
+//     placeholder: "請輸入帳號"
+//   },
+//   {
+//     id: 2,
+//     title: "密碼",
+//     type: "text",
+//     value: "",
+//     placeholder: "請輸入密碼"
+//   },
+// ]
+
 
 // const AdminLoginPage = () => {
 //   return (
@@ -122,4 +125,3 @@ const AdminLoginPage = () => {
 //   );
 // };
 
-export default AdminLoginPage;

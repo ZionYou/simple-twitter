@@ -1,8 +1,8 @@
 import { EditProfile, MainList, PopularFollow, Personal  } from "components";
-import {useState} from 'react';
-
+import { useState } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 
+// 個人資料頁面
 const UserProfilePage = () => {
   const [isPopup, setIsPopup] = useState(false)
 
@@ -26,6 +26,7 @@ const UserProfilePage = () => {
   )
 };
 
+export default UserProfilePage;
 
 // const UserProfilePage = () => {
 //   const [isPopup, setIsPopup] = useState(false)
@@ -41,5 +42,3 @@ const UserProfilePage = () => {
 //     </section>
 //   )
 // };
-
-export default UserProfilePage;
