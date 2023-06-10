@@ -15,21 +15,23 @@ const LoginPage = () => {
   const [password, setPassword] = useState('')
 
   const handleClick = async () => {
-    if(account.length === 0){
-      return;
-    }
-    if(password.length === 0){
-      return;
-    }
+    // if(account.length === 0){
+    //   return;
+    // }
+    // if(password.length === 0){
+    //   return;
+    // }
 
-    const {success, authToken} = await login({
+    const {success, token} = await login({
       account, 
       password
     });
     if(success) {
-      localStorage.setItem('authToken', authToken)
+      localStorage.setItem('authToken', token)
 
-      // add login success message here 
+      // add login success message here
+      // console.log("success") 
+      
       // return
     }
 

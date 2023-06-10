@@ -1,14 +1,14 @@
 import axios from 'axios'
-const authURL = ""
+const authURL = 'https://twitter-azx79115.herokuapp.com/api';
 
 export const login = async ({account, password}) => {
   try{
-    const {data} = await axios.post(`${authURL}/login`, {
+    const {data} = await axios.post(`${authURL}/users/login`, {
       account, 
       password,
     });
-    const {authToken} = data;
-    if(authToken) {
+    const {token} = data;
+    if(token) {
       return { success: true, ...data}
     }
     return data;
