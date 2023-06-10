@@ -2,7 +2,7 @@
 import { FormInput } from 'components';
 /* add here edit later */
 import { ACLogoIcon } from 'assets/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
 import { useState } from 'react';
 import { login } from '../api/auth';
@@ -14,13 +14,15 @@ const LoginPage = () => {
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
 
+  const navigate = useNavigate();
+
   const handleClick = async () => {
-    // if(account.length === 0){
-    //   return;
-    // }
-    // if(password.length === 0){
-    //   return;
-    // }
+    if(account.length === 0){
+      return;
+    }
+    if(password.length === 0){
+      return;
+    }
 
     const {success, token} = await login({
       account, 
@@ -30,7 +32,7 @@ const LoginPage = () => {
       localStorage.setItem('authToken', token)
 
       // add login success message here
-      // console.log("success") 
+      console.log("success") 
       Swal.fire({
         position: 'top',
         title: '登入成功',
@@ -38,18 +40,19 @@ const LoginPage = () => {
         icon: 'success',
         showConfirmButton: false,
       })
+      navigate('/main')
       return;
     } 
-      // add login failed message here
-      Swal.fire({
-        position: 'top',
-        title: '登入失敗',
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      });
-      setAccount('');
-      setPassword('');  
+    // add login failed message here
+    Swal.fire({
+      position: 'top',
+      title: '登入失敗',
+      timer: 1000,
+      icon: 'error',
+      showConfirmButton: false,
+    });
+    console.log('failed')
+    
   }
 
   return(
@@ -77,7 +80,7 @@ const LoginPage = () => {
               />
             </div>
             <div className="login-btn-group">
-              <button className="orange-btn radius-50 login-btn" onClick={handleClick}>登入</button>
+              <button className="orange-btn radius-50 login-btn cursor-pointer" onClick={handleClick}>登入</button>
               <div className="other-login">
                 <Link to="/regist" className="link-btn">註冊 Alphitter</Link>
                 <p className="dot">・</p>

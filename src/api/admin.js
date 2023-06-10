@@ -15,7 +15,9 @@ export const adminLogin = async ({account, password}) => {
     if(token) {
       return { success: true, ...data}
     }
+    // console.log(data.message)
     return data;
+
   } catch (error) {
     console.error('[Admin Login Failed]:', error)
   }

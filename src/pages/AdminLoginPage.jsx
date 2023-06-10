@@ -2,10 +2,10 @@ import { ACLogoIcon } from 'assets/icons';
 /* add here edit later */
 import { FormInput } from 'components'
 /* add here edit later */
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Container, Row, Col } from "react-bootstrap";
 import { useState } from 'react'
-import { adminLogin } from '../api/auth';
+import { adminLogin } from '../api/admin';
 /* havent use yet */
 import Swal from 'sweetalert2';
 
@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
 const AdminLoginPage = () => {
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
+
+  const navigate = useNavigate();
 
   const handleClick = async () => {
     if(account.length === 0){
@@ -22,15 +24,24 @@ const AdminLoginPage = () => {
       return;
     }
 
-    const {success, authToken} = await adminLogin({
+    const {success, token} = await adminLogin({
       account, 
       password
     });
     if(success) {
-      localStorage.setItem('authToken', authToken)
+      localStorage.setItem('authToken', token)
 
       // add login success message here 
-      // return
+      console.log("success") 
+      Swal.fire({
+        position: 'top',
+        title: '登入成功',
+        timer: 1000,
+        icon: 'success',
+        showConfirmButton: false,
+      })
+      navigate('/adminTwi')
+      return;
     }
 
     // add login failed message here
@@ -61,9 +72,9 @@ const AdminLoginPage = () => {
               />
             </div>
             <div className="admin-login-btn-group">
-              <button className="orange-btn radius-50 admin-login-btn" onClick={handleClick}>登入</button>
+              <button className="orange-btn radius-50 admin-login-btn cursor-pointer" onClick={handleClick}>登入</button>
               <div className="other-login">
-                <Link to="/login" className="link-btn">前台登入</Link>
+                <Link to="/" className="link-btn">前台登入</Link>
               </div>
             </div>
           </Col>

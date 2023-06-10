@@ -1,15 +1,16 @@
-import { MainList , SettingsArea } from "components";
+import { MainList , SettingsArea, NewTwiPopUp } from "components";
 import { useState } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 
 // 設定頁面
 const SettingsPage = () => {
+  const [isPopup, setIsPopup] = useState(false)
   return(
     <>
       <Container>
         <Row>
           <Col xs={2}>
-            <MainList/>
+            <MainList onClick={() => setIsPopup(true)}/>
           </Col>
           <Col xs={7}>
             <SettingsArea/>
@@ -18,6 +19,7 @@ const SettingsPage = () => {
           </Col>
         </Row>
       </Container>
+      {isPopup && <NewTwiPopUp onClick={() => setIsPopup(false)}/>}
     </>
   )
 };

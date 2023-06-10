@@ -107,7 +107,7 @@ const MainListLink = ({data, className}) =>{
 }
 
 // 主要列表元件
-const MainList = () => {
+const MainList = ({onClick}) => {
   const location = useLocation()
   const {pathname} = location
   const splitLocation = pathname.split("/");
@@ -115,7 +115,7 @@ const MainList = () => {
 
   const handleClick = () => {
     localStorage.removeItem('authToken');
-    navigate('/login')
+    navigate('/')
   }
 
   return(
@@ -129,7 +129,7 @@ const MainList = () => {
             return <MainListLink data={data} key={data.id} className = {splitLocation[1] === data.id? "action" : ""}/>
           })
         }
-        <button className="orange-btn radius-50">推文</button>
+        <button className="orange-btn radius-50 cursor-pointer" onClick={onClick}>推文</button>
       </div>
       <a className="logout-group" onClick={handleClick}>
         <span className="logout">

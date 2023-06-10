@@ -91,7 +91,7 @@ const RegistPage = () => {
           <div className="regist-login-btn-group">
             <button className="orange-btn radius-50 regist-login-btn" onClick={handleClick}>註冊</button>
             <div className="other-login">
-              <Link to="/login" className="link-btn">取消</Link>
+              <Link to="/" className="link-btn">取消</Link>
             </div>
           </div>
         </Col>

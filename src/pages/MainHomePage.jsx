@@ -10,7 +10,7 @@ const MainHomePage = () => {
       <Container>
         <Row>
           <Col xs={2}>
-            <MainList/>
+            <MainList onClick={() => setIsPopup(true)}/>
           </Col>
           <Col xs={7}>
             <MainHome onClick={() => setIsPopup(true)}/>

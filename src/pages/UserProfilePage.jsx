@@ -1,17 +1,18 @@
-import { EditProfile, MainList, PopularFollow, Personal  } from "components";
+import { EditProfile, MainList, PopularFollow, Personal, NewTwiPopUp  } from "components";
 import { useState } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 
 // 個人資料頁面
 const UserProfilePage = () => {
   const [isPopup, setIsPopup] = useState(false)
+  const [isNewTwiPopup, setIsNewTwiPopup] = useState(false)
 
   return (
     <>
       <Container>
         <Row>
           <Col xs={2}>
-            <MainList/>
+            <MainList onClick={() => setIsNewTwiPopup(true)}/>
           </Col>
           <Col xs={7}>
             <Personal onClick={() => setIsPopup(true)}/>
@@ -22,6 +23,7 @@ const UserProfilePage = () => {
         </Row>
       </Container>
       {isPopup && <EditProfile onClick={() => setIsPopup(false)}/>}
+      {isNewTwiPopup && <NewTwiPopUp onClick={() => setIsNewTwiPopup(false)}/>}
     </>
   )
 };
