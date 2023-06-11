@@ -4,9 +4,9 @@ const baseURL = 'https://twitter-azx79115.herokuapp.com/api'
 
 // ************************ User **************************
 // 取得指定使用者資料 //get
-export const getUserInfo = async(id) => {
+export const getUserInfo = async(userId) => {
   try{
-    const res = await axios.get(`${baseURL}/user/:${id}`)
+    const res = await axios.get(`${baseURL}/user/:${userId}`)
     return res.data
   } catch (error) {
     console.error('[Get user info failed]:', error)

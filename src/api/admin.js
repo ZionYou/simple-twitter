@@ -32,7 +32,7 @@ export const adminLogin = async ({account, password}) => {
   }
 }
 
-// 取得指定使用者資料 //get
+// 取得所有使用者資料 //get
 export const getUserInfo = async() => {
   try{
     const res = await axios.get(`${adminURL}/admin/users`)

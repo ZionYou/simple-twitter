@@ -49,3 +49,8 @@ export const register = async ({account, name, email, password, confirmPassword}
     // });
   }
 }
+
+// export const checkPermission = (authToken) => {
+  
+//   axios.get(`${authURL}`, )
+// }
