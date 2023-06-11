@@ -16,6 +16,13 @@ export const login = async ({account, password}) => {
     }
     return data;
   } catch (error) {
+    const {data, status} = error.response
+    if(status === 401){
+      return {
+        status: 'error',
+        message: data.message
+      }
+    }
     console.error('[Login Failed]:', error)
   }
 }

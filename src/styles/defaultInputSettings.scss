@@ -73,6 +73,12 @@
     color: var(--support-disabled-grey);
   }
 }
+.form-error{
+  text-align: start;
+  @include font-adjust(12px, 500, var(--red-danger));
+  line-height: 20px;
+  padding-top: 4px;
+}
 
 // Default textarea
 .form-bar-textarea {

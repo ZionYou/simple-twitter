@@ -13,21 +13,36 @@ import Swal from 'sweetalert2';
 const LoginPage = () => {
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
-
+  
   const navigate = useNavigate();
 
   const handleClick = async () => {
-    if(account.length === 0){
-      return;
+    if(account.length === 0) {
+      Swal.fire({
+        position: 'top',
+        title: '帳號不可為空白',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return
     }
     if(password.length === 0){
-      return;
+      Swal.fire({
+        position: 'top',
+        title: '密碼不可為空白',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return
     }
 
     const {success, token} = await login({
       account, 
       password
     });
+
     if(success) {
       localStorage.setItem('authToken', token)
 
@@ -71,11 +86,12 @@ const LoginPage = () => {
                 placeholder="請輸入帳號"
                 onChange={(accountInputValue) => setAccount(accountInputValue)}
               />
+  
               <FormInput
                 label="密碼"
                 type="password"
                 value={password}
-                placeholder="請輸入帳號"
+                placeholder="請輸入密碼"
                 onChange={(passwordInputValue) => setPassword(passwordInputValue)}
               />
             </div>

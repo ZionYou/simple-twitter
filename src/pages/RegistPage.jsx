@@ -16,31 +16,101 @@ const RegistPage = () => {
 
   const handleClick = async() => {
     if(account.length === 0 ){
+      Swal.fire({
+        position: 'top',
+        title: '帳號不可為空白',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
       return
     }
     if(name.length === 0) {
+      Swal.fire({
+        position: 'top',
+        title: '使用者名稱不可為空白',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return
+    }
+    if(name.length > 50){
+      Swal.fire({
+        position: 'top',
+        title: '使用者名稱過長',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
       return
     }
     if(email.length === 0){
+      Swal.fire({
+        position: 'top',
+        title: 'Email不可為空白',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
       return
     }
-    if(password.length ===0 ){
-      return 
+    /* email test failed need to adjust */
+    if(/\S+@\S+\.\S+/.test(email)){
+      Swal.fire({
+        position: 'top',
+        title: 'Email不符合格式',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return
+    }
+    if(password.length === 0){
+      Swal.fire({
+        position: 'top',
+        title: '密碼不可為空白',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return
     }
     if(password !== confirmPassword || confirmPassword.length === 0){
+      Swal.fire({
+        position: 'top',
+        title: '密碼驗證失敗',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
       return
     }
 
-    const {success, authToken} = await register({
+    const {success, token} = await register({
       account, name, email, password, confirmPassword,
     })
 
     if(success) {
-      localStorage.setItem('authToken', authToken)
+      localStorage.setItem('authToken', token)
       /* add success message here use swal*/ 
-      // return
+      Swal.fire({
+        position: 'top',
+        title: '註冊成功！',
+        timer: 1000,
+        icon: 'success',
+        showConfirmButton: false,
+      });
+      return
     }
     /* add failed message here use swal */
+    Swal.fire({
+      position: 'top',
+      title: '註冊失敗！',
+      timer: 1000,
+      icon: 'error',
+      showConfirmButton: false,
+    });
   }
 
 
@@ -78,14 +148,14 @@ const RegistPage = () => {
               type="password"
               value={password}
               placeholder="請輸入密碼"
-              onChange={(passwordInputValue) => setConfirmPassword(passwordInputValue)}
+              onChange={(passwordInputValue) => setPassword(passwordInputValue)}
             />
             <FormInput
               label="密碼再確認"
               type="password"
               value={confirmPassword}
               placeholder="請再次輸入密碼"
-              onChange={(confirmPasswordInputValue) => setPassword(confirmPasswordInputValue)}
+              onChange={(confirmPasswordInputValue) => setConfirmPassword(confirmPasswordInputValue)}
             />
           </div>
           <div className="regist-login-btn-group">

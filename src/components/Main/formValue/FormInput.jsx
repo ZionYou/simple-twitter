@@ -1,4 +1,4 @@
-const FormInput = ({label, type, value, placeholder, onChange, defaultValue}) => {
+const FormInput = ({label, type, value, placeholder, onChange, defaultValue, children}) => {
   return(
      <div className="form-group">
         <div className="form-bar">
@@ -12,6 +12,7 @@ const FormInput = ({label, type, value, placeholder, onChange, defaultValue}) =>
             onChange={(event) => onChange ?.(event.target.value)}
           />
         </div>
+        {children || ""}
       </div>
   )
 }

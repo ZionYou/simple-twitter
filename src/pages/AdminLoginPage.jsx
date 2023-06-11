@@ -18,9 +18,23 @@ const AdminLoginPage = () => {
 
   const handleClick = async () => {
     if(account.length === 0){
+      Swal.fire({
+        position: 'top',
+        title: '帳號不可為空白',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
       return;
     }
     if(password.length === 0){
+      Swal.fire({
+        position: 'top',
+        title: '密碼不可為空白',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
       return;
     }
 
@@ -45,6 +59,13 @@ const AdminLoginPage = () => {
     }
 
     // add login failed message here
+    Swal.fire({
+      position: 'top',
+      title: '登入失敗！',
+      timer: 1000,
+      icon: 'error',
+      showConfirmButton: false,
+    });
   }
 
   return(
