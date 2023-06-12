@@ -62,6 +62,7 @@ const AuthProvider = ({ children }) => {
             checkPassword: data.checkPassword,
           });
           const tempPayload = jwt.decode(token);
+          // 印出註冊者資料
           console.log(tempPayload)
           if (tempPayload) {
             setPayload(tempPayload);
@@ -83,6 +84,7 @@ const AuthProvider = ({ children }) => {
             setPayload(tempPayload);
             setIsAuthenticated(true);
             localStorage.setItem('authToken', token);
+            // 印出登入者資料
             console.log(tempPayload)
           } else {
             setPayload(null);
@@ -100,6 +102,7 @@ const AuthProvider = ({ children }) => {
             setPayload(tempPayload);
             setIsAuthenticated(true);
             localStorage.setItem('authToken', token);
+            // 印出後台登入者資料
             console.log(tempPayload)
           } else {
             setPayload(null);
