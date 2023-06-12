@@ -2,12 +2,31 @@ import axios from 'axios'
 
 const baseURL = 'https://twitter-azx79115.herokuapp.com/api'
 
+const axiosInstance = axios.create({
+  baseURL: `${baseURL}`
+})
+
+axiosInstance.interceptors.request.use(
+  function(config){
+    const token = localStorage.getItem('authToken')
+    if(token){
+      config.headers["Authorization"] = 'Bearer ' + token
+    }
+    return config;
+  },
+  function(error){
+   console.error(error)
+  }
+)
+
 // ************************ User **************************
 // 取得指定使用者資料 //get
 export const getUserInfo = async(id) => {
   try{
-    const res = await axios.get(`${baseURL}/user/:${id}`)
-    return res.data
+    // const res = await axios.get(`${baseURL}/user/:${id}`)
+    // return res.data
+    const {data} = await axiosInstance.get(`${baseURL}/user/:${id}`)
+    return{success: true, data}
   } catch (error) {
     console.error('[Get user info failed]:', error)
   }

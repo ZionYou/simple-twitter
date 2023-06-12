@@ -35,8 +35,7 @@ const SettingsArea = () => {
 
   // const {currentUser} = useAuth()
 
-  const email_pattern = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')
-
+  // const email_pattern = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -50,7 +49,7 @@ const SettingsArea = () => {
       setNameError(true)
       return
     }
-    if(email.length === 0 || email_pattern.text(email) === false){
+    if(email.length === 0){
       setEmailError(true)
       return
     }
