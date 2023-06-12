@@ -1,5 +1,5 @@
 import { ACLogoIcon } from 'assets/icons';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Container, Row, Col } from "react-bootstrap";
 import { FormInput } from 'components'
 import { useState } from 'react'
@@ -12,88 +12,45 @@ const RegistPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [checkPassword, setCheckPassword] = useState('');
+
+
+  const [accountError, setAccountError] = useState(false)
+  const [nameError, setNameError] = useState(false)
+  const [emailError, setEmailError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+  const [checkPasswordError, setCheckPasswordError] = useState(false)
+
+  const navigate = useNavigate();
 
   const handleClick = async() => {
     if(account.length === 0 ){
-      Swal.fire({
-        position: 'top',
-        title: '帳號不可為空白',
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      });
+      setAccountError('帳號不可為空白')
       return
     }
     if(name.length === 0) {
-      Swal.fire({
-        position: 'top',
-        title: '使用者名稱不可為空白',
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      });
+      setNameError('使用者名稱不可為空白')
       return
     }
-    if(name.length > 50){
-      Swal.fire({
-        position: 'top',
-        title: '使用者名稱過長',
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      });
-      return
-    }
+  
     if(email.length === 0){
-      Swal.fire({
-        position: 'top',
-        title: 'Email不可為空白',
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      });
+      setEmailError("Email不可為空白")
       return
     }
-    /* email test failed need to adjust */
-    // if(/\S+@\S+\.\S+/.test(email)){
-    //   Swal.fire({
-    //     position: 'top',
-    //     title: 'Email不符合格式',
-    //     timer: 1000,
-    //     icon: 'error',
-    //     showConfirmButton: false,
-    //   });
-    //   return
-    // }
     if(password.length === 0){
-      Swal.fire({
-        position: 'top',
-        title: '密碼不可為空白',
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      });
+      setPasswordError("密碼不能為空白")
       return
     }
-    if(password !== confirmPassword || confirmPassword.length === 0){
-      Swal.fire({
-        position: 'top',
-        title: '密碼驗證失敗',
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      });
+    if(checkPassword.length === 0 || password !== checkPassword){
+      setCheckPasswordError("密碼驗證失敗")
       return
     }
 
-    const {success, token} = await register({
-      account, name, email, password, confirmPassword,
+    const data = await register({
+      account, name, email, password, checkPassword,
     })
 
-    if(success) {
-      localStorage.setItem('authToken', token)
-      /* add success message here use swal*/ 
+    if(data.message === "Signup successfully!") {
       Swal.fire({
         position: 'top',
         title: '註冊成功！',
@@ -101,16 +58,17 @@ const RegistPage = () => {
         icon: 'success',
         showConfirmButton: false,
       });
+      navigate("/")
       return
     }
     /* add failed message here use swal */
     Swal.fire({
       position: 'top',
-      title: '註冊失敗！',
+      title: data.message,
       timer: 1000,
       icon: 'error',
       showConfirmButton: false,
-    });
+    })
   }
 
 
@@ -128,38 +86,74 @@ const RegistPage = () => {
               label="帳號"
               value={account}
               placeholder="請輸入帳號"
+              className = {account.length === 0 && accountError ? "action" : ""}
               onChange={(accountInputValue) => setAccount(accountInputValue)}
-            />
+            >
+              {account.length === 0 && (
+                <div className="form-notification action">
+                  <p className="form-caption">{accountError}</p>
+                </div>
+              )}
+            </FormInput>
             <FormInput
               label="名稱"
               value={name}
               placeholder="請輸入使用者名稱"
+              className = {name.length === 0 && nameError ? "action" : ""}
               onChange={(nameInputValue) => setName(nameInputValue)}
-            />
+            >
+              {name.length === 0 && (
+                <div className="form-notification action">
+                  <p className="form-caption">{nameError}</p>
+                </div>
+              )}
+            </FormInput>
             <FormInput
               label="Email"
               type="email"
               value={email}
               placeholder="請輸入Email"
+              className = {email.length === 0 && emailError ? "action" : ""}
               onChange={(emailInputValue) => setEmail(emailInputValue)}
-            />
+            >
+              {email.length === 0 && (
+                <div className="form-notification action">
+                  <p className="form-caption">{emailError}</p>
+                </div>
+              )}
+            </FormInput>
             <FormInput
               label="密碼"
               type="password"
               value={password}
               placeholder="請輸入密碼"
+              className = {password.length === 0 && passwordError ? "action" : ""}
               onChange={(passwordInputValue) => setPassword(passwordInputValue)}
-            />
+            >
+            {password.length === 0 && (
+                <div className="form-notification action">
+                  <p className="form-caption">{passwordError}</p>
+                </div>
+              )}
+            </FormInput>
             <FormInput
               label="密碼再確認"
               type="password"
-              value={confirmPassword}
+              value={checkPassword}
               placeholder="請再次輸入密碼"
-              onChange={(confirmPasswordInputValue) => setConfirmPassword(confirmPasswordInputValue)}
-            />
+              className = {checkPassword.length === 0 && checkPasswordError ? "action": ""}
+              
+              onChange={(checkPasswordInputValue) => setCheckPassword(checkPasswordInputValue)}
+            >
+            {checkPassword.length === 0 && (
+                <div className="form-notification action">
+                  <p className="form-caption">{checkPasswordError}</p>
+                </div>
+              )}
+            </FormInput>
           </div>
           <div className="regist-login-btn-group">
-            <button className="orange-btn radius-50 regist-login-btn" onClick={handleClick}>註冊</button>
+            <button className="orange-btn radius-50 regist-login-btn cursor-pointer" onClick={handleClick}>註冊</button>
             <div className="other-login">
               <Link to="/" className="link-btn">取消</Link>
             </div>

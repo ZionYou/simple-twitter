@@ -33,16 +33,19 @@ export const register = async ({account, name, email, password, checkPassword}) 
     const {data} = await axios.post(`${authURL}/users`, {
       account, name, email, password, checkPassword,
     });
-    const {authToken} = data;
-    if(authToken) {
+    const {newUser} = data;
+    if(newUser) {
       return { success: true, ...data}
+
     }
+    // console.log(data.message)
     return data;
   } catch (error) {
     console.error('[Register Failed]:', error)
+    // console.log(error)
     // Swal.fire({
     //   position: 'top',
-    //   title: error.response.data,
+    //   title: error.message,
     //   timer: 1000,
     //   icon: 'error',
     //   showConfirmButton: false,
