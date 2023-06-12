@@ -56,16 +56,16 @@ const RegistPage = () => {
       return
     }
     /* email test failed need to adjust */
-    if(/\S+@\S+\.\S+/.test(email)){
-      Swal.fire({
-        position: 'top',
-        title: 'Email不符合格式',
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      });
-      return
-    }
+    // if(/\S+@\S+\.\S+/.test(email)){
+    //   Swal.fire({
+    //     position: 'top',
+    //     title: 'Email不符合格式',
+    //     timer: 1000,
+    //     icon: 'error',
+    //     showConfirmButton: false,
+    //   });
+    //   return
+    // }
     if(password.length === 0){
       Swal.fire({
         position: 'top',

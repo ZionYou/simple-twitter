@@ -25,51 +25,76 @@ const SettingsArea = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [checkPassword, setCheckPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const [accountError, setAccountError] = useState(false)
+  const [nameError, setNameError] = useState(false)
+  const [emailError, setEmailError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+  const [checkPasswordError, seCheckPasswordError] = useState(false)
+
+  // const {currentUser} = useAuth()
+
+  const email_pattern = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')
+
+
+  const handleSave = (e) => {
     e.preventDefault();
+
+    // 欄位驗證
+    if (account.length === 0) {
+      setAccountError(true)
+      return
+    }
+    if(name.length === 0 || name.length > 50) {
+      setNameError(true)
+      return
+    }
+    if(email.length === 0 || email_pattern.text(email) === false){
+      setEmailError(true)
+      return
+    }
   };
   
   return(
     <form 
-      className="settings middle-container-border" onSubmit={handleSubmit}
+      className="settings middle-container-border" onSubmit={handleSave}
     >
       <h5 className="sub-title">首頁</h5>
       <div className="settings-group">
         <FormInput
-              label="帳號"
-              value={account}
-              placeholder="請輸入帳號"
-              onChange={(accountInputValue) => setAccount(accountInputValue)}
-            />
-            <FormInput
-              label="名稱"
-              value={name}
-              placeholder="請輸入使用者名稱"
-              onChange={(nameInputValue) => setName(nameInputValue)}
-            />
-            <FormInput
-              label="Email"
-              type="email"
-              value={email}
-              placeholder="請輸入Email"
-              onChange={(emailInputValue) => setEmail(emailInputValue)}
-            />
-            <FormInput
-              label="密碼"
-              type="password"
-              value={password}
-              placeholder="請輸入密碼"
-              onChange={(passwordInputValue) => setConfirmPassword(passwordInputValue)}
-            />
-            <FormInput
-              label="密碼再確認"
-              type="password"
-              value={confirmPassword}
-              placeholder="請再次輸入密碼"
-              onChange={(confirmPasswordInputValue) => setPassword(confirmPasswordInputValue)}
-            />
+          label="帳號"
+          value={account}
+          placeholder="請輸入帳號"
+          onChange={(accountInputValue) => setAccount(accountInputValue)}
+        />
+        <FormInput
+          label="名稱"
+          value={name}
+          placeholder="請輸入使用者名稱"
+          onChange={(nameInputValue) => setName(nameInputValue)}
+        />
+        <FormInput
+          label="Email"
+          type="email"
+          value={email}
+          placeholder="請輸入Email"
+          onChange={(emailInputValue) => setEmail(emailInputValue)}
+        />
+        <FormInput
+          label="密碼"
+          type="password"
+          value={password}
+          placeholder="請輸入密碼"
+          onChange={(passwordInputValue) => setCheckPassword(passwordInputValue)}
+        />
+        <FormInput
+          label="密碼再確認"
+          type="password"
+          value={checkPassword}
+          placeholder="請再次輸入密碼"
+          onChange={(checkPasswordInputValue) => setPassword(checkPasswordInputValue)}
+        />
       </div>
       <div className="btn-group">
         <button className="orange-btn radius-50 cursor-pointer">儲存</button>

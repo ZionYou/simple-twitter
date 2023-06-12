@@ -16,22 +16,22 @@ export const login = async ({account, password}) => {
     }
     return data;
   } catch (error) {
-    const {data, status} = error.response
-    if(status === 401){
-      return {
-        status: 'error',
-        message: data.message
-      }
-    }
+    // const {data, status} = error.response
+    // if(status === 401){
+    //   return {
+    //     status: 'error',
+    //     message: data.message
+    //   }
+    // }
     console.error('[Login Failed]:', error)
   }
 }
 
 // 註冊新使用者資料
-export const register = async ({account, name, email, password, confirmPassword}) => {
+export const register = async ({account, name, email, password, checkPassword}) => {
   try{
     const {data} = await axios.post(`${authURL}/users`, {
-      account, name, email, password, confirmPassword,
+      account, name, email, password, checkPassword,
     });
     const {authToken} = data;
     if(authToken) {

@@ -1,5 +1,5 @@
 /* add here edit later */
-import { FormInput } from 'components';
+import { FormInput, FormTextarea } from 'components';
 /* add here edit later */
 import { ACLogoIcon } from 'assets/icons';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,29 +12,33 @@ import Swal from 'sweetalert2';
 // 登入頁面
 const LoginPage = () => {
   const [account, setAccount] = useState('')
+  const [accountError, setAccountError] = useState(false)
   const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState(false)
   
   const navigate = useNavigate();
 
   const handleClick = async () => {
     if(account.length === 0) {
-      Swal.fire({
-        position: 'top',
-        title: '帳號不可為空白',
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      });
+      // Swal.fire({
+      //   position: 'top',
+      //   title: '帳號不可為空白',
+      //   timer: 1000,
+      //   icon: 'error',
+      //   showConfirmButton: false,
+      // });
+      setAccountError(true)
       return
     }
     if(password.length === 0){
-      Swal.fire({
-        position: 'top',
-        title: '密碼不可為空白',
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      });
+      // Swal.fire({
+      //   position: 'top',
+      //   title: '密碼不可為空白',
+      //   timer: 1000,
+      //   icon: 'error',
+      //   showConfirmButton: false,
+      // });
+      setPasswordError(true)
       return
     }
 
@@ -84,16 +88,30 @@ const LoginPage = () => {
                 label="帳號"
                 value={account}
                 placeholder="請輸入帳號"
+                className = {account.length === 0 && accountError ? "action" : ""}
                 onChange={(accountInputValue) => setAccount(accountInputValue)}
-              />
+              >
+                {account.length === 0 && accountError && (
+                  <div className="form-notification action">
+                    <p className="form-caption">帳號不能為空白</p>
+                  </div>
+                )}
+              </FormInput>
   
               <FormInput
                 label="密碼"
                 type="password"
                 value={password}
                 placeholder="請輸入密碼"
+                className = {password.length === 0 && passwordError ? "action" : ""}
                 onChange={(passwordInputValue) => setPassword(passwordInputValue)}
-              />
+              >
+                {password.length === 0 && passwordError && (
+                  <div className="form-notification action">
+                    <p className="form-caption">密碼不能為空白</p>
+                  </div>
+                )}
+              </FormInput>
             </div>
             <div className="login-btn-group">
               <button className="orange-btn radius-50 login-btn cursor-pointer" onClick={handleClick}>登入</button>
