@@ -4,8 +4,9 @@ import { FormInput } from 'components'
 /* add here edit later */
 import { Link, useNavigate } from 'react-router-dom'
 import { Container, Row, Col } from "react-bootstrap";
-import { useState } from 'react'
-import { adminLogin } from '../api/admin';
+import { useState, useEffect } from 'react'
+// import { adminLogin } from '../api/admin';
+import { useAuth } from '../contexts/AuthContext'
 /* havent use yet */
 import Swal from 'sweetalert2';
 
@@ -17,6 +18,8 @@ const AdminLoginPage = () => {
   const [passwordError, setPasswordError] = useState(false)
 
   const navigate = useNavigate();
+
+  const { adminLogin, isAuthenticated } = useAuth();
 
   const handleClick = async () => {
     if(account.length === 0){
@@ -42,13 +45,12 @@ const AdminLoginPage = () => {
       return;
     }
 
-    const {success, token} = await adminLogin({
+    const success= await adminLogin({
       account, 
       password
     });
+    
     if(success) {
-      localStorage.setItem('authToken', token)
-
       // add login success message here 
       console.log("success") 
       Swal.fire({
@@ -58,7 +60,6 @@ const AdminLoginPage = () => {
         icon: 'success',
         showConfirmButton: false,
       })
-      navigate('/adminTwi')
       return;
     }
 
@@ -71,6 +72,12 @@ const AdminLoginPage = () => {
       showConfirmButton: false,
     });
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/adminTwi');
+    }
+  }, [navigate, isAuthenticated]);
 
   return(
     <section className="admin-login">

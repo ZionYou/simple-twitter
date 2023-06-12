@@ -1,10 +1,21 @@
 import { MainHome, NewTwiPopUp, MainList, PopularFollow, ReplyTwiPopUp } from "components";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
+import { useAuth } from '../contexts/AuthContext';
 
 // 首頁
 const MainHomePage = () => {
   const [isPopup, setIsPopup] = useState(false)
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
+  }, [navigate, isAuthenticated]);
+
   return (
     <>
       <Container>

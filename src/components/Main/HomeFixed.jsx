@@ -1,5 +1,6 @@
 import { ACLogoIcon, HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon } from "assets/icons";
 import {Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from 'contexts/AuthContext';
 
 const MainListData = [
   {
@@ -111,11 +112,14 @@ const MainList = ({onClick}) => {
   const location = useLocation()
   const {pathname} = location
   const splitLocation = pathname.split("/");
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
+  const { logout } = useAuth();
 
   const handleClick = () => {
-    localStorage.removeItem('authToken');
-    navigate('/')
+    logout();
+    // localStorage.removeItem('authToken');
+    // localStorage.removeItem('success');
+    // navigate('/')
   }
 
   return(
@@ -171,11 +175,13 @@ const AdminList = () => {
   const location = useLocation()
   const {pathname} = location
   const splitLocation = pathname.split("/");
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
+  const { logout } = useAuth();
 
   const handleClick = () => {
-    localStorage.removeItem('authToken');
-    navigate('/adminLogin')
+    logout();
+    // localStorage.removeItem('authToken');
+    // navigate('/adminLogin')
   }
 
   return(

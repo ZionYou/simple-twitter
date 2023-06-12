@@ -2,8 +2,9 @@ import { ACLogoIcon } from 'assets/icons';
 import { Link, useNavigate } from 'react-router-dom'
 import { Container, Row, Col } from "react-bootstrap";
 import { FormInput } from 'components'
-import { useState } from 'react'
-import { register } from '../api/auth';
+import { useState, useEffect } from 'react'
+// import { register } from '../api/auth';
+import { useAuth } from '../contexts/AuthContext';
 /* havent use yet */
 import Swal from 'sweetalert2';
 
@@ -22,6 +23,8 @@ const RegistPage = () => {
   const [checkPasswordError, setCheckPasswordError] = useState(false)
 
   const navigate = useNavigate();
+
+   const { register, isAuthenticated } = useAuth();
 
   const handleClick = async() => {
     if(account.length === 0 ){
@@ -46,11 +49,14 @@ const RegistPage = () => {
       return
     }
 
-    const data = await register({
+    const message = await register({
       account, name, email, password, checkPassword,
     })
+    // const success = await register({
+    //   account, name, email, password, checkPassword,
+    // })
 
-    if(data.message === "Signup successfully!") {
+    if(message === "註冊成功") {
       Swal.fire({
         position: 'top',
         title: '註冊成功！',
@@ -58,18 +64,23 @@ const RegistPage = () => {
         icon: 'success',
         showConfirmButton: false,
       });
-      navigate("/")
       return
     }
     /* add failed message here use swal */
     Swal.fire({
       position: 'top',
-      title: data.message,
+      title: message,
       timer: 1000,
       icon: 'error',
       showConfirmButton: false,
     })
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/main');
+    }
+  }, [navigate, isAuthenticated]);
 
 
   return(
