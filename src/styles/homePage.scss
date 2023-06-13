@@ -1,0 +1,300 @@
+.main{
+  // position: relative;
+  .main-container{
+    // width: 960px;
+    max-width: 1140px;
+    margin: 0 auto;
+    // padding-top: 16px;
+    // padding-bottom: 16px;
+    // display: grid;
+    // grid-template-columns: 1fr 2fr 1fr;
+    // grid-gap: 25px;
+    .main-list{
+      // width: 1fr;
+      // position: fixed;
+      // top: 16px;
+      // left: 0;
+      // position: sticky;
+      
+      // top: 16px;
+      // height: 100vh;
+      // max-height: 100%;
+    }
+    .popular-follow{
+      position: sticky;
+      top: 16px;
+      /* ask here */
+      max-height: 760px;
+      height: 100vh;
+      
+    }
+  }
+}
+
+
+
+
+.sub-title {
+  @include font-adjust(24px, 700, var(--greyscale-dark-100));
+  padding: 24px;
+  border-bottom: var(--border-grey);
+}
+
+/* mainlist area */
+.main-list{
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 13px;
+ 
+  max-height: 100vh;
+  // height: 100%;
+  // display: grid;
+  // grid-template-rows: 40px 178px auto;
+  // grid-gap: 13px;
+  &:last-child{
+    align-items: end;
+  }
+  .icon{
+    margin-left: 13px;
+    // margin-bottom: 32px;
+    svg{
+      width: auto;
+      height: 40px;
+    }
+  }
+
+  .main-list-group{
+    padding-top: 32px;
+    .main-list-link{
+      padding: 0 17px;
+      display: flex;
+      justify-content: start;
+      &:not(:last-child){
+        margin-bottom: 45px;
+      }
+      &:last-child{
+        margin-bottom: 17px;
+      }
+      .default{
+        @include svg-adjust(20px, auto, var(--greyscale-dark-90));
+      }
+      .checked{
+        display: none;
+      }
+      .main-list-name{
+        padding-left: 16px;
+        @include font-adjust(18px, 700, var(--greyscale-dark-90))
+      }
+      &.action{
+        .default{
+          display: none;
+        }
+        .checked{
+          display: block;
+          @include svg-adjust(20px, auto, var(--major));
+        }
+        .main-list-name {
+          @include font-adjust(18px, 700, var(--major));
+        }
+      }
+    }
+    button {
+      width: 100%;
+      padding: 8px 0;
+      font-size: 20px;
+    }
+  }
+  
+  .logout-group{
+    // position: absolute;
+    // bottom: 16px;
+    // left: 19px;
+
+    position: fixed;
+    // left: 19px;
+    bottom: 16px;
+
+    display: flex;
+    // height: 100%;
+    align-items: end;
+    justify-content: start;
+    // line-height: 58px;
+    .logout{
+      padding-left: 16px;
+      padding-right: 19px;
+      @include svg-adjust(18px, auto, var(--greyscale-dark-90));
+    }
+    .logout-name{
+      @include font-adjust(18px, 700, var(--greyscale-dark-90))
+    }
+  }
+}
+
+/* popular follow area */ 
+.popular-follow{
+  background-color: var(--greyscale-dark-20);
+  border-radius: 16px;
+  margin-top: 16px;
+
+  position: sticky;
+  top: 16px;
+  left: 0;
+  .popular-follow-group{
+    padding: 16px;
+    
+    .popular-follow-item{
+      height: 82px;
+      // display: flex;
+      // justify-content: space-between;
+      display: grid;
+      grid-template-columns: 50px 1fr auto;
+      grid-gap: 8px;
+      align-items: center;
+      // justify-content: start;
+      .popular-follow-img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    
+      // text-overflow重新設定
+      .popular-follow-name-group {
+        width: 80px;
+        // width: 100%;
+        .popular-follow-name {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          @include font-adjust(16px, 700, var(--greyscale-dark-100));
+          line-height: 26px;
+        }
+    
+        .popular-follow-account {
+          white-space: nowrap;
+          // width: 90px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          @include font-adjust(14px, 500, var(--greyscale-dark-70));
+        }
+      }
+    
+      button {
+        padding: 8px 16px;
+        font-size: 16px;
+        // justify-items: end;
+      }
+    }
+  }
+}
+
+/* 首頁 */
+.home{
+  .title-section{
+    .input-group{
+      padding: 16px 27px;
+      .title-input{
+        display: none;
+      }
+      .title-label{
+        display: flex;
+        align-items: center;
+        padding-bottom: 14px;
+        img{
+          width: 50px;
+          height: 50px;
+          object-fit: contain;
+          border-radius: 50%;
+        }
+        .label-word{
+          @include font-adjust(18px, 700, var(--grey-secondary));
+          margin-left: 8px;
+        }
+      }
+      button{
+        padding: 8px 16px;
+      }
+      &:last-child{
+        text-align: end;
+      }
+    }
+  }
+  hr{
+    width: 100%;
+    height: 10px;
+    background-color: var(--border);
+    border: none;
+  }
+}
+
+.tweet-list {
+  .tweet-item {
+    display: flex;
+    align-items: top;
+    padding: 16px 24px 16px 29px;
+
+    img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .tweet-info {
+      padding-left: 8px;
+
+      .name-group {
+        .name {
+          @include font-adjust(16px, 700, var(--greyscale-dark-100));
+          margin-right: 8px;
+        }
+
+        .account,
+        .time {
+          @include font-adjust(14px, 400, var(--grey-secondary));
+        }
+      }
+
+      .content {
+        padding: 8px 0;
+        @include font-adjust(16px, 400, var(--greyscale-dark-100));
+      }
+
+      .reply-to{
+        padding-top: 8px;
+        @include font-adjust(14px, 400, var(--grey-secondary));
+        span{
+          color: var(--major);
+        }
+      }
+
+      .icon-group {
+        display: flex;
+        width: 100%;
+
+        .comment,
+        .like {
+          i {
+            @include svg-adjust(auto, 14px, var(--grey-secondary));
+            margin-right: 10px;
+          }
+
+          @include font-adjust(14px, 600, var(--grey-secondary));
+        }
+        .like-solid{
+          @include font-adjust(14px, 600, var(--grey-secondary));
+          i{
+            @include svg-adjust(auto, 14px, var(--red-danger));
+            margin-right: 10px;
+          }
+        }
+
+        .comment {
+          margin-right: 40px;
+        }
+      }
+    }
+  }
+}

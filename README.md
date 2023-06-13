@@ -36,17 +36,35 @@ cd simple-twitter
 npm install
 ```
 
-4.啟動伺服器 
+5. 安裝 React Router DOM 套件
+```
+npm i react-router-dom
+```
+
+6. 安裝 react-bootstrap 套件
+```
+npm install react-bootstrap bootstrap
+```
+7. 安裝 axios 套件
+```
+npm install axios@0.27.2
+```
+8. 安裝 swal 套件
+```
+npm install sweetalert@11.6.4
+```
+
+8.啟動伺服器 
 ```
 npm start
 ```
 
-5.當終端機中出現以下訊息，該網頁將自動 在“ http://localhost:3000 ”中打開：
+9.當終端機中出現以下訊息，該網頁將自動 在“ http://localhost:3000 ”中打開：
 ```
 webpack compiled successfully
 ```
 
-6.停止使用該網站：
+10.停止使用該網站：
 ```
 ctrl + c
 ```
@@ -57,3 +75,5 @@ ctrl + c
 * node.js 14.18.1
 * sass 1.56.2
 * styled-components 5.3.5
+* axios 0.27.2
+* react-bootstrap 2.7.4
