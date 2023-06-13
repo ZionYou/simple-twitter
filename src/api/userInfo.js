@@ -25,7 +25,7 @@ export const getUserInfo = async(id) => {
   try{
     // const res = await axios.get(`${baseURL}/user/:${id}`)
     // return res.data
-    const {data} = await axiosInstance.get(`${baseURL}/user/:${id}`)
+    const {data} = await axiosInstance.get(`${baseURL}/user/${id}`)
     return{success: true, data}
   } catch (error) {
     console.error('[Get user info failed]:', error)
