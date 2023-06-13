@@ -18,6 +18,7 @@ const LoginPage = () => {
   const [passwordError, setPasswordError] = useState(false)
   const navigate = useNavigate();
   const { login, isAuthenticated } = useAuth();
+  
 
   const handleClick = async () => {
     if(account.length === 0) {
@@ -50,7 +51,7 @@ const LoginPage = () => {
 
     if(success) {
       // add login success message here
-      console.log("success") 
+      console.log("success")
       
       Swal.fire({
         position: 'top',

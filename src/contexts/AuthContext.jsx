@@ -49,12 +49,24 @@ const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        currentMember: payload && {
-          id: payload.sub,
+        currentUser: payload && {
+          id: payload.id,
+          email: payload.email,
           name: payload.name,
+          account: payload.account,
+          avatar: payload.avatar,
+          cover: payload.cover,
+          introduction: payload.introduction,
+          role: payload.role,
+          createdAt:  payload.createdAt,
+          updatedAt:  payload.updatedAt,
+          Tweets: payload.Tweets,
+          Followers: payload.Followers,
+          Followings: payload.Followings,
+          isFollowed: payload.isFollowed,
         },
         register: async (data) => {
-          const { message, token,  } = await register({
+          const { message, token  } = await register({
             account: data.account,
             name: data.name,
             email: data.email,
@@ -62,8 +74,6 @@ const AuthProvider = ({ children }) => {
             checkPassword: data.checkPassword,
           });
           const tempPayload = jwt.decode(token);
-          // 印出註冊者資料
-          console.log(tempPayload)
           if (tempPayload) {
             setPayload(tempPayload);
             setIsAuthenticated(true);

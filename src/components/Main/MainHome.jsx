@@ -1,4 +1,10 @@
 import { CommentIcon, LikeIcon } from "assets/icons";
+import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { getUserTwi } from 'api/userInfo';
+import { useAuth } from 'contexts/AuthContext';
+import { ReplyTwiPopUp } from 'components';
+
 
 const TweetListData = [
   {
@@ -57,7 +63,6 @@ const TweetListData = [
   },
 ]
 
-
 const TweetListItem = ({tweet}) => {
   return(
     <div className="tweet-item">
@@ -80,19 +85,20 @@ const TweetListItem = ({tweet}) => {
   )
 }
 
-const UserProfileTwi = () => {
+const UserProfileTwi = ({id}) => {
   return(
     <div className="tweet-list">
       {
         TweetListData.map((tweet) => {
-          return <TweetListItem tweet={tweet} key={tweet.id}/>
+          return <TweetListItem tweet={tweet} id={id}/>
         })
       }
     </div>
   )
 }
 
-const MainHome = ({onClick}) => {
+
+const MainHome = ({onClick, id, avatar}) => {
   return(
     <section className="home middle-container-border" data-page="main-home">
       <div className="title-section">
@@ -100,16 +106,17 @@ const MainHome = ({onClick}) => {
         <div className="input-group cursor-pointer" onClick={onClick}>
           <input type="checkbox" className="title-input cursor-pointer" id="new-tweet"/>
           <label htmlFor="new-tweet" className="title-label cursor-pointer">
-            <img src="https://picsum.photos/300/300?text=100" alt="" />
+            <img src={avatar}alt="" />
             <p className="label-word">有什麼新鮮事?</p>
           </label>
           <button className="orange-btn radius-50 cursor-pointer">推文</button>
         </div>
       </div>
       <hr/>
-      <UserProfileTwi/>
+      <UserProfileTwi id={id}/>
     </section>
   )
 }
+
 
 export { TweetListItem, MainHome, UserProfileTwi};

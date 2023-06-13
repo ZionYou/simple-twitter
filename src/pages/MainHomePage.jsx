@@ -1,14 +1,19 @@
+// 元件
 import { MainHome, NewTwiPopUp, MainList, PopularFollow, ReplyTwiPopUp } from "components";
+// Hook
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
-import { useAuth } from '../contexts/AuthContext';
+// API
+import { getUserTwi, getUser } from 'api/userInfo';
+import { useAuth } from 'contexts/AuthContext';
 
 // 首頁
 const MainHomePage = () => {
+  // 彈跳視窗狀態
   const [isPopup, setIsPopup] = useState(false)
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, currentUser } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -21,17 +26,22 @@ const MainHomePage = () => {
       <Container>
         <Row>
           <Col xs={2}>
-            <MainList onClick={() => setIsPopup(true)}/>
+            <MainList onClick={() => setIsPopup(true)}
+            />
           </Col>
           <Col xs={7}>
-            <MainHome onClick={() => setIsPopup(true)}/>
+            <MainHome
+              id={currentUser?.id} 
+              avatar={currentUser?.avatar}
+              onClick={() => setIsPopup(true)}
+            />
           </Col>
           <Col xs={3}>
             <PopularFollow/>
           </Col>
         </Row>
       </Container>
-      {isPopup && <NewTwiPopUp onClick={() => setIsPopup(false)}/>}
+      {isPopup && <NewTwiPopUp avatar={currentUser?.avatar} onClick={() => setIsPopup(false)}/>}
     </>
   )
 };

@@ -192,7 +192,7 @@ const PersonalPageSwitch = ({value}) => {
 
 
 
-const Personal = ({onClick}) => {
+const Personal = ({onClick, name, account, introduction, cover, avatar}) => {
   const [currentValue, setCurrentValue] = useState('tweet')
   // const [editIsOpen, setEditIsOpen] = useState(false)
 
@@ -205,14 +205,14 @@ const Personal = ({onClick}) => {
         <Link to="/main" className="back-link">
           <span className="back-icon"><BackArrowIcon/></span>
           <div className="title-group">
-            <p className="name">John Doe</p>
+            <p className="name">{name}</p>
             <p className="tweet-num"><span>25</span> 推文</p>
           </div>
         </Link>
       </div>
       <div className="personal-area">
-        <img src="https://picsum.photos/300/300?text=600" alt="" className="personal-bg-img"/>
-        <img src="https://picsum.photos/300/300?text=1000" alt="" className="personal-img" />
+        <img src={cover} alt="" className="personal-bg-img"/>
+        <img src={avatar} alt="" className="personal-img" />
         {/* <div className="btn-group" data-user="user">
           <button className="orange-border-btn radius-50 cursor-pointer" onClick={onClick}>編輯個人資料</button>
         </div> */}
@@ -221,10 +221,10 @@ const Personal = ({onClick}) => {
         </div>
         <div className="personal-info">
           <div className="personal-info-name-group">
-            <h5 className="name">John Doe</h5>
-            <p className="account">@heyjohn</p>
+            <h5 className="name">{name}</h5>
+            <p className="account">@{account}</p>
           </div>
-          <p className="personal-intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac nunc dolor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus blandit nisl nunc.</p>
+          <p className="personal-intro">{introduction}</p>
           <div className="personal-follow-group">
             <Link to="/personalDetail" className="follower"><span>34 個</span>跟隨中</Link>
             <Link to="/personalDetail" className="following"><span>59 個</span>跟隨者</Link>

@@ -23,8 +23,8 @@ const RegistPage = () => {
   const [checkPasswordError, setCheckPasswordError] = useState(false)
 
   const navigate = useNavigate();
-
-   const { register, isAuthenticated } = useAuth();
+  
+  const { register } = useAuth();
 
   const handleClick = async() => {
     if(account.length === 0 ){
@@ -64,6 +64,7 @@ const RegistPage = () => {
         icon: 'success',
         showConfirmButton: false,
       });
+      navigate('/login');
       return
     }
     /* add failed message here use swal */
@@ -75,13 +76,6 @@ const RegistPage = () => {
       showConfirmButton: false,
     })
   }
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/main');
-    }
-  }, [navigate, isAuthenticated]);
-
 
   return(
   <section className="regist-login">

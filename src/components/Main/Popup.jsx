@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from 'react'
 import {FormInput, FormTextarea} from 'components'
 
 // 新推文元件
-const NewTwiPopUp = ({onClick}) => {
+const NewTwiPopUp = ({onClick, avatar}) => {
   return(
     <>
       <div className="popup">
@@ -17,8 +17,14 @@ const NewTwiPopUp = ({onClick}) => {
                   <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
                 </div>
                 <div className="type-area">
-                  <img src="https://picsum.photos/300/300?text=400" alt="" />
-                  <textarea name="new-tweet-type" className="newtwi-textarea" id="tweet-textarea" maxLength={140} placeholder="有什麼新鮮事?"/>
+                  <img src={avatar} alt="" />
+                  <textarea 
+                    id="tweet-textarea" 
+                    className="newtwi-textarea" 
+                    name="new-tweet-type" 
+                    maxLength={140} 
+                    placeholder="有什麼新鮮事?"
+                  />
                 </div>
                 <div className="btn-group">
                   <button className="orange-btn radius-50 cursor-pointer">推文</button>
