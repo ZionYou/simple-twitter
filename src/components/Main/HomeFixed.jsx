@@ -182,13 +182,20 @@ const AdminList = () => {
   const {pathname} = location
   const splitLocation = pathname.split("/");
   // const navigate = useNavigate()
-  const { logout } = useAuth();
+  const navigate = useNavigate()
+  const { isAuthenticated, logout } = useAuth();
 
   const handleClick = () => {
     logout();
     // localStorage.removeItem('authToken');
     // navigate('/adminLogin')
   }
+  
+  useEffect(() => {
+    if(!isAuthenticated){
+      navigate('/adminLogin')
+    }
+  }, [navigate, isAuthenticated])
 
   return(
     <div className="main-list">

@@ -120,7 +120,7 @@ const AdminLoginPage = () => {
             <div className="admin-login-btn-group">
               <button className="orange-btn radius-50 admin-login-btn cursor-pointer" onClick={handleClick}>登入</button>
               <div className="other-login">
-                <Link to="/" className="link-btn">前台登入</Link>
+                <Link to="/login" className="link-btn">前台登入</Link>
               </div>
             </div>
           </Col>

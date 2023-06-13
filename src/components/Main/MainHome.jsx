@@ -129,7 +129,7 @@ const MainHome = ({onClick}) => {
   const [userTweet, setUserTweets] = useState([])
   const {isAuthenticated, currentMember} = useAuth();
   const userId = currentMember.id
-  
+  console.log(userId)
 
   useEffect(() => {
     const getUserTwiAsync = async () => {

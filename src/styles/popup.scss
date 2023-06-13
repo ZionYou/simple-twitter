@@ -59,6 +59,10 @@
       .btn-group {
         display: flex;
         justify-content: end;
+        align-items: center;
+        .error{
+          @include font-adjust(15px, 500, var(--red-danger));
+        }
 
         button {
           padding: 8px 16px;
@@ -350,6 +354,10 @@
       .btn-group {
         display: flex;
         justify-content: end;
+        align-items: center;
+        .error {
+          @include font-adjust(15px, 500, var(--red-danger));
+        }
 
         button {
           padding: 8px 16px;

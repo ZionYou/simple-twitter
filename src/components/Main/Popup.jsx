@@ -6,6 +6,22 @@ import {FormInput, FormTextarea} from 'components'
 
 // 新推文元件
 const NewTwiPopUp = ({onClick}) => {
+  const [isError, setIsError] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+
+  const handleClick = () => {
+    if(inputValue === "" ){
+      setIsError(true)
+      // setIsError("內容不可空白")
+      return
+    } else if (inputValue.length > 140) {
+      // setIsError("字數不可超過140字")
+      return
+    } else {
+      setIsError(false)
+    }
+  }
+  
   return(
     <>
       <div className="popup">
@@ -18,10 +34,19 @@ const NewTwiPopUp = ({onClick}) => {
                 </div>
                 <div className="type-area">
                   <img src="https://picsum.photos/300/300?text=400" alt="" />
-                  <textarea name="new-tweet-type" className="newtwi-textarea" id="tweet-textarea" maxLength={140} placeholder="有什麼新鮮事?"/>
+                  <textarea 
+                    name="new-tweet-type" 
+                    className="newtwi-textarea" 
+                    id="tweet-textarea" 
+                    placeholder="有什麼新鮮事?"
+                    value={inputValue}
+                    onChange = {(e) => setInputValue(e.target.value)}
+                    />
                 </div>
                 <div className="btn-group">
-                  <button className="orange-btn radius-50 cursor-pointer">推文</button>
+                  {inputValue === "" && isError && <span className="error">內容不可空白</span>}
+                  {inputValue.length > 140 && <span className="error">字數不可超過140字</span>}
+                  <button className="orange-btn radius-50 cursor-pointer" onClick={handleClick}>推文</button>
                 </div>
               </Col>
             </Row>
@@ -71,16 +96,10 @@ const EditProfile = ({onClick}) => {
     }
   }
 
-  //匯入User資料
-  // useEffect(() => {
-  //   if (!currentUser) return;
-  //   setId(currentUser?.user.id);
-  //   setName(currentUser?.user.name);
-  //   setIntro(currentUser?.user.introduction);
-  //   setNameCount(!currentUser.user.name ? 0 :  currentUser.user.name.length);
-  //   setIntroCount(!currentUser.user.introduction ? 0 : currentUser.user.introduction.length);
-  // }, [currentUser, show]);
-
+  const handleSave = () => {
+    if(name === "" || nameCount > 50) return
+    if(intro === '' || introCount > 160) return
+  }
   
   
   return(
@@ -95,7 +114,7 @@ const EditProfile = ({onClick}) => {
                     <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
                     <p className="name">編輯個人資料</p>
                   </div>
-                  <button type="submit" className="orange-btn radius-50 cursor-pointer">儲存</button>
+                  <button type="submit" className="orange-btn radius-50 cursor-pointer" onClick={handleSave}>儲存</button>
                 </div>
                 <form className="img-group">
                   <div className="bg-img-group">
@@ -193,6 +212,21 @@ const EditProfile = ({onClick}) => {
 
 // 回復推文元件
 const ReplyTwiPopUp = ({onClick, data}) => {
+  const [isError, setIsError] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+
+  const handleClick = () => {
+    if(inputValue === "" ){
+      setIsError(true)
+      // setIsError("內容不可空白")
+      return
+    } else if (inputValue.length > 140) {
+      // setIsError("字數不可超過140字")
+      return
+    } else {
+      setIsError(false)
+    }
+  }
   return(
     <>
       <div className="reply-popup">
@@ -228,10 +262,18 @@ const ReplyTwiPopUp = ({onClick, data}) => {
                 </div>
                 <div className="type-area">
                   <img src="https://picsum.photos/300/300?text=400" alt="" />
-                  <textarea name="new-tweet-type" className="newtwi-textarea" id="tweet-textarea" maxLength={140} placeholder="有什麼新鮮事?"/>
+                  <textarea 
+                    name="new-tweet-type" 
+                    className="newtwi-textarea" 
+                    id="tweet-textarea" 
+                    placeholder="推你的回覆"
+                    onchange = {(e) => setInputValue(e.target.value)}
+                    />
                 </div>
                 <div className="btn-group">
-                  <button className="orange-btn radius-50 cursor-pointer">推文</button>
+                  {inputValue === "" && isError && <span className="error">內容不可空白</span>}
+                  {inputValue.length > 140 && <span className="error">字數不可超過140字</span>}
+                  <button className="orange-btn radius-50 cursor-pointer" onClick={handleClick}>回覆</button>
                 </div>
             </Col>
             </Row>

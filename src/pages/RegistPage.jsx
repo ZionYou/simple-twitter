@@ -64,7 +64,7 @@ const RegistPage = () => {
         icon: 'success',
         showConfirmButton: false,
       });
-      navigate('login');
+      navigate('/login');
       return
     }
     /* add failed message here use swal */
@@ -167,7 +167,7 @@ const RegistPage = () => {
           <div className="regist-login-btn-group">
             <button className="orange-btn radius-50 regist-login-btn cursor-pointer" onClick={handleClick}>註冊</button>
             <div className="other-login">
-              <Link to="/" className="link-btn">取消</Link>
+              <Link to="/login" className="link-btn">取消</Link>
             </div>
           </div>
         </Col>
