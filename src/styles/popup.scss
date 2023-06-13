@@ -212,6 +212,7 @@
 
 
 .reply-popup {
+  z-index: 1;
   position: fixed;
   top: 0;
   left: 0;
@@ -240,6 +241,7 @@
         padding: 16px 24px 16px 29px;
 
         position: relative;
+        min-height: 200px;
 
         img {
           width: 50px;
@@ -308,12 +310,12 @@
 
         .link-line{
           width: 2px;
-          height: 86px;
+          height: 50%;
           background-color: var(--greyscale-dark-60);
 
           position:absolute;
           left: 50px;
-          top: 98px;
+          top: 90px;
         }
       }
       .type-area {

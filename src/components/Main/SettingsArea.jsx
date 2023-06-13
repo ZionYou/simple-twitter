@@ -85,14 +85,14 @@ const SettingsArea = () => {
           type="password"
           value={password}
           placeholder="請輸入密碼"
-          onChange={(passwordInputValue) => setCheckPassword(passwordInputValue)}
+          onChange={(passwordInputValue) => setPassword(passwordInputValue)}
         />
         <FormInput
           label="密碼再確認"
           type="password"
           value={checkPassword}
           placeholder="請再次輸入密碼"
-          onChange={(checkPasswordInputValue) => setPassword(checkPasswordInputValue)}
+          onChange={(checkPasswordInputValue) => setCheckPassword(checkPasswordInputValue)}
         />
       </div>
       <div className="btn-group">

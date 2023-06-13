@@ -192,7 +192,7 @@ const EditProfile = ({onClick}) => {
 }
 
 // 回復推文元件
-const ReplyTwiPopUp = ({onClick}) => {
+const ReplyTwiPopUp = ({onClick, data}) => {
   return(
     <>
       <div className="reply-popup">
@@ -204,19 +204,27 @@ const ReplyTwiPopUp = ({onClick}) => {
                   <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
                 </div>
                 <div className="tweet-item">
-                  <img src="https://picsum.photos/300/300?text=1200" alt="" />
-                  <span className="link-line"></span>
-                  <div className="tweet-info">
-                    <div className="name-group">
-                      <span className="name">John Doe</span>
-                      <span className="account">@heyjohn</span>
-                      <span className="time"> &#183; 3 小時</span>
-                    </div>
-                    <p className="content">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla.
-                    </p>
-                    <p className="reply-to">回覆 <span>@apple</span></p>
-                  </div>
+                  {
+                    data.map((pop) => {
+                      return(
+                        <>
+                          <img src={pop.User.avatar} alt="" />
+                          <span className="link-line"></span>
+                          <div className="tweet-info">
+                            <div className="name-group">
+                              <span className="name">{pop.User.name}</span>
+                              <span className="account">@{pop.User.account}</span>
+                              <span className="time"> &#183; {pop.updatedAt} 小時</span>
+                            </div>
+                            <p className="content">
+                              {pop.description}
+                            </p>
+                            <p className="reply-to">回覆 <span>@apple</span></p>
+                          </div>
+                        </>
+                      )
+                    })
+                  }
                 </div>
                 <div className="type-area">
                   <img src="https://picsum.photos/300/300?text=400" alt="" />

@@ -1,10 +1,19 @@
 import { MainHome, NewTwiPopUp, MainList, PopularFollow, ReplyTwiPopUp } from "components";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
+import { getUserTwi } from 'api/userInfo';
+import { useAuth } from '../contexts/AuthContext';
 
 // 首頁
 const MainHomePage = () => {
+  const [tweets, setTweets] = useState([])
   const [isPopup, setIsPopup] = useState(false)
+  // const { id } = useParams()
+  // const params = useParams()
+  // console.log(params)
+  
+
   return (
     <>
       <Container>

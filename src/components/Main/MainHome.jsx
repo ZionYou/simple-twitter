@@ -1,4 +1,10 @@
 import { CommentIcon, LikeIcon } from "assets/icons";
+import {useEffect, useState} from 'react';
+import { useNavigate } from "react-router-dom";
+import {getUserTwi} from 'api/userInfo';
+import {useAuth} from 'contexts/AuthContext';
+
+import { ReplyTwiPopUp } from '../Main/Popup';
 
 const TweetListData = [
   {
@@ -80,19 +86,64 @@ const TweetListItem = ({tweet}) => {
   )
 }
 
-const UserProfileTwi = () => {
+const UserProfileTwi = ({datas}) => {
+  const [popupcontent, setpopupcontent] = useState([])
+  const [ popupToggle, setPopupToggle ] = useState(false)
+  const changecontent = (data) => {
+    setpopupcontent([data])
+    setPopupToggle(!popupToggle)
+  }
   return(
-    <div className="tweet-list">
-      {
-        TweetListData.map((tweet) => {
-          return <TweetListItem tweet={tweet} key={tweet.id}/>
-        })
-      }
-    </div>
+    <>
+      <div className="tweet-list">
+        {
+          datas.map((data) => {
+            return(
+              <div className="tweet-item" key={data.id}>
+                <img src={data.User.avatar} alt="" />
+                <div className="tweet-info">
+                  <div className="name-group">
+                    <span className="name">{data.User.name}</span>
+                    <span className="account">@{data.User.account}</span>
+                    <span className="time"> &#183; {data.updatedAt}</span>
+                  </div>
+                  <p className="content">
+                    {data.description}
+                  </p>
+                  <div className="icon-group">
+                    <button className="comment btn-reset cursor-pointer" onClick={() => changecontent(data)}><i><CommentIcon/></i>10</button>
+                    <button className="like btn-reset cursor-pointer"><i><LikeIcon/></i>0</button>
+                  </div>
+                </div>
+              </div>
+            )
+          })
+        }
+      </div>
+      {popupToggle && <ReplyTwiPopUp data={popupcontent} onClick={changecontent}/>}
+    </>
   )
 }
 
 const MainHome = ({onClick}) => {
+  const [userTweet, setUserTweets] = useState([])
+  const {isAuthenticated, currentMember} = useAuth();
+  const userId = currentMember.id
+  
+
+  useEffect(() => {
+    const getUserTwiAsync = async () => {
+      const {success, data, message} = await getUserTwi(userId)
+      if(success){
+        setUserTweets(data.map((data) => ({...data})))
+        // console.log(data)
+      } else {
+        console.error(message)
+      }
+    }
+     getUserTwiAsync()
+  }, [currentMember])
+
   return(
     <section className="home middle-container-border" data-page="main-home">
       <div className="title-section">
@@ -107,7 +158,7 @@ const MainHome = ({onClick}) => {
         </div>
       </div>
       <hr/>
-      <UserProfileTwi/>
+      <UserProfileTwi datas={userTweet}/>
     </section>
   )
 }

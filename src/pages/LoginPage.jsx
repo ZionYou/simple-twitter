@@ -4,8 +4,9 @@ import { FormInput, FormTextarea } from 'components';
 import { ACLogoIcon } from 'assets/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
-import { useState } from 'react';
-import { login } from '../api/auth';
+import { useState, useEffect } from 'react';
+// import { login } from '../api/auth';
+import { useAuth } from '../contexts/AuthContext';
 /* havent use yet */
 import Swal from 'sweetalert2';
 
@@ -15,8 +16,8 @@ const LoginPage = () => {
   const [accountError, setAccountError] = useState(false)
   const [password, setPassword] = useState('')
   const [passwordError, setPasswordError] = useState(false)
-  
   const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
 
   const handleClick = async () => {
     if(account.length === 0) {
@@ -42,16 +43,15 @@ const LoginPage = () => {
       return
     }
 
-    const {success, token} = await login({
-      account, 
-      password
+    const success = await login({
+      account,
+      password,
     });
 
     if(success) {
-      localStorage.setItem('authToken', token)
-
       // add login success message here
       console.log("success") 
+      
       Swal.fire({
         position: 'top',
         title: '登入成功',
@@ -59,7 +59,6 @@ const LoginPage = () => {
         icon: 'success',
         showConfirmButton: false,
       })
-      navigate('/main')
       return;
     } 
     // add login failed message here
@@ -71,8 +70,13 @@ const LoginPage = () => {
       showConfirmButton: false,
     });
     console.log('failed')
-    
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/main');
+    } 
+  }, [navigate, isAuthenticated]);
 
   return(
     <section className="login">
