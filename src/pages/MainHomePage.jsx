@@ -1,6 +1,6 @@
 // 元件
 import { MainHome, NewTwiPopUp, MainList, PopularFollow, ReplyTwiPopUp } from "components";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
 import { getUserTwi } from 'api/userInfo';
@@ -26,9 +26,27 @@ import { useAuth } from '../contexts/AuthContext';
 // 首頁
 const MainHomePage = () => {
   // 彈跳視窗狀態
+  const [userTweets, setUserTweets] = useState([])
   const [isPopup, setIsPopup] = useState(false)
   const navigate = useNavigate();
-  const { isAuthenticated, currentUser } = useAuth();
+  const { isAuthenticated, currentMember } = useAuth();
+
+  console.log(currentMember)
+  
+
+
+   useEffect(() => {
+    const getUserTwiAsync = async () => {
+      const {success, data, message} = await getUserTwi()
+      if(success){
+        setUserTweets(data.map((data) => ({...data})))
+        // console.log(data)
+      } else {
+        console.error(message)
+      }
+    }
+     getUserTwiAsync()
+  }, [currentMember])
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -46,8 +64,9 @@ const MainHomePage = () => {
           </Col>
           <Col xs={7}>
             <MainHome
-              id={currentUser?.id} 
-              avatar={currentUser?.avatar}
+              // id={currentUser?.id} 
+              // avatar={currentUser?.avatar}
+              tweets={userTweets}
               onClick={() => setIsPopup(true)}
             />
           </Col>
@@ -56,7 +75,7 @@ const MainHomePage = () => {
           </Col>
         </Row>
       </Container>
-      {isPopup && <NewTwiPopUp avatar={currentUser?.avatar} onClick={() => setIsPopup(false)}/>}
+      {isPopup && <NewTwiPopUp avatar={currentMember?.avatar} onClick={() => setIsPopup(false)}/>}
     </>
   )
 };

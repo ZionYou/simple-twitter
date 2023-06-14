@@ -3,7 +3,7 @@ import { UserProfileTwi } from "components";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {useAuth} from 'contexts/AuthContext';
-import { getUser, getUserTwi } from 'api/userInfo';
+
 
 const PersonalSwitchData = [
   {
@@ -178,9 +178,29 @@ const PersonSwitchBar = ({onClick}) => {
 }
 
 
-const TweetReplyListItem = ({tweet}) => {
-  return(
-    <div className="tweet-item">
+// const TweetReplyListItem = ({tweet}) => {
+//   return(
+//     <div className="tweet-item">
+//       <img src="https://picsum.photos/300/300?text=1200" alt="" />
+//       <div className="tweet-info">
+//         <div className="name-group">
+//           <span className="name">John Doe</span>
+//           <span className="account">@heyjohn</span>
+//           <span className="time"> &#183; {tweet.edit_time}</span>
+//         </div>
+//         <p className="reply-to">回覆 <span>@{tweet.other_user}</span></p>
+//         <p className="content">
+//           {tweet.content}
+//         </p>
+//       </div>
+//     </div>
+//   )
+// }
+
+const UserProfileTwiReply = ({datas}) => {
+  const replyTweet = datas.map((tweet) => {
+    return(
+      <div className="tweet-item">
       <img src="https://picsum.photos/300/300?text=1200" alt="" />
       <div className="tweet-info">
         <div className="name-group">
@@ -194,24 +214,41 @@ const TweetReplyListItem = ({tweet}) => {
         </p>
       </div>
     </div>
-  )
-}
-
-const UserProfileTwiReply = () => {
+    )
+  })
   return(
     <div className="tweet-list">
-      {
-        ReplyTweetData.map((tweet) => {
-          return <TweetReplyListItem tweet={tweet} key={tweet.id}/>
-        })
-      }
+      {replyTweet}
     </div>
   )
 }
 
-const TweetLikeListItem = ({tweet}) => {
-  return(
-    <div className="tweet-item">
+// const TweetLikeListItem = ({tweet}) => {
+//   return(
+//     <div className="tweet-item">
+//       <img src={`https://picsum.photos/300/300?text=${tweet.id}`} alt="" />
+//       <div className="tweet-info">
+//         <div className="name-group">
+//           <span className="name">{tweet.other_user}</span>
+//           <span className="account">@{tweet.other_account}</span>
+//           <span className="time"> &#183; {tweet.edit_time}</span>
+//         </div>
+//         <p className="content">
+//           {tweet.content}
+//         </p>
+//         <div className="icon-group">
+//           <div className="comment"><i><CommentIcon/></i>{tweet.commentNum}</div>
+//           <div className="like-solid"><i><LikeSolidIcon/></i>{tweet.likeNum}</div>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+const UserProfileLike = ({datas}) => {
+  const likeTweet = datas.map((tweet) => {
+    return (
+      <div className="tweet-item">
       <img src={`https://picsum.photos/300/300?text=${tweet.id}`} alt="" />
       <div className="tweet-info">
         <div className="name-group">
@@ -228,70 +265,35 @@ const TweetLikeListItem = ({tweet}) => {
         </div>
       </div>
     </div>
-  )
-}
-
-const UserProfileLike = () => {
+    )
+  })
   return(
     <div className="tweet-list">
-      {
-        LikeTweetData.map((tweet) => {
-          return <TweetLikeListItem tweet={tweet} key={tweet.id}/>
-        })
-      }
+      {likeTweet}
     </div>
   )
 }
 
-const PersonalPageSwitch = ({value, tweetDatas}) => {
+const PersonalPageSwitch = ({value, tweetDatas, replyDatas, likeDatas}) => {
   if(value === 'tweet') return <UserProfileTwi datas={tweetDatas}/>
-  if(value === 'reply') return <UserProfileTwiReply/>
-  if(value === 'like') return <UserProfileLike/>
+  if(value === 'reply') return <UserProfileTwiReply datas={replyDatas}/>
+  if(value === 'like') return <UserProfileLike datas={likeDatas}/>
 }
 
 
 
-const Personal = ({onClick, name, account, introduction, cover, avatar}) => {
+const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDatas, replyDatas, likeDatas}) => {
   const [currentValue, setCurrentValue] = useState('tweet')
   // const [editIsOpen, setEditIsOpen] = useState(false)
-  const [userInfo, setUserInfo] = useState([]);
-  const [userTweet, setUserTweets] = useState([])
-  const {currentMember} = useAuth();
   
-  const userId = currentMember.id
-  // console.log(currentMember)
-  // console.log(currentMember.id)
+  const {currentMember} = useAuth();
 
   const handlePageClick = (e) => {
     setCurrentValue(e.target.value)
   }
   
 
-  useEffect(() => {
-    const getUserAsync = async () => {
-      const {success, data, message} = await getUser(userId)
-
-      if(success){
-        setUserInfo(data)
-        // console.log(data)
-      } else {
-        console.error(message)
-      }
-      
-      // setUserInfo(users);
-    }
-    const getUserTwiAsync = async () => {
-      const {success, data, message} = await getUserTwi(userId)
-      if(success){
-        setUserTweets(data.map((data) => ({...data})))
-        // console.log(data)
-      } else {
-        console.error(message)
-      }
-    }
-    getUserAsync()
-    getUserTwiAsync()
-  }, [currentMember])
+ 
 
   // console.log(userInfo)
   // let tweetNum = userInfo.Tweet.length
@@ -328,36 +330,7 @@ const Personal = ({onClick, name, account, introduction, cover, avatar}) => {
         </div>
       </div>
       <PersonSwitchBar onClick={handlePageClick}/>
-              <div className="back-bar">
-                <Link to="/main" className="back-link">
-                  <span className="back-icon"><BackArrowIcon/></span>
-                  <div className="title-group">
-                    <p className="name">{userInfo.name}</p>
-                    <p className="tweet-num"><span>10 </span> 推文</p>
-                  </div>
-                </Link>
-              </div>
-              <div className="personal-area">
-                <img src={userInfo.cover} alt="" className="personal-bg-img"/>
-                <img src={userInfo.avatar} alt="" className="personal-img" />
-                <div className="btn-group" data-user="other">
-                  <button className="orange-border-btn radius-50 cursor-pointer" onClick={onClick}>編輯個人資料</button>
-                </div>
-                <div className="personal-info">
-                  <div className="personal-info-name-group">
-                    <h5 className="name">{userInfo.name}</h5>
-                    <p className="account">@{userInfo.account}</p>
-                  </div>
-                  <p className="personal-intro">{userInfo.introduction}</p>
-                  <div className="personal-follow-group">
-                    <Link to="/personalDetail" className="follower"><span>10 個</span>跟隨中</Link>
-                    <Link to="/personalDetail" className="following"><span>10 個</span>跟隨者</Link>
-                  </div>
-                </div>
-              </div>
-      
-      <PersonSwitchBar onClick={handlePageClick}/>
-      <PersonalPageSwitch value={currentValue} tweetDatas={userTweet}/>
+      <PersonalPageSwitch value={currentValue} tweetDatas={tweetDatas} likeDatas={likeDatas} replyDatas={replyDatas}/>
     </section>
   )
 }

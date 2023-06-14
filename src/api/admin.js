@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Swal from 'sweetalert2';
+
 
 const adminURL = 'https://twitter-azx79115.herokuapp.com/api';
 const token = localStorage.getItem('authToken')
@@ -71,9 +71,16 @@ export const getAllTweetsData = async() => {
 // 刪除指定貼文 //delete
 export const deleteTwi = async (id) => {
   try {
-    const res = await axios.delete(`${adminURL}/admin/tweets/${id}`);
-    return res.data;
+    const res = await axios.delete(`${adminURL}/admin/tweets/${id}`, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+    return res.data
   } catch (error) {
-    console.error('[Delete twi failed]:', error);
+    return{
+      success: false,
+      message: `[Delete twi failed]:${error}`
+    }
   }
 };

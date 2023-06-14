@@ -89,18 +89,16 @@ export const patchTodo = async (payload) => {
 // 取得指定使用者發出的所有推文 //get
 export const getUserTwi = async (id) => {
   try {
-    const { data } = await axios.get(`${baseURL}/users/${id}/tweets`, {
+    const {data} = await axios.get(`${baseURL}/users/${id}/tweets`, {
       headers: {
         'Authorization': 'Bearer ' + token
       }
     })
-    // if(data.success === false) return {...data}
-    return {success: true, data}
-    // const res = await axios.get(`${baseURL}/user/:${id}/tweets`)
-    // return res.data
+
+    return {sucess: true, data}
   } catch (error) {
     return{
-      success: false,
+      //success: false,
       message: `[Get user all tweets failed]:${error}`
     }
   }
@@ -109,40 +107,70 @@ export const getUserTwi = async (id) => {
 // 取得指定使用者有回復的所有推文 //get
 export const getUserTwiReply = async (id) => {
   try {
-    const res = await axios.get(`${baseURL}/user/:${id}/replied_tweets`)
-    return res.data
+    const {data} = await axios.get(`${baseURL}/users/${id}/replied_tweets`, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+
+    return {sucess: true, data}
   } catch (error) {
-    console.error('[Get user all reply tweets failed]:', error)
+    return{
+      success: false,
+      message: `[Get user all reply tweets failed]: ${error}`
+    }
   }
 }
 
 // 取得指定使用者喜歡的所有推文 //get
-export const getUserLike = async (id) => {
+export const getUserTwiLike = async (id) => {
   try {
-    const res = await axios.get(`${baseURL}/user/:${id}/likes`)
-    return res.data
+    const {data} = await axios.get(`${baseURL}/user/:${id}/likes`, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+
+    return {sucess: true, data}
   } catch (error) {
-    console.error('[Get user like failed]:', error)
+    return{
+      success: false,
+      message: `[Get user like failed]: ${error}`
+    }
   }
 }
 
 // 取得指定使用者正在追蹤的使用者 //get
 export const getUserFollowings = async (id) => {
   try {
-    const res = await axios.get(`${baseURL}/user/:${id}/followings`)
-    return res.data
+    const {data} = await axios.get(`${baseURL}/user/:${id}/followings`, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+    return {sucess: true, data}
   } catch (error) {
-    console.error('[Get user followings failed]:', error)
+    return{
+      success: false,
+      message: `[Get user followings failed]: ${error}`
+    }
   }
 }
 
 // 取得指定使用者的追蹤者 //get
 export const getUserFollowers = async (id) => {
   try {
-    const res = await axios.get(`${baseURL}/user/:${id}/followers`)
-    return res.data
+    const {data} = await axios.get(`${baseURL}/user/:${id}/followers`, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+    return {sucess: true, data}
   } catch (error) {
-    console.error('[Get user followers failed]:', error)
+    return{
+      success: false,
+      message: `[Get user followers failed]: ${error}`
+    }
   }
 }
 

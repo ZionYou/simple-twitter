@@ -32,6 +32,7 @@
         }
         .close-group{
           .close{
+            cursor: pointer;
             @include svg-adjust(15px, 15px, var(--greyscale-dark-80));
             &:hover{
               @include svg-adjust(15px, 15px, var(--greyscale-dark-100));

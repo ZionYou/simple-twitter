@@ -6,62 +6,7 @@ import { useAuth } from 'contexts/AuthContext';
 import { ReplyTwiPopUp } from 'components';
 
 
-const TweetListData = [
-  {
-    id: 1,
-    name: "name",
-    account: "account",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
-  },
-  {
-    id: 2,
-    name: "name",
-    account: "account",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
-  },
-  {
-    id: 3,
-    name: "name",
-    account: "account",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
-  },
-  {
-    id: 4,
-    name: "name",
-    account: "account",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
-  },
-  {
-    id: 5,
-    name: "name",
-    account: "account",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
-  },
-  {
-    id: 6,
-    name: "name",
-    account: "account",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
-  },
-]
+
 
 const TweetListItem = ({tweet}) => {
   return(
@@ -124,37 +69,101 @@ const UserProfileTwi = ({datas}) => {
   )
 }
 
-const MainHome = ({onClick}) => {
-  const [userTweet, setUserTweets] = useState([])
-  const {isAuthenticated, currentMember} = useAuth();
+const MainHome = ({tweets}) => {
+  // const [userTweet, setUserTweets] = useState([])
+  const {currentMember} = useAuth();
+  // console.log(currentMember)
   // const userId = currentMember.id
   // console.log(userId)
 
-  useEffect(() => {
-    const getUserTwiAsync = async () => {
-      const {success, data, message} = await getUserTwi(14)
-      if(success){
-        setUserTweets(data.map((data) => ({...data})))
-        // console.log(data)
-      } else {
-        console.error(message)
-      }
-    }
-     getUserTwiAsync()
-  }, [currentMember])
+  // useEffect(() => {
+  //   const getUserTwiAsync = async () => {
+  //     const {success, data, message} = await getUserTwi()
+  //     if(success){
+  //       setUserTweets(data.map((data) => ({...data})))
+  //       // console.log(data)
+  //       console.log(userTweet)
+  //     } else {
+  //       console.error(message)
+  //     }
+  //   }
+  //    getUserTwiAsync()
+  // }, [currentMember])
 
 const UserProfileTwi = () => {
   return(
     <div className="tweet-list">
       {
-        userTweet.map((tweet) => {
-          return <TweetListItem tweet={tweet}/>
+        tweets.map((tweet) => {
+          return <TweetListItem datas={tweet}/>
         })
       }
     </div>
   )
 }
 }
+
+
+
+export { TweetListItem, MainHome, UserProfileTwi};
+
+// const TweetListData = [
+//   {
+//     id: 1,
+//     name: "name",
+//     account: "account",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
+//   },
+//   {
+//     id: 2,
+//     name: "name",
+//     account: "account",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
+//   },
+//   {
+//     id: 3,
+//     name: "name",
+//     account: "account",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
+//   },
+//   {
+//     id: 4,
+//     name: "name",
+//     account: "account",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
+//   },
+//   {
+//     id: 5,
+//     name: "name",
+//     account: "account",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
+//   },
+//   {
+//     id: 6,
+//     name: "name",
+//     account: "account",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
+//   },
+// ]
+
 
 // const MainHome = ({onClick, id, avatar}) => {
 //   return(
@@ -178,6 +187,3 @@ const UserProfileTwi = () => {
 //     </section>
 //   )
 // }
-
-
-export { TweetListItem, MainHome, UserProfileTwi};

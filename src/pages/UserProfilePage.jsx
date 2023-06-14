@@ -1,5 +1,6 @@
 import { EditProfile, MainList, PopularFollow, Personal, NewTwiPopUp  } from "components";
-import { useState } from 'react';
+import {getUser, getUserTwi, getUserTwiReply, getUserTwiLike} from 'api/userInfo'
+import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import { useAuth } from 'contexts/AuthContext';
 
@@ -7,7 +8,57 @@ import { useAuth } from 'contexts/AuthContext';
 const UserProfilePage = () => {
   const [isPopup, setIsPopup] = useState(false)
   const [isNewTwiPopup, setIsNewTwiPopup] = useState(false)
-  const { currentUser } = useAuth();
+  const [userInfo, setUserInfo] = useState([]);
+  const [userTweets, setUserTweets] = useState([])
+  const [replyTweets, setReplyTweets] = useState([])
+  const [likeTweets, setLikeTweets] = useState([])
+  const { currentMember } = useAuth();
+
+   useEffect(() => {
+    const getUserAsync = async () => {
+      const {success, data, message} = await getUser()
+
+      if(success){
+        setUserInfo(data)
+        // console.log(data)
+      } else {
+        console.error(message)
+      }
+      
+      // setUserInfo(users);
+    }
+    const getUserTwiAsync = async () => {
+      const {success, data, message} = await getUserTwi()
+      if(success){
+        setUserTweets(data.map((data) => ({...data})))
+        // console.log(data)
+      } else {
+        console.error(message)
+      }
+    }
+    const getUserTwiReplyAsync = async () => {
+      const {success, data, message} = await getUserTwiReply()
+      if(success){
+        setReplyTweets(data.map((data) => ({...data})))
+        // console.log(data)
+      } else {
+        console.error(message)
+      }
+    }
+    const getUserTwiLikeAsync = async () => {
+      const {success, data, message} = await getUserTwiLike()
+      if(success){
+        setLikeTweets(data.map((data) => ({...data})))
+        // console.log(data)
+      } else {
+        console.error(message)
+      } 
+    }
+    getUserAsync()
+    getUserTwiAsync()
+    getUserTwiReplyAsync()
+    getUserTwiLikeAsync()
+  }, [currentMember])
 
   return (
     <>
@@ -18,12 +69,15 @@ const UserProfilePage = () => {
           </Col>
           <Col xs={7}>
             <Personal
-              id={currentUser?.id} 
-              name={currentUser?.name}
-              introduction={currentUser?.introduction}
-              account={currentUser?.account}
-              cover={currentUser?.cover}
-              avatar={currentUser?.avatar}
+              id={currentMember?.id} 
+              name={currentMember?.name}
+              introduction={currentMember?.introduction}
+              account={currentMember?.account}
+              cover={currentMember?.cover}
+              avatar={currentMember?.avatar}
+              tweetDatas={userTweets} 
+              likeDatas={likeTweets} 
+              replyDatas={replyTweets}
               onClick={() => setIsPopup(true)}/>
           </Col>
           <Col xs={3}>

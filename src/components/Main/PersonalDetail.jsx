@@ -126,37 +126,35 @@ const PersonalFollowItem = ({follow}) => {
   )
 }
 
-const PersonalFollowerList = () => {
+const PersonalFollowerList = ({datas}) => {
+  const follower = datas.map((follow) => {
+    return <PersonalFollowItem follow={follow} key={follow.id}/>
+  })
   return(
     <div className="personal-follower-list">
-      {
-        PersonalFollowerData.map((follow) => {
-          return <PersonalFollowItem follow={follow} key={follow.id}/>
-        })
-      }
+      {follower}
     </div>
   )
 }
 
-const PersonalFollowingList = () => {
+const PersonalFollowingList = ({datas}) => {
+  const following = datas.map((follow) => {
+    return <PersonalFollowItem follow={follow} key={follow.id}/>
+  })
   return(
     <div className="personal-following-list">
-      {
-        PersonalFollowingData.map((follow) => {
-          return <PersonalFollowItem follow={follow} key={follow.id}/>
-        })
-      }
+      {following}
     </div>
   )
 }
 
-const PersonalFollowPageSwitch = ({value}) => {
-  if(value === 'follower') return <PersonalFollowerList/>
-  if(value === 'following') return <PersonalFollowingList/>
+const PersonalFollowPageSwitch = ({value, followerDatas, followingDatas}) => {
+  if(value === 'follower') return <PersonalFollowerList datas={followerDatas}/>
+  if(value === 'following') return <PersonalFollowingList datas={followingDatas}/>
 }
 
 // 追隨動態元件
-const PersonalDetail = () => {
+const PersonalDetail = ({followerDatas, followingDatas}) => {
   const [currentFollowValue, setCurrentFollowValue] = useState('follower')
 
   const handleFollowPageClick = (e) => {
@@ -174,7 +172,7 @@ const PersonalDetail = () => {
         </Link>
       </div>
       <PersonDetailSwitchBar onClick={handleFollowPageClick}/>
-      <PersonalFollowPageSwitch value={currentFollowValue}/>
+      <PersonalFollowPageSwitch value={currentFollowValue} followerDatas={followerDatas} followingDatas={followingDatas}/>
     </section>
   )
 }
