@@ -1,19 +1,10 @@
 import { CommentIcon, LikeIcon } from "assets/icons";
-<<<<<<< HEAD
-import {useEffect, useState} from 'react';
-import { useNavigate } from "react-router-dom";
-import {getUserTwi} from 'api/userInfo';
-import {useAuth} from 'contexts/AuthContext';
-
-import { ReplyTwiPopUp } from '../Main/Popup';
-=======
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { getUserTwi } from 'api/userInfo';
 import { useAuth } from 'contexts/AuthContext';
 import { ReplyTwiPopUp } from 'components';
 
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
 
 const TweetListData = [
   {
@@ -94,7 +85,6 @@ const TweetListItem = ({tweet}) => {
   )
 }
 
-<<<<<<< HEAD
 const UserProfileTwi = ({datas}) => {
   const [popupcontent, setpopupcontent] = useState([])
   const [ popupToggle, setPopupToggle ] = useState(false)
@@ -137,12 +127,12 @@ const UserProfileTwi = ({datas}) => {
 const MainHome = ({onClick}) => {
   const [userTweet, setUserTweets] = useState([])
   const {isAuthenticated, currentMember} = useAuth();
-  const userId = currentMember.id
-  console.log(userId)
+  // const userId = currentMember.id
+  // console.log(userId)
 
   useEffect(() => {
     const getUserTwiAsync = async () => {
-      const {success, data, message} = await getUserTwi(userId)
+      const {success, data, message} = await getUserTwi(14)
       if(success){
         setUserTweets(data.map((data) => ({...data})))
         // console.log(data)
@@ -153,44 +143,41 @@ const MainHome = ({onClick}) => {
      getUserTwiAsync()
   }, [currentMember])
 
-=======
-const UserProfileTwi = ({id}) => {
+const UserProfileTwi = () => {
   return(
     <div className="tweet-list">
       {
-        TweetListData.map((tweet) => {
-          return <TweetListItem tweet={tweet} id={id}/>
+        userTweet.map((tweet) => {
+          return <TweetListItem tweet={tweet}/>
         })
       }
     </div>
   )
 }
-
-
-const MainHome = ({onClick, id, avatar}) => {
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
-  return(
-    <section className="home middle-container-border" data-page="main-home">
-      <div className="title-section">
-        <h5 className="sub-title">首頁</h5>
-        <div className="input-group cursor-pointer" onClick={onClick}>
-          <input type="checkbox" className="title-input cursor-pointer" id="new-tweet"/>
-          <label htmlFor="new-tweet" className="title-label cursor-pointer">
-            <img src={avatar}alt="" />
-            <p className="label-word">有什麼新鮮事?</p>
-          </label>
-          <button className="orange-btn radius-50 cursor-pointer">推文</button>
-        </div>
-      </div>
-      <hr/>
-<<<<<<< HEAD
-      <UserProfileTwi datas={userTweet}/>
-=======
-      <UserProfileTwi id={id}/>
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
-    </section>
-  )
 }
+
+// const MainHome = ({onClick, id, avatar}) => {
+//   return(
+//     <section className="home middle-container-border" data-page="main-home">
+//       <div className="title-section">
+//         <h5 className="sub-title">首頁</h5>
+//         <div className="input-group cursor-pointer" onClick={onClick}>
+//           <input type="checkbox" className="title-input cursor-pointer" id="new-tweet"/>
+//           <label htmlFor="new-tweet" className="title-label cursor-pointer">
+//             <img src={avatar}alt="" />
+//             <p className="label-word">有什麼新鮮事?</p>
+//           </label>
+//           <button className="orange-btn radius-50 cursor-pointer">推文</button>
+//         </div>
+//       </div>
+//       <hr/>
+//       <UserProfileTwi datas={userTweet}/>
+// =======
+//       <UserProfileTwi id={id}/>
+// >>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
+//     </section>
+//   )
+// }
 
 
 export { TweetListItem, MainHome, UserProfileTwi};

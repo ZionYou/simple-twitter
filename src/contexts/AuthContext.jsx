@@ -8,11 +8,8 @@ const defaultAuthContext = {
   // 使用者是否登入的判斷依據，預設為 false，若取得後端的有效憑證，則切換為 true
   isAuthenticated: false,
   // 當前使用者相關資料，預設為 null，成功登入後就會有使用者資料
-<<<<<<< HEAD
   currentMember: null,
-=======
-  currentUser: null,
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
+  // currentUser: null,
   register: null,    // 註冊方法
   login: null,       // 登入方法
   adminLogin: null,  // 後台登入方法
@@ -33,21 +30,15 @@ const AuthProvider = ({ children }) => {
       if (!authToken) {
         setIsAuthenticated(false);
         setPayload(null);
-<<<<<<< HEAD
-        // console.log('failed')
-=======
         console.log('failed')
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
         return;
       }
       // 代替checkPermission
       if (authToken) {
         setIsAuthenticated(true);
         const tempPayload = jwt.decode(authToken);
-<<<<<<< HEAD
         // console.log(tempPayload)
-=======
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
+
         setPayload(tempPayload);
       } else {
         setIsAuthenticated(false);
@@ -61,33 +52,30 @@ const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         isAuthenticated,
-<<<<<<< HEAD
         currentMember: payload && {
           id: payload.id,
           name: payload.name,
         },
-        register: async (data) => {
-          const { message, token,  } = await register({
-=======
-        currentUser: payload && {
-          id: payload.id,
-          email: payload.email,
-          name: payload.name,
-          account: payload.account,
-          avatar: payload.avatar,
-          cover: payload.cover,
-          introduction: payload.introduction,
-          role: payload.role,
-          createdAt:  payload.createdAt,
-          updatedAt:  payload.updatedAt,
-          Tweets: payload.Tweets,
-          Followers: payload.Followers,
-          Followings: payload.Followings,
-          isFollowed: payload.isFollowed,
-        },
+        // register: async (data) => {
+        //   const { message, token,  } = await register({
+        // currentUser: payload && {
+        //   id: payload.id,
+        //   email: payload.email,
+        //   name: payload.name,
+        //   account: payload.account,
+        //   avatar: payload.avatar,
+        //   cover: payload.cover,
+        //   introduction: payload.introduction,
+        //   role: payload.role,
+        //   createdAt:  payload.createdAt,
+        //   updatedAt:  payload.updatedAt,
+        //   Tweets: payload.Tweets,
+        //   Followers: payload.Followers,
+        //   Followings: payload.Followings,
+        //   isFollowed: payload.isFollowed,
+        // },
         register: async (data) => {
           const { message, token  } = await register({
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
             account: data.account,
             name: data.name,
             email: data.email,
@@ -95,11 +83,8 @@ const AuthProvider = ({ children }) => {
             checkPassword: data.checkPassword,
           });
           const tempPayload = jwt.decode(token);
-<<<<<<< HEAD
           // 印出註冊者資料
-          console.log(tempPayload)
-=======
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
+          // console.log(tempPayload)
           if (tempPayload) {
             setPayload(tempPayload);
             setIsAuthenticated(true);
@@ -121,11 +106,7 @@ const AuthProvider = ({ children }) => {
             setIsAuthenticated(true);
             localStorage.setItem('authToken', token);
             // 印出登入者資料
-<<<<<<< HEAD
             // console.log(tempPayload)
-=======
-            console.log(tempPayload)
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
           } else {
             setPayload(null);
             setIsAuthenticated(false);

@@ -5,7 +5,6 @@ import { useState, useRef, useEffect } from 'react'
 import {FormInput, FormTextarea} from 'components'
 
 // 新推文元件
-<<<<<<< HEAD
 const NewTwiPopUp = ({onClick}) => {
   const [isError, setIsError] = useState(false)
   const [inputValue, setInputValue] = useState('')
@@ -23,9 +22,7 @@ const NewTwiPopUp = ({onClick}) => {
     }
   }
   
-=======
 const NewTwiPopUp = ({onClick, avatar}) => {
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
   return(
     <>
       <div className="popup">
@@ -37,7 +34,6 @@ const NewTwiPopUp = ({onClick, avatar}) => {
                   <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
                 </div>
                 <div className="type-area">
-<<<<<<< HEAD
                   <img src="https://picsum.photos/300/300?text=400" alt="" />
                   <textarea 
                     name="new-tweet-type" 
@@ -47,7 +43,6 @@ const NewTwiPopUp = ({onClick, avatar}) => {
                     value={inputValue}
                     onChange = {(e) => setInputValue(e.target.value)}
                     />
-=======
                   <img src={avatar} alt="" />
                   <textarea 
                     id="tweet-textarea" 
@@ -56,7 +51,6 @@ const NewTwiPopUp = ({onClick, avatar}) => {
                     maxLength={140} 
                     placeholder="有什麼新鮮事?"
                   />
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
                 </div>
                 <div className="btn-group">
                   {inputValue === "" && isError && <span className="error">內容不可空白</span>}
@@ -71,7 +65,7 @@ const NewTwiPopUp = ({onClick, avatar}) => {
     </>
   )
 }
-
+}
 const dummyUserInfoData = {
   name: 'John Doe',
   introduction: '123',
@@ -299,120 +293,7 @@ const ReplyTwiPopUp = ({onClick, data}) => {
   )
 }
 
-export { NewTwiPopUp, EditProfile, ReplyTwiPopUp};
-
-
-// const NewTwiPopUp = ({onClick}) => {
-//   return(
-//     <>
-//       <div className="popup">
-//         <div className="popup-bg">
-//           <div className="popup-container">
-//              <div className="close-group">
-//                 <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
-//               </div>
-//             <div className="type-area">
-//               <img src="https://picsum.photos/300/300?text=400" alt="" />
-//               <textarea name="new-tweet-type" className="newtwi-textarea" id="tweet-textarea" maxLength={140} placeholder="有什麼新鮮事?"/>
-//             </div>
-//             <div className="btn-group">
-//               <button className="orange-btn radius-50 cursor-pointer">推文</button>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
+export { NewTwiPopUp, EditProfile, ReplyTwiPopUp}
 
 
 
-  // return(
-  //     <div className="edit-popup">
-  //       <div className="edit-popup-bg">
-  //         <Container>
-  //           <Row>
-  //             <Col xs={{span: 7, offset: 2}} className="edit-popup-container">
-  //               <div className="close-group">
-  //                 <div>
-  //                   <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
-  //                   <p className="name">編輯個人資料</p>
-  //                 </div>
-  //                 <button type="submit" className="orange-btn radius-50 cursor-pointer">儲存</button>
-  //               </div>
-  //               <form className="img-group">
-  //                 <div className="bg-img-group">
-  //                   <img src="https://picsum.photos/300/300?text=1400" alt="user-bg" className="bg-img user-post-bg" />
-  //                   <div className="bg-input-group">
-  //                     <label htmlFor="bg-img-selection" className="bg-img-selection-label cursor-pointer"><CameraIcon/></label>
-  //                     <input type="file" accept="image/*" id="bg-img-selection" className="bg-img-selection-input edit-img-input"/>
-  //                     <button className="bg-delete-btn cursor-pointer"><CloseIcon/></button>
-  //                   </div>
-  //                 </div>
-  //                 <div className="user-img-group">
-  //                   <div>
-  //                     <img src="https://picsum.photos/300/300?text=2100" alt="user-img" className="user-img user-post-img" />
-  //                     <div className="img-input-group">
-  //                       <label htmlFor="user-img-selection" className="user-img-selection-label cursor-pointer">
-  //                         <div>
-  //                           <CameraIcon/>
-  //                         </div>
-  //                       </label>
-  //                       <input type="file" accept="image/*" id="user-img-selection" className="user-img-selection-input edit-img-input"/>
-  //                     </div>
-  //                   </div>
-  //                 </div>
-  //               </form>
-  //               <div className="type-area">
-  //                   {
-  //                     nameCount > 50 ?
-  //                     <FormInput
-  //                       label="名稱"
-  //                       value={name || ""}
-  //                       onChange={(e) => {
-  //                         setName(e)
-  //                         setNameCount(e.length || 0)
-  //                       }}
-  //                     >
-  //                       <p className="form-caption">名稱不能多於 50 個字</p>
-  //                       <p className="form-caption count"><span>{name.length}</span>/50</p>
-  //                     <FormInput/> : 
-  //                     <FormInput
-  //                       label="名稱"
-  //                       value={name || ""}
-  //                       onChange={(e) => {
-  //                         setName(e)
-  //                         setNameCount(e.length || 0)
-  //                       }}
-  //                     >
-  //                       <p className="form-caption count"><span>{name.length}</span>/160</p>
-  //                     <FormInput/>
-  //                   }
-  //                   {
-  //                     introCount > 160 ?
-  //                     <FormTextarea
-  //                       label="自我介紹"
-  //                       value={intro || ""}
-  //                       onChange={(e) => {
-  //                         setIntro(e)
-  //                         setIntroCount(e.length || 0)
-  //                       }}>
-  //                         <p className="form-caption">名稱不能多於 160 個字</p>
-  //                         <p className="form-caption count"><span>{intro.length}</span>/160</p>
-  //                       </FormTextarea> :
-  //                       <FormTextarea
-  //                       label="自我介紹"
-  //                       value={intro || ""}
-  //                       onChange={(e) => {
-  //                         setIntro(e)
-  //                         setIntroCount(e.length || 0)
-  //                       }}>
-  //                         <p className="form-caption count"><span>{intro.length}</span>/160</p> 
-  //                   }
-  //               </div>
-  //             </Col>
-  //           </Row>
-  //         </Container>
-  //       </div>
-  //     </div>
-  // )

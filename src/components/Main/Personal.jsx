@@ -300,8 +300,6 @@ const Personal = ({onClick, name, account, introduction, cover, avatar}) => {
 
   return(
     <section className="person middle-container-border">
-<<<<<<< HEAD
-=======
       <div className="back-bar">
         <Link to="/main" className="back-link">
           <span className="back-icon"><BackArrowIcon/></span>
@@ -314,9 +312,6 @@ const Personal = ({onClick, name, account, introduction, cover, avatar}) => {
       <div className="personal-area">
         <img src={cover} alt="" className="personal-bg-img"/>
         <img src={avatar} alt="" className="personal-img" />
-        {/* <div className="btn-group" data-user="user">
-          <button className="orange-border-btn radius-50 cursor-pointer" onClick={onClick}>編輯個人資料</button>
-        </div> */}
         <div className="btn-group" data-user="other">
           <button className="orange-border-btn radius-50 cursor-pointer" onClick={onClick}>編輯個人資料</button>
         </div>
@@ -333,14 +328,6 @@ const Personal = ({onClick, name, account, introduction, cover, avatar}) => {
         </div>
       </div>
       <PersonSwitchBar onClick={handlePageClick}/>
-      {/* <TweetListItemGroup/> */}
-      {/* <TweetReplyItemGroup/> */}
-      <PersonalPageSwitch value={currentValue}/>
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
-      {/* {
-        userInfo.map((user) => {
-          return(
-            <> */}
               <div className="back-bar">
                 <Link to="/main" className="back-link">
                   <span className="back-icon"><BackArrowIcon/></span>
@@ -368,10 +355,6 @@ const Personal = ({onClick, name, account, introduction, cover, avatar}) => {
                   </div>
                 </div>
               </div>
-            {/* </>
-          )
-        })
-      } */}
       
       <PersonSwitchBar onClick={handlePageClick}/>
       <PersonalPageSwitch value={currentValue} tweetDatas={userTweet}/>

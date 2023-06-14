@@ -1,7 +1,9 @@
 import { ACLogoIcon, HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon } from "assets/icons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/AuthContext';
+import { getTopTenFollowList } from "api/userInfo";
+// import {logout} from 'api/admin'
 
 const MainListData = [
   {
@@ -113,19 +115,16 @@ const MainList = ({onClick}) => {
   const location = useLocation()
   const {pathname} = location
   const splitLocation = pathname.split("/");
-<<<<<<< HEAD
   const navigate = useNavigate()
   const { isAuthenticated, logout } = useAuth();
-=======
   // const navigate = useNavigate()
-  const { logout } = useAuth();
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
+  // const { logout } = useAuth();
 
   const handleClick = () => {
     logout();
     // localStorage.removeItem('authToken');
     // localStorage.removeItem('success');
-    // navigate('/')
+    // navigate('login')
   }
   useEffect(() => {
     if(!isAuthenticated){
@@ -158,24 +157,45 @@ const MainList = ({onClick}) => {
 
 // 推薦跟隨元件
 const PopularFollow = () => {
+  const [topFollow, setTopFollow] = useState([])
+  useEffect(() => {
+    const getTopTenFollowListAsync = async () => {
+      try{
+        const {success, data, message} = await getTopTenFollowList();
+        if(success){
+          // setTopFollow({...data})
+          setTopFollow(data.map((data) => ({...data})))
+          // console.log(data)
+        } else {
+          console.log(message)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    getTopTenFollowListAsync()
+  }, [])
+
+  // const top10 = topFollow.filter((item) => item.id <= 104)
+
+  const topFollowList = topFollow.map((item) => {
+    return(
+      <div className="popular-follow-item" key={item.id}>
+        <img src={item.avatar === null ? "https://www.seekpng.com/png/detail/966-9665317_placeholder-image-person-jpg.png" : item.avatar} alt={item.name} className="popular-follow-img" />
+        <div className="popular-follow-name-group">
+          <a herf="" className="popular-follow-name">{item.name}</a>
+          <p className="popular-follow-account">@<span>{item.account}</span></p>
+        </div>
+        <button className={`radius-50 cursor-pointer ${item.isFollowed ? "orange-btn" : "orange-border-btn"}`}>{item.isFollowed ? "正在跟隨" : "跟隨"}</button>
+      </div>
+    )
+  })
+
   return(
     <div className="popular-follow">
       <h5 className="sub-title">推薦跟隨</h5>
       <div className="popular-follow-group">
-        {
-          PopularFollowData.map((item) => {
-            return(
-              <div className="popular-follow-item" key={item.id}>
-                <img src={`https://picsum.photos/300/300?text=${item.id}`} alt={item.name} className="popular-follow-img" />
-                <div className="popular-follow-name-group">
-                  <a herf="" className="popular-follow-name">{item.name}</a>
-                  <p className="popular-follow-account">@<span>{item.name.toLowerCase().replaceAll(' ', '')}</span></p>
-                </div>
-                <button className={`radius-50 cursor-pointer ${item.isFollow ? "orange-btn" : "orange-border-btn"}`}>{item.isFollow ? "正在跟隨" : "跟隨"}</button>
-              </div>
-            )
-          })
-        }
+        {topFollowList}
       </div>
     </div>
   )
@@ -187,12 +207,9 @@ const AdminList = () => {
   const {pathname} = location
   const splitLocation = pathname.split("/");
   // const navigate = useNavigate()
-<<<<<<< HEAD
   const navigate = useNavigate()
   const { isAuthenticated, logout } = useAuth();
-=======
-  const { logout } = useAuth();
->>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
+  // const { logout } = useAuth();
 
   const handleClick = () => {
     logout();

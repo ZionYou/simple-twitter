@@ -24,9 +24,9 @@ const RegistPage = () => {
 
   const navigate = useNavigate();
   
-  const { register } = useAuth();
+  // const { register } = useAuth();
 
-   const { register, isAuthenticated } = useAuth();
+  const { register, isAuthenticated } = useAuth();
 
   const handleClick = async() => {
     if(account.length === 0 ){

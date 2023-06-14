@@ -1,5 +1,6 @@
 .admin-twi-list {
   .admin-twi-item {
+    width: 100%;
     display: flex;
     align-items: top;
     padding: 16px 24px 16px 29px;
@@ -12,6 +13,7 @@
     }
 
     .admin-twi-info {
+      width: 100%;
       padding-left: 8px;
 
       .title-group{

@@ -33,7 +33,7 @@ export const adminLogin = async ({account, password}) => {
   }
 }
 
-// 取得指定使用者資料 //get
+// 後台取得指定使用者資料 //get
 export const getAllUserData = async() => {
   try{
     const {data} = await axios.get(`${adminURL}/admin/users`, {
@@ -50,6 +50,23 @@ export const getAllUserData = async() => {
     }
   }
 };
+
+// 後台取得所有貼文資料
+export const getAllTweetsData = async() => {
+  try{
+    const {data} = await axios.get(`${adminURL}/admin/tweets`, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+    return {success: true, data}
+  } catch(error) {
+    return{
+      success: false,
+      message: `[Get user info failed]:${error}`
+    }
+  }
+}
 
 // 刪除指定貼文 //delete
 export const deleteTwi = async (id) => {
