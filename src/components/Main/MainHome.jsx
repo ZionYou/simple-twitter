@@ -69,38 +69,38 @@ const UserProfileTwi = ({datas}) => {
   )
 }
 
-const MainHome = ({tweets}) => {
-  // const [userTweet, setUserTweets] = useState([])
-  const {currentMember} = useAuth();
-  // console.log(currentMember)
-  // const userId = currentMember.id
-  // console.log(userId)
+const MainHome = ({onClick}) => {
+  const [userTweets, setUserTweets] = useState([])
+  const { currentMember } = useAuth();
 
-  // useEffect(() => {
-  //   const getUserTwiAsync = async () => {
-  //     const {success, data, message} = await getUserTwi()
-  //     if(success){
-  //       setUserTweets(data.map((data) => ({...data})))
-  //       // console.log(data)
-  //       console.log(userTweet)
-  //     } else {
-  //       console.error(message)
-  //     }
-  //   }
-  //    getUserTwiAsync()
-  // }, [currentMember])
-
-const UserProfileTwi = () => {
-  return(
-    <div className="tweet-list">
-      {
-        tweets.map((tweet) => {
-          return <TweetListItem datas={tweet}/>
-        })
+  const userId = currentMember?.id
+  useEffect(() => {
+    const getUserTwiAsync = async () => {
+      const {success, data} = await getUserTwi(userId)
+      if(success){
+        setUserTweets(data.map((data) => ({...data})))
       }
-    </div>
+    }
+     getUserTwiAsync()
+  }, [currentMember])
+
+  return(
+    <section className="home middle-container-border" data-page="main-home">
+      <div className="title-section">
+        <h5 className="sub-title">首頁</h5>
+        <div className="input-group cursor-pointer" onClick={onClick}>
+          <input type="checkbox" className="title-input cursor-pointer" id="new-tweet"/>
+          <label htmlFor="new-tweet" className="title-label cursor-pointer">
+            <img src="https://picsum.photos/300/300?text=100" alt="" />
+            <p className="label-word">有什麼新鮮事?</p>
+          </label>
+          <button className="orange-btn radius-50 cursor-pointer">推文</button>
+        </div>
+      </div>
+      <hr/>
+      <UserProfileTwi datas={userTweets}/>
+    </section>
   )
-}
 }
 
 

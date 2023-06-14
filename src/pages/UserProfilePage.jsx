@@ -14,52 +14,40 @@ const UserProfilePage = () => {
   const [likeTweets, setLikeTweets] = useState([])
   const { currentMember } = useAuth();
 
+  const userId = currentMember?.id
+
    useEffect(() => {
     const getUserAsync = async () => {
-      const {success, data, message} = await getUser()
-
-      if(success){
-        setUserInfo(data)
-        // console.log(data)
-      } else {
-        console.error(message)
-      }
-      
-      // setUserInfo(users);
+      const data = await getUser(userId)
+      setUserInfo(data)
+      // console.log(data)
     }
     const getUserTwiAsync = async () => {
-      const {success, data, message} = await getUserTwi()
-      if(success){
-        setUserTweets(data.map((data) => ({...data})))
-        // console.log(data)
-      } else {
-        console.error(message)
-      }
+      const {data} = await getUserTwi(userId)
+      setUserTweets(data.map((data) => ({...data})))
+      // console.log(data)
     }
     const getUserTwiReplyAsync = async () => {
-      const {success, data, message} = await getUserTwiReply()
-      if(success){
-        setReplyTweets(data.map((data) => ({...data})))
-        // console.log(data)
-      } else {
-        console.error(message)
-      }
+      const {data} = await getUserTwiReply(userId)
+      setReplyTweets(data.map((data) => ({...data})))
+      console.log(data)
     }
-    const getUserTwiLikeAsync = async () => {
-      const {success, data, message} = await getUserTwiLike()
-      if(success){
-        setLikeTweets(data.map((data) => ({...data})))
-        // console.log(data)
-      } else {
-        console.error(message)
-      } 
-    }
+    // const getUserTwiLikeAsync = async () => {
+    //   const {success, data, message} = await getUserTwiLike(userId)
+    //   if(success){
+    //     setLikeTweets(data.map((data) => ({...data})))
+    //     // console.log(data)
+    //   } else {
+    //     console.error(message)
+    //   } 
+    // }
     getUserAsync()
     getUserTwiAsync()
     getUserTwiReplyAsync()
-    getUserTwiLikeAsync()
+    // getUserTwiLikeAsync()
   }, [currentMember])
 
+  // console.log(userTweets)
   return (
     <>
       <Container>
@@ -69,12 +57,14 @@ const UserProfilePage = () => {
           </Col>
           <Col xs={7}>
             <Personal
-              id={currentMember?.id} 
-              name={currentMember?.name}
-              introduction={currentMember?.introduction}
-              account={currentMember?.account}
-              cover={currentMember?.cover}
-              avatar={currentMember?.avatar}
+              id={userInfo?.id} 
+              name={userInfo.data?.name}
+              introduction={userInfo.data?.introduction}
+              account={userInfo.data?.account}
+              cover={userInfo.data?.cover}
+              avatar={userInfo.data?.avatar}
+              followerNum={userInfo.data?.Followers.length}
+              followingNum={userInfo.data?.Followings.length}
               tweetDatas={userTweets} 
               likeDatas={likeTweets} 
               replyDatas={replyTweets}

@@ -2,9 +2,14 @@ import axios from 'axios'
 
 const baseURL = 'https://twitter-azx79115.herokuapp.com/api'
 
-// const axiosInstance = axios.create({
-//   baseURL: `${baseURL}`
-// })
+const token = localStorage.getItem('authToken')
+
+const axiosInstance = axios.create({
+  baseURL: `${baseURL}`,
+  headers: {
+    'Authorization': 'Bearer ' + token
+  }
+})
 
 // axiosInstance.interceptors.request.use(
 //   function (config) {
@@ -29,39 +34,19 @@ const baseURL = 'https://twitter-azx79115.herokuapp.com/api'
 //     const {data} = await axiosInstance.get(`${baseURL}/user/${id}`)
 //     return{success: true, data}
 // =======
-const token = localStorage.getItem('authToken')
 
-// export const getUser = async (id) => {
-//   try {
-//     const { data } = await axios.get(`${baseURL}/users/${id}`, {
-//       headers: {
-//         'Authorization': 'Bearer ' + token
-//       }
-//     });
-//     // if (data.success === false) return { ...data };
-//     return { success: true, data }
-//     // return data
-//   } catch (error) {
-//     // console.error('[Get user info failed]:', error)
-// axiosInstance.interceptors.request.use(
-//   function (config) {
-//     const token = localStorage.getItem('authToken')
-//     if (token) {
-//       config.headers["Authorization"] = 'Bearer ' + token
-//     }
-//     return config;
-//   },
-//   function (error) {
-//     console.error(error)
-//   }
-// )
+
 
 // ************************ User **************************
 // 取得指定使用者資料 //get
 export const getUser = async (id) => {
   try {
-    const { data } = await axios.get(`${baseURL}/user/:${id}`);
-    if (data.success === false) return { ...data };
+    const { data } = await axiosInstance.get(`${baseURL}/users/${id}`,{
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    });
+    // if (data.success === false) return { ...data };
     return { success: true, data }
   } catch (error) {
     // console.error('[Get user info failed]:', error)
@@ -89,7 +74,7 @@ export const patchTodo = async (payload) => {
 // 取得指定使用者發出的所有推文 //get
 export const getUserTwi = async (id) => {
   try {
-    const {data} = await axios.get(`${baseURL}/users/${id}/tweets`, {
+    const {data} = await axiosInstance.get(`${baseURL}/users/${id}/tweets`, {
       headers: {
         'Authorization': 'Bearer ' + token
       }
@@ -107,7 +92,7 @@ export const getUserTwi = async (id) => {
 // 取得指定使用者有回復的所有推文 //get
 export const getUserTwiReply = async (id) => {
   try {
-    const {data} = await axios.get(`${baseURL}/users/${id}/replied_tweets`, {
+    const {data} = await axiosInstance.get(`${baseURL}/users/${id}/replied_tweets`, {
       headers: {
         'Authorization': 'Bearer ' + token
       }
@@ -125,7 +110,7 @@ export const getUserTwiReply = async (id) => {
 // 取得指定使用者喜歡的所有推文 //get
 export const getUserTwiLike = async (id) => {
   try {
-    const {data} = await axios.get(`${baseURL}/user/:${id}/likes`, {
+    const {data} = await axios.get(`${baseURL}/user/${id}/likes`, {
       headers: {
         'Authorization': 'Bearer ' + token
       }

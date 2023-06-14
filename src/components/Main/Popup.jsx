@@ -1,8 +1,9 @@
 import { CameraIcon, CloseIcon } from "assets/icons";
 import { Container, Row, Col } from "react-bootstrap";
 import { useState, useRef, useEffect } from 'react'
-
+import {useAuth} from 'contexts/AuthContext'
 import {FormInput, FormTextarea} from 'components'
+import {getUser} from 'api/userInfo'
 
 // 新推文元件
 const NewTwiPopUp = ({onClick}) => {
@@ -75,23 +76,26 @@ const dummyUserInfoData = {
 
 // 編輯個人資料元件
 const EditProfile = ({onClick}) => {
-  let userName = dummyUserInfoData.name
-  let userIntro = dummyUserInfoData.introduction
-  let userAvatar = dummyUserInfoData.avatar
-  let userCoverImg = dummyUserInfoData.coverImg
+  // let userName = dummyUserInfoData.name
+  // let userIntro = dummyUserInfoData.introduction
+  // let userAvatar = dummyUserInfoData.avatar
+  // let userCoverImg = dummyUserInfoData.coverImg
 
   // 抓取當前使用者資料
   // const {currentUser} = useAuth()
   const coverRef = useRef()
+  const { currentMember } = useAuth();
+  const [userInfo, setUserInfo] = useState([]);
+  const [name, setName] = useState('')
+  const [nameCount, setNameCount] = useState(0)
+  const [intro, setIntro] = useState('')
+  const [introCount, setIntroCount] = useState(0)
+  const [avatar, setAvatar] = useState('')
+  const [avatarUrl, setAvatarUrl] = useState('')
+  const [coverImg, setCoverImg] = useState('')
+  const [coverImgUrl, setCoverImgUrl] = useState('')
 
-  const [name, setName] = useState(userName)
-  const [nameCount, setNameCount] = useState(userName.length)
-  const [intro, setIntro] = useState(userIntro)
-  const [introCount, setIntroCount] = useState(userIntro.length)
-  const [avatar, setAvatar] = useState(userAvatar)
-  const [avatarUrl, setAvatarUrl] = useState(avatar)
-  const [coverImg, setCoverImg] = useState(userCoverImg)
-  const [coverImgUrl, setCoverImgUrl] = useState(coverImg)
+  const userId = currentMember?.id
 
   const handleImgChange = (e, type) => {
     const selectedFile = e.target.files[0]
@@ -110,6 +114,21 @@ const EditProfile = ({onClick}) => {
     if(intro === '' || introCount > 160) return
   }
   
+  useEffect(() => {
+    const getUserAsync = async () => {
+      const data = await getUser(userId)
+      setUserInfo(data)
+      setName(data.data.name)
+      setNameCount(data.data.name.length)
+      setIntro(data.data.introduction)
+      setIntroCount(data.data.introduction.length)
+      setAvatarUrl(data.data.avatar)
+      setCoverImgUrl(data.data.cover)
+    }
+    
+    getUserAsync()
+    // getUserTwiLikeAsync()
+  }, [currentMember])
   
   return(
     <>
@@ -190,7 +209,6 @@ const EditProfile = ({onClick}) => {
                     label="自我介紹"
                     className = {introCount > 160 ? "action" : ""}
                     value={intro}
-                    // maxLength={160}
                     onChange = {(e) => {
                       setIntro(e)
                       setIntroCount(e.length || 0)

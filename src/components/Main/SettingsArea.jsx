@@ -1,6 +1,7 @@
 import { FormInput } from 'components'
-import { useState } from 'react'
-
+import { useState, useEffect } from 'react'
+import { useAuth } from 'contexts/AuthContext';
+import {getUser} from 'api/userInfo'
 
 // const SettingsItem = ({setting, className}) => {
 
@@ -27,13 +28,14 @@ const SettingsArea = () => {
   const [password, setPassword] = useState('');
   const [checkPassword, setCheckPassword] = useState('');
 
-  const [accountError, setAccountError] = useState(false)
+  const [accountError, setAccountError] = useState('')
   const [nameError, setNameError] = useState(false)
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [checkPasswordError, seCheckPasswordError] = useState(false)
 
-  // const {currentUser} = useAuth()
+  const {currentMember} = useAuth()
+  const userId = currentMember?.id
 
   // const email_pattern = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')
 
@@ -42,7 +44,7 @@ const SettingsArea = () => {
 
     // 欄位驗證
     if (account.length === 0) {
-      setAccountError(true)
+      setAccountError('帳號不可為空白')
       return
     }
     if(name.length === 0 || name.length > 50) {
@@ -54,6 +56,26 @@ const SettingsArea = () => {
       return
     }
   };
+
+  useEffect(() => {
+    const getUserAsync = async () => {
+      const data = await getUser(userId)
+      setAccount(data.data.account)
+      setName(data.data.name)
+      setEmail(data.data.email)
+      // console.log(data)
+    }
+    // const getUserTwiLikeAsync = async () => {
+    //   const {success, data, message} = await getUserTwiLike(userId)
+    //   if(success){
+    //     setLikeTweets(data.map((data) => ({...data})))
+    //     // console.log(data)
+    //   } else {
+    //     console.error(message)
+    //   } 
+    // }
+    getUserAsync()
+  }, [currentMember])
   
   return(
     <form 
@@ -65,7 +87,13 @@ const SettingsArea = () => {
           label="帳號"
           value={account}
           placeholder="請輸入帳號"
+          className = {account.length === 0 && accountError ? "action" : ""}
           onChange={(accountInputValue) => setAccount(accountInputValue)}
+          children={account.length === 0 && accountError && (
+            <div className="form-notification action">
+              <p className="form-caption">帳號不能為空白</p>
+            </div>
+          )}
         />
         <FormInput
           label="名稱"

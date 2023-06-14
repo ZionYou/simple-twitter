@@ -26,27 +26,10 @@ import { useAuth } from '../contexts/AuthContext';
 // 首頁
 const MainHomePage = () => {
   // 彈跳視窗狀態
-  const [userTweets, setUserTweets] = useState([])
   const [isPopup, setIsPopup] = useState(false)
   const navigate = useNavigate();
   const { isAuthenticated, currentMember } = useAuth();
 
-  console.log(currentMember)
-  
-
-
-   useEffect(() => {
-    const getUserTwiAsync = async () => {
-      const {success, data, message} = await getUserTwi()
-      if(success){
-        setUserTweets(data.map((data) => ({...data})))
-        // console.log(data)
-      } else {
-        console.error(message)
-      }
-    }
-     getUserTwiAsync()
-  }, [currentMember])
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -66,7 +49,6 @@ const MainHomePage = () => {
             <MainHome
               // id={currentUser?.id} 
               // avatar={currentUser?.avatar}
-              tweets={userTweets}
               onClick={() => setIsPopup(true)}
             />
           </Col>

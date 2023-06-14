@@ -30,8 +30,9 @@ export const FormTextarea = ({
           className={`form-textarea ${className}`}
           id="form-textarea" maxLength={maxLength} 
           placeholder={placeholder}
+          value={value}
           onChange = {(event) => onChange ?.(event.target.value)}
-          >{value}</textarea>
+          ></textarea>
           {children || ""}
       </div>
     </div>

@@ -206,11 +206,11 @@ const UserProfileTwiReply = ({datas}) => {
         <div className="name-group">
           <span className="name">John Doe</span>
           <span className="account">@heyjohn</span>
-          <span className="time"> &#183; {tweet.edit_time}</span>
+          <span className="time"> &#183; {tweet.updatedAt}</span>
         </div>
         <p className="reply-to">回覆 <span>@{tweet.other_user}</span></p>
         <p className="content">
-          {tweet.content}
+          {tweet.comment}
         </p>
       </div>
     </div>
@@ -282,7 +282,7 @@ const PersonalPageSwitch = ({value, tweetDatas, replyDatas, likeDatas}) => {
 
 
 
-const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDatas, replyDatas, likeDatas}) => {
+const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDatas, replyDatas, likeDatas, followerNum, followingNum}) => {
   const [currentValue, setCurrentValue] = useState('tweet')
   // const [editIsOpen, setEditIsOpen] = useState(false)
   
@@ -324,8 +324,8 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
           </div>
           <p className="personal-intro">{introduction}</p>
           <div className="personal-follow-group">
-            <Link to="/personalDetail" className="follower"><span>34 個</span>跟隨中</Link>
-            <Link to="/personalDetail" className="following"><span>59 個</span>跟隨者</Link>
+            <Link to="/personalDetail" className="follower"><span>{followerNum} 個</span>跟隨中</Link>
+            <Link to="/personalDetail" className="following"><span>{followingNum} 個</span>跟隨者</Link>
           </div>
         </div>
       </div>
