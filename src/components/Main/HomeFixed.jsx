@@ -113,8 +113,13 @@ const MainList = ({onClick}) => {
   const location = useLocation()
   const {pathname} = location
   const splitLocation = pathname.split("/");
+<<<<<<< HEAD
   const navigate = useNavigate()
   const { isAuthenticated, logout } = useAuth();
+=======
+  // const navigate = useNavigate()
+  const { logout } = useAuth();
+>>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
 
   const handleClick = () => {
     logout();
@@ -182,8 +187,12 @@ const AdminList = () => {
   const {pathname} = location
   const splitLocation = pathname.split("/");
   // const navigate = useNavigate()
+<<<<<<< HEAD
   const navigate = useNavigate()
   const { isAuthenticated, logout } = useAuth();
+=======
+  const { logout } = useAuth();
+>>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
 
   const handleClick = () => {
     logout();

@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react'
 import {FormInput, FormTextarea} from 'components'
 
 // 新推文元件
+<<<<<<< HEAD
 const NewTwiPopUp = ({onClick}) => {
   const [isError, setIsError] = useState(false)
   const [inputValue, setInputValue] = useState('')
@@ -22,6 +23,9 @@ const NewTwiPopUp = ({onClick}) => {
     }
   }
   
+=======
+const NewTwiPopUp = ({onClick, avatar}) => {
+>>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
   return(
     <>
       <div className="popup">
@@ -33,6 +37,7 @@ const NewTwiPopUp = ({onClick}) => {
                   <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
                 </div>
                 <div className="type-area">
+<<<<<<< HEAD
                   <img src="https://picsum.photos/300/300?text=400" alt="" />
                   <textarea 
                     name="new-tweet-type" 
@@ -42,6 +47,16 @@ const NewTwiPopUp = ({onClick}) => {
                     value={inputValue}
                     onChange = {(e) => setInputValue(e.target.value)}
                     />
+=======
+                  <img src={avatar} alt="" />
+                  <textarea 
+                    id="tweet-textarea" 
+                    className="newtwi-textarea" 
+                    name="new-tweet-type" 
+                    maxLength={140} 
+                    placeholder="有什麼新鮮事?"
+                  />
+>>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
                 </div>
                 <div className="btn-group">
                   {inputValue === "" && isError && <span className="error">內容不可空白</span>}

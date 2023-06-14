@@ -251,7 +251,7 @@ const PersonalPageSwitch = ({value, tweetDatas}) => {
 
 
 
-const Personal = ({onClick}) => {
+const Personal = ({onClick, name, account, introduction, cover, avatar}) => {
   const [currentValue, setCurrentValue] = useState('tweet')
   // const [editIsOpen, setEditIsOpen] = useState(false)
   const [userInfo, setUserInfo] = useState([]);
@@ -300,6 +300,43 @@ const Personal = ({onClick}) => {
 
   return(
     <section className="person middle-container-border">
+<<<<<<< HEAD
+=======
+      <div className="back-bar">
+        <Link to="/main" className="back-link">
+          <span className="back-icon"><BackArrowIcon/></span>
+          <div className="title-group">
+            <p className="name">{name}</p>
+            <p className="tweet-num"><span>25</span> 推文</p>
+          </div>
+        </Link>
+      </div>
+      <div className="personal-area">
+        <img src={cover} alt="" className="personal-bg-img"/>
+        <img src={avatar} alt="" className="personal-img" />
+        {/* <div className="btn-group" data-user="user">
+          <button className="orange-border-btn radius-50 cursor-pointer" onClick={onClick}>編輯個人資料</button>
+        </div> */}
+        <div className="btn-group" data-user="other">
+          <button className="orange-border-btn radius-50 cursor-pointer" onClick={onClick}>編輯個人資料</button>
+        </div>
+        <div className="personal-info">
+          <div className="personal-info-name-group">
+            <h5 className="name">{name}</h5>
+            <p className="account">@{account}</p>
+          </div>
+          <p className="personal-intro">{introduction}</p>
+          <div className="personal-follow-group">
+            <Link to="/personalDetail" className="follower"><span>34 個</span>跟隨中</Link>
+            <Link to="/personalDetail" className="following"><span>59 個</span>跟隨者</Link>
+          </div>
+        </div>
+      </div>
+      <PersonSwitchBar onClick={handlePageClick}/>
+      {/* <TweetListItemGroup/> */}
+      {/* <TweetReplyItemGroup/> */}
+      <PersonalPageSwitch value={currentValue}/>
+>>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
       {/* {
         userInfo.map((user) => {
           return(

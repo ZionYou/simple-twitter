@@ -23,6 +23,8 @@ const RegistPage = () => {
   const [checkPasswordError, setCheckPasswordError] = useState(false)
 
   const navigate = useNavigate();
+  
+  const { register } = useAuth();
 
    const { register, isAuthenticated } = useAuth();
 
@@ -82,7 +84,6 @@ const RegistPage = () => {
   //     navigate('login');
   //   }
   // }, [navigate, isAuthenticated]);
-
 
   return(
   <section className="regist-login">

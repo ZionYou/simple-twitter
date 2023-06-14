@@ -6,6 +6,7 @@ const baseURL = 'https://twitter-azx79115.herokuapp.com/api'
 //   baseURL: `${baseURL}`
 // })
 
+<<<<<<< HEAD
 // axiosInstance.interceptors.request.use(
 //   function (config) {
 //     const token = localStorage.getItem('authToken')
@@ -43,6 +44,30 @@ export const getUser = async (id) => {
     // return data
   } catch (error) {
     // console.error('[Get user info failed]:', error)
+=======
+axiosInstance.interceptors.request.use(
+  function (config) {
+    const token = localStorage.getItem('authToken')
+    if (token) {
+      config.headers["Authorization"] = 'Bearer ' + token
+    }
+    return config;
+  },
+  function (error) {
+    console.error(error)
+  }
+)
+
+// ************************ User **************************
+// 取得指定使用者資料 //get
+export const getUser = async (id) => {
+  try {
+    const { data } = await axiosInstance.get(`${baseURL}/user/:${id}`);
+    if (data.success === false) return { ...data };
+    return { success: true, data }
+  } catch (error) {
+    console.error('[Get user info failed]:', error)
+>>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
     return {
       success: false,
       message: `[Get User failed]: ${error}`,
@@ -67,6 +92,7 @@ export const patchTodo = async (payload) => {
 // 取得指定使用者發出的所有推文 //get
 export const getUserTwi = async (id) => {
   try {
+<<<<<<< HEAD
     const { data } = await axios.get(`${baseURL}/users/${id}/tweets`, {
       headers: {
         'Authorization': 'Bearer ' + token
@@ -74,6 +100,10 @@ export const getUserTwi = async (id) => {
     })
     // if(data.success === false) return {...data}
     return {success: true, data}
+=======
+    const res = await axios.get(`${baseURL}/user/:${id}/tweets`)
+    return res.data
+>>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
   } catch (error) {
     return{
       success: false,
