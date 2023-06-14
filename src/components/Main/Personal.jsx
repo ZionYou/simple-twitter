@@ -256,7 +256,7 @@ const Personal = ({onClick}) => {
   // const [editIsOpen, setEditIsOpen] = useState(false)
   const [userInfo, setUserInfo] = useState([]);
   const [userTweet, setUserTweets] = useState([])
-  const {isAuthenticated, currentMember} = useAuth();
+  const {currentMember} = useAuth();
   
   const userId = currentMember.id
   // console.log(currentMember)
