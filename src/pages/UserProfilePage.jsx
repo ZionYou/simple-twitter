@@ -1,11 +1,13 @@
 import { EditProfile, MainList, PopularFollow, Personal, NewTwiPopUp  } from "components";
 import { useState } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
+import { useAuth } from 'contexts/AuthContext';
 
 // 個人資料頁面
 const UserProfilePage = () => {
   const [isPopup, setIsPopup] = useState(false)
   const [isNewTwiPopup, setIsNewTwiPopup] = useState(false)
+  const { currentUser } = useAuth();
 
   return (
     <>
@@ -15,7 +17,14 @@ const UserProfilePage = () => {
             <MainList onClick={() => setIsNewTwiPopup(true)}/>
           </Col>
           <Col xs={7}>
-            <Personal onClick={() => setIsPopup(true)}/>
+            <Personal
+              id={currentUser?.id} 
+              name={currentUser?.name}
+              introduction={currentUser?.introduction}
+              account={currentUser?.account}
+              cover={currentUser?.cover}
+              avatar={currentUser?.avatar}
+              onClick={() => setIsPopup(true)}/>
           </Col>
           <Col xs={3}>
             <PopularFollow/>
