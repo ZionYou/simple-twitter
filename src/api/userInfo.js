@@ -46,7 +46,6 @@ export const getUser = async (id) => {
         'Authorization': 'Bearer ' + token
       }
     });
-    // if (data.success === false) return { ...data };
     return { success: true, data }
   } catch (error) {
     // console.error('[Get user info failed]:', error)
@@ -110,8 +109,12 @@ export const getUserTwiLike = async (id) => {
 // 取得指定使用者正在追蹤的使用者 //get
 export const getUserFollowings = async (id) => {
   try {
-    const {data} = await axiosInstance.get(`${baseURL}/user/:${id}/followings`)
-    return {sucess: true, data}
+    const { data } = await axiosInstance.get(`${baseURL}/users/${id}/followings`, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    });
+    return { success: true, data }
   } catch (error) {
     return{
       success: false,
@@ -123,8 +126,12 @@ export const getUserFollowings = async (id) => {
 // 取得指定使用者的追蹤者 //get
 export const getUserFollowers = async (id) => {
   try {
-    const {data} = await axiosInstance.get(`${baseURL}/user/:${id}/followers`)
-    return {sucess: true, data}
+    const { data } = await axiosInstance.get(`${baseURL}/users/${id}/followers`, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    });
+    return { success: true, data }
   } catch (error) {
     return{
       success: false,

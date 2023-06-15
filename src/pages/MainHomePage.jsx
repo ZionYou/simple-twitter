@@ -41,9 +41,7 @@ const MainHomePage = () => {
     }
     const getUserTwiAsync = async () => {
       const data = await getUserTwi(userId)
-      // console.log(data.data)
       setUserTweets(data.data)
-      // setUserTweets(data.map((data) => ({...data})))
     }
     getUserAsync()
     getUserTwiAsync()

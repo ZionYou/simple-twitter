@@ -134,9 +134,9 @@ const EditProfileModal = ({onClick, onSave}) => {
       const data = await getUser(userId)
       setUserInfo(data)
       setName(data.data.name)
-      setNameCount(data.data.name.length)
+      // setNameCount(data.data.name.length)
       setIntro(data.data.introduction)
-      setIntroCount(data.data.introduction.length)
+      // setIntroCount(data.data.introduction.length)
       setAvatarUrl(data.data.avatar)
       setCoverImgUrl(data.data.cover)
     }

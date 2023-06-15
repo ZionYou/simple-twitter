@@ -126,35 +126,47 @@ const PersonalFollowItem = ({follow}) => {
   )
 }
 
-const PersonalFollowerList = ({datas}) => {
-  const follower = datas.map((follow) => {
-    return <PersonalFollowItem follow={follow} key={follow.id}/>
+const PersonalFollowerList = ({ datas}) => {
+
+  const userFollowers = datas.map((data) => {
+    return(
+      <>
+        <PersonalFollowItem follow={data} key={data.id}/>
+      </>
+    )
   })
+
   return(
     <div className="personal-follower-list">
-      {follower}
+      { userFollowers }
     </div>
   )
 }
 
-const PersonalFollowingList = ({datas}) => {
-  const following = datas.map((follow) => {
-    return <PersonalFollowItem follow={follow} key={follow.id}/>
+const PersonalFollowingList = ({ datas }) => {
+
+  const userFollowings = datas.map((data) => {
+    return(
+      <>
+        <PersonalFollowItem follow={data} key={data.id}/>
+      </>
+    )
   })
+
   return(
     <div className="personal-following-list">
-      {following}
+      { userFollowings  }
     </div>
   )
 }
 
-const PersonalFollowPageSwitch = ({value, followerDatas, followingDatas}) => {
-  if(value === 'follower') return <PersonalFollowerList datas={followerDatas}/>
-  if(value === 'following') return <PersonalFollowingList datas={followingDatas}/>
+const PersonalFollowPageSwitch = ({value, followers, followings}) => {
+  if(value === 'follower') return <PersonalFollowerList datas={followers}/>
+  if(value === 'following') return <PersonalFollowingList datas={followings}/>
 }
 
 // 追隨動態元件
-const PersonalDetail = ({followerDatas, followingDatas}) => {
+const PersonalDetail = ({ followers, followings }) => {
   const [currentFollowValue, setCurrentFollowValue] = useState('follower')
 
   const handleFollowPageClick = (e) => {
@@ -172,7 +184,11 @@ const PersonalDetail = ({followerDatas, followingDatas}) => {
         </Link>
       </div>
       <PersonDetailSwitchBar onClick={handleFollowPageClick}/>
-      <PersonalFollowPageSwitch value={currentFollowValue} followerDatas={followerDatas} followingDatas={followingDatas}/>
+      <PersonalFollowPageSwitch 
+        value={currentFollowValue} 
+        followers={followers} 
+        followings={followings}
+      />
     </section>
   )
 }
