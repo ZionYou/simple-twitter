@@ -33,7 +33,7 @@ import { ReactComponent as FeatherIcon } from "./feather.svg";
 export { ACLogoIcon, CheckActiveIcon, CheckHoverIcon, CheckCircleIcon };
 
 //AuthUserList
-export {FeatherIcon};
+export { FeatherIcon };
 
 //Main/HomeFixed
 export { HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon };

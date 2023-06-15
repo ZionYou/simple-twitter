@@ -1,0 +1,33 @@
+
+.alarm{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .alarm-title{
+    @include font-adjust(20px, 700, var(--dark-black))
+  }
+  .checked-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.success {
+      border: 2px solid var(--success-notify);
+    }
+
+    &.error {
+      border: 2px solid var(--error-notify);
+    }
+
+    &.drop {
+      border: 2px solid var(--drop-notify);
+    }
+
+    &.new {
+      border: 2px solid var(--new-notify);
+    }
+  }
+}
