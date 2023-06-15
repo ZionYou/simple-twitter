@@ -66,7 +66,7 @@ export const getUserTwi = async (id) => {
       }
     })
 
-    return {sucess: true, data}
+    return {success: true, data}
   } catch (error) {
     return{
       //success: false,
@@ -84,7 +84,7 @@ export const getUserTwiReply = async (id) => {
       }
     })
 
-    return {sucess: true, data}
+    return {success: true, data}
   } catch (error) {
     return{
       success: false,
@@ -111,7 +111,7 @@ export const getUserTwiLike = async (id) => {
 export const getUserFollowings = async (id) => {
   try {
     const {data} = await axiosInstance.get(`${baseURL}/user/:${id}/followings`)
-    return {sucess: true, data}
+    return {success: true, data}
   } catch (error) {
     return{
       success: false,
@@ -124,7 +124,7 @@ export const getUserFollowings = async (id) => {
 export const getUserFollowers = async (id) => {
   try {
     const {data} = await axiosInstance.get(`${baseURL}/user/:${id}/followers`)
-    return {sucess: true, data}
+    return {success: true, data}
   } catch (error) {
     return{
       success: false,
@@ -149,8 +149,9 @@ export const getTopTenFollowList = async() => {
 }
 
 // 修改指定使用者資料 //patch
-export const patchUserInfo = async (payload, id) => {
+export const putUserInfo = async (payload, id) => {
   const { name, avatar, cover, introduction } = payload;
+  console.log(payload)
   try {
     const res = await axiosInstance.put(`${baseURL}/users/${id}`, {
       name, avatar, cover, introduction
@@ -187,23 +188,35 @@ export const putUserSettings = async (payload, id) => {
 // 取得指定貼文的所有留言 //get
 export const getTwiReply = async (id) => {
   try {
-    const res = await axios.get(`${baseURL}/tweets/:tweet_${id}/replies`)
+    const res = await axiosInstance.get(`${baseURL}/tweets/:tweet_${id}/replies`)
     return res.data
   } catch (error) {
-    console.error('[Get twi replay failed]:', error)
+    console.error('[Get twi reply failed]:', error)
+  }
+}
+
+export const creatNewTwi = async (description) => {
+  // const {description} = payload
+  try{
+    const res = await axiosInstance.post(`${baseURL}/tweets`, {
+      description
+    })
+    return res.data
+  } catch(error) {
+    console.error('[Create new twi failed]:', error)
   }
 }
 
 // 回復指定貼文
-export const createReplyTwi = async (payload) => {
-  const { id, message, isDone } = payload;
+export const postReplyTwi = async (tweet_id, comment) => {
+  
   try {
-    const res = await axios.post(`${baseURL}/tweets/:tweet_${id}/replies`, {
-      message, isDone
+    const res = await axios.post(`${baseURL}/tweets/:tweet_${tweet_id}/replies`, {
+      comment
     });
-    return res.data;
+    return res;
   } catch (error) {
-    console.error('[Reply specific twi failed]: ', error);
+    console.error('[Reply twi failed]: ', error);
   }
 };
 

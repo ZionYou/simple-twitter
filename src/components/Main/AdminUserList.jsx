@@ -16,12 +16,12 @@ const AdminUserCardGroup = ({users}) => {
       </div>
       <div className="admin-user-data-group">
         <div className="comment-and-like">
-          <span className="comment"><span className="icon"><FeatherIcon/></span>{user.comment}</span>
-          <span className="like"><span className="icon"><LikeIcon/></span>{user.like}</span>
+          <span className="comment"><span className="icon"><FeatherIcon/></span>{user.TweetsCount}</span>
+          <span className="like"><span className="icon"><LikeIcon/></span>{user.TweetsLikedCount}</span>
         </div>
         <div className="follow-group">
-          <span className="following"><span className="num">{user.following}個</span>跟隨中</span>
-          <span className="follower"><span className="num">{user.follower}位</span>跟隨者</span>
+          <span className="following"><span className="num">{user.FollowingsCount}個</span>跟隨中</span>
+          <span className="follower"><span className="num">{user.FollowersCount}位</span>跟隨者</span>
         </div>
       </div>
     </div>

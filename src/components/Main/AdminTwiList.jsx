@@ -54,8 +54,9 @@ const AdminTwiList = () => {
     const getAllTweetsDataAsync = async () => {
       const {success, data, message} = await getAllTweetsData();
       if(success){
-        setTweets(data.map((data) => ({...data})))
         console.log(data)
+        setTweets(data.map((data) => ({...data})))
+        
       } else {
         console.error(message)
       }

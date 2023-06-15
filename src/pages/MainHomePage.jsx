@@ -77,7 +77,7 @@ const MainHomePage = () => {
           </Col>
         </Row>
       </Container>
-      {isPopup && <NewTwiPopUp onClick={() => setIsPopup(false)}/>}
+      {/* {isPopup && <NewTwiPopUp onClick={() => setIsPopup(false)}/>} */}
     </>
   )
 };

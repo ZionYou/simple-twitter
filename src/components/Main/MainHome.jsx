@@ -1,10 +1,11 @@
-import { CommentIcon, LikeIcon } from "assets/icons";
+import { CommentIcon, LikeIcon, CloseIcon } from "assets/icons";
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { getUserTwi } from 'api/userInfo';
+import { creatNewTwi, getUser } from 'api/userInfo';
 import { useAuth } from 'contexts/AuthContext';
-import { ReplyTwiPopUp } from 'components';
-
+import { ReplyTwiPopUp, NewTwiPopUp } from 'components';
+import { Container, Row, Col } from "react-bootstrap";
+import Swal from 'sweetalert2';
 
 
 
@@ -31,6 +32,7 @@ const TweetListItem = ({tweet}) => {
 }
 
 const UserProfileTwi = ({datas}) => {
+  
   const [popupcontent, setpopupcontent] = useState([])
   const [ popupToggle, setPopupToggle ] = useState(false)
   const changecontent = (data) => {
@@ -52,8 +54,8 @@ const UserProfileTwi = ({datas}) => {
             {data.description}
           </p>
           <div className="icon-group">
-            <button className="comment btn-reset cursor-pointer" onClick={() => changecontent(data)}><i><CommentIcon/></i>number</button>
-            <button className="like btn-reset cursor-pointer"><i><LikeIcon/></i>0</button>
+            <button className="comment btn-reset cursor-pointer" onClick={() => changecontent(data)}><i><CommentIcon/></i>{data.RepliesCount}</button>
+            <button className="like btn-reset cursor-pointer"><i><LikeIcon/></i>{data.LikesCount}</button>
           </div>
         </div>
       </div>
@@ -69,27 +71,73 @@ const UserProfileTwi = ({datas}) => {
   )
 }
 
-const MainHome = ({onClick, tweetDatas}) => {
+const MainHome = ({tweetDatas}) => {
   // const [userTweets, setUserTweets] = useState([])
-  // const { currentMember } = useAuth();
+  const [isPopup, setIsPopup] = useState(false)
+  const [userInfo, setUserInfo] = useState([]);
+  const [isError, setIsError] = useState(false)
+  const [tweet, setTweet] = useState('')
+  const { currentMember } = useAuth();
 
-  // const userId = currentMember?.id
-  // useEffect(() => {
-  //   const getUserTwiAsync = async () => {
-  //     const data = await getUserTwi(userId)
-  //     setUserTweets(data.map((data) => ({...data})))
-  //   }
-  //    getUserTwiAsync()
-  // }, [currentMember])
+  const userId = currentMember?.id
+
+  const handleClick = async() => {
+    if(tweet === "" ){
+      setIsError(true)
+      return
+    }  
+    if (tweet.length > 140) {
+      setIsError(true)
+      return
+    } 
+
+    try{
+      const data = await creatNewTwi(tweet)
+      console.log(data.message)
+      if(data.message === "發送成功"){
+        Swal.fire({
+          position: 'top',
+          title: data.message,
+          timer: 1000,
+          icon: 'success',
+          showConfirmButton: false,
+        })
+        setTweet('')
+        setIsPopup(false)
+      } else {
+        Swal.fire({
+          position: 'top',
+          title: data.message,
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        })
+        setTweet('')
+      }
+    } catch (error){
+      setTweet('')
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    const getUserAsync = async () => {
+      const data = await getUser(userId)
+      setUserInfo(data)
+      // console.log(data)
+    }
+     getUserAsync()
+  }, [currentMember])
+  
 
   return(
     <section className="home middle-container-border" data-page="main-home">
       <div className="title-section">
         <h5 className="sub-title">首頁</h5>
-        <div className="input-group cursor-pointer" onClick={onClick}>
+        <div className="input-group cursor-pointer" onClick={() => setIsPopup(true)}>
           <input type="checkbox" className="title-input cursor-pointer" id="new-tweet"/>
           <label htmlFor="new-tweet" className="title-label cursor-pointer">
-            <img src="https://picsum.photos/300/300?text=100" alt="" />
+            <img src={userInfo.data?.avatar} alt="" />
             <p className="label-word">有什麼新鮮事?</p>
           </label>
           <button className="orange-btn radius-50 cursor-pointer">推文</button>
@@ -97,6 +145,38 @@ const MainHome = ({onClick, tweetDatas}) => {
       </div>
       <hr/>
       <UserProfileTwi datas={tweetDatas}/>
+      {isPopup && 
+      <div className="popup">
+        <div className="popup-bg">
+          <Container>
+            <Row>
+              <Col xs={{span: 7, offset: 2}} className="popup-container">
+                <div className="close-group">
+                  <a href="#" className="close" onClick={() => setIsPopup(false)}><CloseIcon/></a>
+                </div>
+                <div className="type-area">
+                  <img src={userInfo.data?.avatar} alt="" />
+                  <textarea 
+                    id="tweet-textarea" 
+                    className="newtwi-textarea" 
+                    name="new-tweet-type" 
+                    // maxLength={140} 
+                    placeholder="有什麼新鮮事?"
+                    
+                    // onChange={(tweetInputValue) => setTweet(tweetInputValue)}
+                    onChange={(e) => setTweet(e.target.value)}
+                  >{tweet}</textarea>
+                </div>
+                <div className="btn-group">
+                  {(tweet === "" || tweet.length > 140) && isError && (<span className="error">{tweet === "" ? "內容不可空白" : "字數不可超過140字"}</span>)}
+                  {/* {inputValue.length > 140 && <span className="error">字數不可超過140字</span>} */}
+                  <button className="orange-btn radius-50 cursor-pointer" onClick={handleClick}>推文</button>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </div>}
     </section>
   )
 }
@@ -104,6 +184,71 @@ const MainHome = ({onClick, tweetDatas}) => {
 
 
 export { TweetListItem, MainHome, UserProfileTwi};
+
+
+
+// const NewTwiPopUp = ({onClick}) => {
+//   const [userInfo, setUserInfo] = useState([]);
+//   const [isError, setIsError] = useState(false)
+//   const [inputValue, setInputValue] = useState('')
+//    const { currentMember } = useAuth();
+
+//   const userId = currentMember?.id
+
+//   const handleClick = () => {
+//     if(inputValue === "" ){
+//       setIsError(true)
+//       // setIsError("內容不可空白")
+//       return
+//     } else if (inputValue.length > 140) {
+//       // setIsError("字數不可超過140字")
+//       return
+//     } else {
+//       setIsError(false)
+//     }
+//   }
+//   useEffect(() => {
+//     const getUserAsync = async () => {
+//       const data = await getUser(userId)
+//       setUserInfo(data)
+//       // console.log(data)
+//     }
+//     getUserAsync()
+//   }, [currentMember])
+
+//   return(
+//     <>
+//       <div className="popup">
+//         <div className="popup-bg">
+//           <Container>
+//             <Row>
+//               <Col xs={{span: 7, offset: 2}} className="popup-container">
+//                 <div className="close-group">
+//                   <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
+//                 </div>
+//                 <div className="type-area">
+//                   <img src={userInfo.data?.avatar} alt="" />
+//                   <textarea 
+//                     id="tweet-textarea" 
+//                     className="newtwi-textarea" 
+//                     name="new-tweet-type" 
+//                     maxLength={140} 
+//                     placeholder="有什麼新鮮事?"
+//                   />
+//                 </div>
+//                 <div className="btn-group">
+//                   {inputValue === "" && isError && <span className="error">內容不可空白</span>}
+//                   {inputValue.length > 140 && <span className="error">字數不可超過140字</span>}
+//                   <button className="orange-btn radius-50 cursor-pointer" onClick={handleClick}>推文</button>
+//                 </div>
+//               </Col>
+//             </Row>
+//           </Container>
+//         </div>
+//       </div>
+//     </>
+//   )
+// }
 
 // const TweetListData = [
 //   {

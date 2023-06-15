@@ -48,7 +48,7 @@ const PersonSwitchBar = ({onClick}) => {
 const UserProfileTwiReply = ({datas}) => {
   const replyTweet = datas.map((tweet) => {
     return(
-      <div className="tweet-item">
+      <div className="tweet-item" key={tweet.id}>
       <img src={tweet.User.avatar} alt="" />
       <div className="tweet-info" key={tweet.id}>
         <div className="name-group">
@@ -87,8 +87,8 @@ const UserProfileLike = ({datas}) => {
             {tweet.Tweet.description}
           </p>
           <div className="icon-group">
-            <div className="comment"><i><CommentIcon/></i>{tweet.commentNum}</div>
-            <div className="like-solid"><i><LikeSolidIcon/></i>{tweet.likeNum}</div>
+            <div className="comment"><i><CommentIcon/></i>{tweet.RepliesCount}</div>
+            <div className="like-solid"><i><LikeSolidIcon/></i>{tweet.LikesCount}</div>
           </div>
         </div>
       </div>
@@ -128,7 +128,7 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
           <span className="back-icon"><BackArrowIcon/></span>
           <div className="title-group">
             <p className="name">{name}</p>
-            <p className="tweet-num"><span>25</span> 推文</p>
+            <p className="tweet-num"><span>{tweetDatas.length}</span> 推文</p>
           </div>
         </Link>
       </div>
