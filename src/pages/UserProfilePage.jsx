@@ -24,13 +24,15 @@ const UserProfilePage = () => {
     }
     const getUserTwiAsync = async () => {
       const {data} = await getUserTwi(userId)
-      setUserTweets(data.map((data) => ({...data})))
+      // setUserTweets(data.map((data) => ({...data})))
+      setUserTweets(data)
       // console.log(data)
     }
     const getUserTwiReplyAsync = async () => {
       const {data} = await getUserTwiReply(userId)
-      setReplyTweets(data.map((data) => ({...data})))
-      console.log(data)
+      // setReplyTweets(data.map((data) => ({...data})))
+      setReplyTweets(data)
+      // console.log(data)
     }
     // const getUserTwiLikeAsync = async () => {
     //   const {success, data, message} = await getUserTwiLike(userId)
@@ -68,14 +70,15 @@ const UserProfilePage = () => {
               tweetDatas={userTweets} 
               likeDatas={likeTweets} 
               replyDatas={replyTweets}
-              onClick={() => setIsPopup(true)}/>
+              // onClick={() => setIsPopup(true)}
+            />
           </Col>
           <Col xs={3}>
             <PopularFollow/>
           </Col>
         </Row>
       </Container>
-      {isPopup && <EditProfile onClick={() => setIsPopup(false)}/>}
+      {/* {isPopup && <EditProfile onClick={() => setIsPopup(false)}/>} */}
       {isNewTwiPopup && <NewTwiPopUp onClick={() => setIsNewTwiPopup(false)}/>}
     </>
   )

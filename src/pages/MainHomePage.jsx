@@ -3,7 +3,7 @@ import { MainHome, NewTwiPopUp, MainList, PopularFollow, ReplyTwiPopUp } from "c
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
-import { getUserTwi } from 'api/userInfo';
+import { getUserTwi, getUser } from 'api/userInfo';
 import { useAuth } from '../contexts/AuthContext';
 
 // 首頁
@@ -25,10 +25,29 @@ import { useAuth } from '../contexts/AuthContext';
 
 // 首頁
 const MainHomePage = () => {
+  const [userInfo, setUserInfo] = useState([]);
+  const [userTweets, setUserTweets] = useState([])
   // 彈跳視窗狀態
   const [isPopup, setIsPopup] = useState(false)
   const navigate = useNavigate();
   const { isAuthenticated, currentMember } = useAuth();
+
+  const userId = currentMember?.id
+  useEffect(() => {
+    const getUserAsync = async () => {
+      const data = await getUser(userId)
+      setUserInfo(data)
+      // console.log(data)
+    }
+    const getUserTwiAsync = async () => {
+      const data = await getUserTwi(userId)
+      // console.log(data.data)
+      setUserTweets(data.data)
+      // setUserTweets(data.map((data) => ({...data})))
+    }
+    getUserAsync()
+    getUserTwiAsync()
+  }, [currentMember])
 
 
   useEffect(() => {
@@ -49,6 +68,7 @@ const MainHomePage = () => {
             <MainHome
               // id={currentUser?.id} 
               // avatar={currentUser?.avatar}
+              tweetDatas={userTweets}
               onClick={() => setIsPopup(true)}
             />
           </Col>
@@ -57,25 +77,11 @@ const MainHomePage = () => {
           </Col>
         </Row>
       </Container>
-      {isPopup && <NewTwiPopUp avatar={currentMember?.avatar} onClick={() => setIsPopup(false)}/>}
+      {isPopup && <NewTwiPopUp onClick={() => setIsPopup(false)}/>}
     </>
   )
 };
 
 export default MainHomePage;
 
-// const MainHomePage = () => {
-//   const [isPopup, setIsPopup] = useState(false)
-//   return (
-//     <section className="main">
-//       <section className="main-container">
-//         <MainList/>
-//         <MainHome onClick={() => setIsPopup(true)}/>
-//         <PopularFollow/>
-//       </section>
-//       {isPopup && <NewTwiPopUp onClick={() => setIsPopup(false)}/>}
-//       {/* <ReplyTwiPopUp/> */}
-//     </section>
-//   )
-// };
 

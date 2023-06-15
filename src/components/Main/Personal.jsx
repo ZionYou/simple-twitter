@@ -3,6 +3,7 @@ import { UserProfileTwi } from "components";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {useAuth} from 'contexts/AuthContext';
+import {EditProfileModal} from 'components/Main/Popup'
 
 
 const PersonalSwitchData = [
@@ -21,143 +22,7 @@ const PersonalSwitchData = [
 
 ]
 
-const TweetListData = [
-  {
-    id: 1,
-    name: "name",
-    account: "account",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
-  },
-  {
-    id: 2,
-    name: "name",
-    account: "account",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
-  },
-  {
-    id: 3,
-    name: "name",
-    account: "account",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
-  },
-  {
-    id: 4,
-    name: "name",
-    account: "account",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
-  },
-  {
-    id: 5,
-    name: "name",
-    account: "account",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
-  },
-  {
-    id: 6,
-    name: "name",
-    account: "account",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
-  },
-]
 
-const ReplyTweetData = [
-  {
-    id: 1,
-    other_user: "apple",
-    edit_time: "3 小時",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
-  },
-  {
-    id: 2,
-    other_user: "apple",
-    edit_time: "3 小時",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
-  },
-  {
-    id: 3,
-    other_user: "apple",
-    edit_time: "3 小時",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
-  },
-  {
-    id: 4,
-    other_user: "apple",
-    edit_time: "3 小時",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
-  },
-  {
-    id: 5,
-    other_user: "apple",
-    edit_time: "3 小時",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
-  },
-]
-
-const LikeTweetData = [
-  {
-    id: 1,
-    other_user: "apple",
-    other_account: "apple",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
-  },
-  {
-    id: 2,
-    other_user: "apple",
-    other_account: "apple",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
-  },
-  {
-    id: 3,
-    other_user: "apple",
-    other_account: "apple",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
-  },
-  {
-    id: 4,
-    other_user: "apple",
-    other_account: "apple",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
-  },
-  {
-    id: 5,
-    other_user: "apple",
-    other_account: "apple",
-    edit_time: "3 小時",
-    commentNum: 10,
-    likeNum: 20,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
-  },
-]
 
 
 const PersonSwitchBar = ({onClick}) => {
@@ -178,37 +43,20 @@ const PersonSwitchBar = ({onClick}) => {
 }
 
 
-// const TweetReplyListItem = ({tweet}) => {
-//   return(
-//     <div className="tweet-item">
-//       <img src="https://picsum.photos/300/300?text=1200" alt="" />
-//       <div className="tweet-info">
-//         <div className="name-group">
-//           <span className="name">John Doe</span>
-//           <span className="account">@heyjohn</span>
-//           <span className="time"> &#183; {tweet.edit_time}</span>
-//         </div>
-//         <p className="reply-to">回覆 <span>@{tweet.other_user}</span></p>
-//         <p className="content">
-//           {tweet.content}
-//         </p>
-//       </div>
-//     </div>
-//   )
-// }
+
 
 const UserProfileTwiReply = ({datas}) => {
   const replyTweet = datas.map((tweet) => {
     return(
       <div className="tweet-item">
-      <img src="https://picsum.photos/300/300?text=1200" alt="" />
-      <div className="tweet-info">
+      <img src={tweet.User.avatar} alt="" />
+      <div className="tweet-info" key={tweet.id}>
         <div className="name-group">
           <span className="name">John Doe</span>
           <span className="account">@heyjohn</span>
           <span className="time"> &#183; {tweet.updatedAt}</span>
         </div>
-        <p className="reply-to">回覆 <span>@{tweet.other_user}</span></p>
+        <p className="reply-to">回覆 <span>@{tweet.account}</span></p>
         <p className="content">
           {tweet.comment}
         </p>
@@ -223,48 +71,27 @@ const UserProfileTwiReply = ({datas}) => {
   )
 }
 
-// const TweetLikeListItem = ({tweet}) => {
-//   return(
-//     <div className="tweet-item">
-//       <img src={`https://picsum.photos/300/300?text=${tweet.id}`} alt="" />
-//       <div className="tweet-info">
-//         <div className="name-group">
-//           <span className="name">{tweet.other_user}</span>
-//           <span className="account">@{tweet.other_account}</span>
-//           <span className="time"> &#183; {tweet.edit_time}</span>
-//         </div>
-//         <p className="content">
-//           {tweet.content}
-//         </p>
-//         <div className="icon-group">
-//           <div className="comment"><i><CommentIcon/></i>{tweet.commentNum}</div>
-//           <div className="like-solid"><i><LikeSolidIcon/></i>{tweet.likeNum}</div>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
 
 const UserProfileLike = ({datas}) => {
   const likeTweet = datas.map((tweet) => {
     return (
-      <div className="tweet-item">
-      <img src={`https://picsum.photos/300/300?text=${tweet.id}`} alt="" />
-      <div className="tweet-info">
-        <div className="name-group">
-          <span className="name">{tweet.other_user}</span>
-          <span className="account">@{tweet.other_account}</span>
-          <span className="time"> &#183; {tweet.edit_time}</span>
-        </div>
-        <p className="content">
-          {tweet.content}
-        </p>
-        <div className="icon-group">
-          <div className="comment"><i><CommentIcon/></i>{tweet.commentNum}</div>
-          <div className="like-solid"><i><LikeSolidIcon/></i>{tweet.likeNum}</div>
+      <div className="tweet-item" key={tweet.id}>
+        <img src={tweet.Tweet.User.avatar} alt="" />
+        <div className="tweet-info">
+          <div className="name-group">
+            <span className="name">{tweet.Tweet.User.name}</span>
+            <span className="account">@{tweet.Tweet.User.account}</span>
+            <span className="time"> &#183; {tweet.Tweet.updatedAt}</span>
+          </div>
+          <p className="content">
+            {tweet.Tweet.description}
+          </p>
+          <div className="icon-group">
+            <div className="comment"><i><CommentIcon/></i>{tweet.commentNum}</div>
+            <div className="like-solid"><i><LikeSolidIcon/></i>{tweet.likeNum}</div>
+          </div>
         </div>
       </div>
-    </div>
     )
   })
   return(
@@ -291,13 +118,7 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
   const handlePageClick = (e) => {
     setCurrentValue(e.target.value)
   }
-  
 
- 
-
-  // console.log(userInfo)
-  // let tweetNum = userInfo.Tweet.length
-  // let followerNum = userInfo.follower.length
 
 
   return(
@@ -315,7 +136,8 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
         <img src={cover} alt="" className="personal-bg-img"/>
         <img src={avatar} alt="" className="personal-img" />
         <div className="btn-group" data-user="other">
-          <button className="orange-border-btn radius-50 cursor-pointer" onClick={onClick}>編輯個人資料</button>
+          {/* <button className="orange-border-btn radius-50 cursor-pointer" onClick={onClick}>編輯個人資料</button> */}
+          <EditProfileModal/>
         </div>
         <div className="personal-info">
           <div className="personal-info-name-group">
@@ -336,3 +158,184 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
 }
 
 export { Personal, UserProfileTwiReply };
+
+
+// const TweetListData = [
+//   {
+//     id: 1,
+//     name: "name",
+//     account: "account",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
+//   },
+//   {
+//     id: 2,
+//     name: "name",
+//     account: "account",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
+//   },
+//   {
+//     id: 3,
+//     name: "name",
+//     account: "account",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
+//   },
+//   {
+//     id: 4,
+//     name: "name",
+//     account: "account",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
+//   },
+//   {
+//     id: 5,
+//     name: "name",
+//     account: "account",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
+//   },
+//   {
+//     id: 6,
+//     name: "name",
+//     account: "account",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel tortor in ipsum viverra posuere ultrices id felis. Vestibulum pulvinar imperdiet nunc vitae tristique. Mauris eleifend efficitur leo, a viverra sem. Nunc blandit semper justo aliquam placerat. Nam fermentum lacus a leo pretium, id laoreet orci molestie. Nullam tempus congue mi, eget varius est placerat vitae. Proin dignissim vehicula nulla convallis porta. Duis tortor dui, vulputate eu convallis a, pharetra ac neque."
+//   },
+// ]
+
+// const ReplyTweetData = [
+//   {
+//     id: 1,
+//     other_user: "apple",
+//     edit_time: "3 小時",
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
+//   },
+//   {
+//     id: 2,
+//     other_user: "apple",
+//     edit_time: "3 小時",
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
+//   },
+//   {
+//     id: 3,
+//     other_user: "apple",
+//     edit_time: "3 小時",
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
+//   },
+//   {
+//     id: 4,
+//     other_user: "apple",
+//     edit_time: "3 小時",
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
+//   },
+//   {
+//     id: 5,
+//     other_user: "apple",
+//     edit_time: "3 小時",
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
+//   },
+// ]
+
+// const LikeTweetData = [
+//   {
+//     id: 1,
+//     other_user: "apple",
+//     other_account: "apple",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
+//   },
+//   {
+//     id: 2,
+//     other_user: "apple",
+//     other_account: "apple",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
+//   },
+//   {
+//     id: 3,
+//     other_user: "apple",
+//     other_account: "apple",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
+//   },
+//   {
+//     id: 4,
+//     other_user: "apple",
+//     other_account: "apple",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
+//   },
+//   {
+//     id: 5,
+//     other_user: "apple",
+//     other_account: "apple",
+//     edit_time: "3 小時",
+//     commentNum: 10,
+//     likeNum: 20,
+//     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique purus quam, ac dapibus orci aliquet ac. Aenean non augue sit amet elit feugiat aliquet non eget felis. Etiam erat diam, rutrum id nulla sed, bibendum tincidunt nulla. Donec tortor augue, rutrum rhoncus dui vitae, aliquam molestie elit. Nullam fermentum elementum libero, vel laoreet mi rutrum facilisis. Donec vitae turpis maximus, finibus odio at, facilisis leo. Proin urna velit, efficitur a ornare vel, elementum quis leo."
+//   },
+// ]
+
+
+// const TweetLikeListItem = ({tweet}) => {
+//   return(
+//     <div className="tweet-item">
+//       <img src={`https://picsum.photos/300/300?text=${tweet.id}`} alt="" />
+//       <div className="tweet-info">
+//         <div className="name-group">
+//           <span className="name">{tweet.other_user}</span>
+//           <span className="account">@{tweet.other_account}</span>
+//           <span className="time"> &#183; {tweet.edit_time}</span>
+//         </div>
+//         <p className="content">
+//           {tweet.content}
+//         </p>
+//         <div className="icon-group">
+//           <div className="comment"><i><CommentIcon/></i>{tweet.commentNum}</div>
+//           <div className="like-solid"><i><LikeSolidIcon/></i>{tweet.likeNum}</div>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// const TweetReplyListItem = ({tweet}) => {
+//   return(
+//     <div className="tweet-item">
+//       <img src="https://picsum.photos/300/300?text=1200" alt="" />
+//       <div className="tweet-info">
+//         <div className="name-group">
+//           <span className="name">John Doe</span>
+//           <span className="account">@heyjohn</span>
+//           <span className="time"> &#183; {tweet.edit_time}</span>
+//         </div>
+//         <p className="reply-to">回覆 <span>@{tweet.other_user}</span></p>
+//         <p className="content">
+//           {tweet.content}
+//         </p>
+//       </div>
+//     </div>
+//   )
+// }

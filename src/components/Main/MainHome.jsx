@@ -37,52 +37,50 @@ const UserProfileTwi = ({datas}) => {
     setpopupcontent([data])
     setPopupToggle(!popupToggle)
   }
+
+  const userTweets = datas.map((data) => {
+    return(
+      <div className="tweet-item" key={data.id}>
+        <img src={data.User.avatar} alt="" />
+        <div className="tweet-info">
+          <div className="name-group">
+            <span className="name">{data.User.name}</span>
+            <span className="account">@{data.User.account}</span>
+            <span className="time"> &#183; {data.updatedAt}</span>
+          </div>
+          <p className="content">
+            {data.description}
+          </p>
+          <div className="icon-group">
+            <button className="comment btn-reset cursor-pointer" onClick={() => changecontent(data)}><i><CommentIcon/></i>number</button>
+            <button className="like btn-reset cursor-pointer"><i><LikeIcon/></i>0</button>
+          </div>
+        </div>
+      </div>
+    )
+  })
   return(
     <>
       <div className="tweet-list">
-        {
-          datas.map((data) => {
-            return(
-              <div className="tweet-item" key={data.id}>
-                <img src={data.User.avatar} alt="" />
-                <div className="tweet-info">
-                  <div className="name-group">
-                    <span className="name">{data.User.name}</span>
-                    <span className="account">@{data.User.account}</span>
-                    <span className="time"> &#183; {data.updatedAt}</span>
-                  </div>
-                  <p className="content">
-                    {data.description}
-                  </p>
-                  <div className="icon-group">
-                    <button className="comment btn-reset cursor-pointer" onClick={() => changecontent(data)}><i><CommentIcon/></i>10</button>
-                    <button className="like btn-reset cursor-pointer"><i><LikeIcon/></i>0</button>
-                  </div>
-                </div>
-              </div>
-            )
-          })
-        }
+        {userTweets}
       </div>
       {popupToggle && <ReplyTwiPopUp data={popupcontent} onClick={changecontent}/>}
     </>
   )
 }
 
-const MainHome = ({onClick}) => {
-  const [userTweets, setUserTweets] = useState([])
-  const { currentMember } = useAuth();
+const MainHome = ({onClick, tweetDatas}) => {
+  // const [userTweets, setUserTweets] = useState([])
+  // const { currentMember } = useAuth();
 
-  const userId = currentMember?.id
-  useEffect(() => {
-    const getUserTwiAsync = async () => {
-      const {success, data} = await getUserTwi(userId)
-      if(success){
-        setUserTweets(data.map((data) => ({...data})))
-      }
-    }
-     getUserTwiAsync()
-  }, [currentMember])
+  // const userId = currentMember?.id
+  // useEffect(() => {
+  //   const getUserTwiAsync = async () => {
+  //     const data = await getUserTwi(userId)
+  //     setUserTweets(data.map((data) => ({...data})))
+  //   }
+  //    getUserTwiAsync()
+  // }, [currentMember])
 
   return(
     <section className="home middle-container-border" data-page="main-home">
@@ -98,7 +96,7 @@ const MainHome = ({onClick}) => {
         </div>
       </div>
       <hr/>
-      <UserProfileTwi datas={userTweets}/>
+      <UserProfileTwi datas={tweetDatas}/>
     </section>
   )
 }

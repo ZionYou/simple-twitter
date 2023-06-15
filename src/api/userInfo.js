@@ -57,20 +57,6 @@ export const getUser = async (id) => {
   }
 };
 
-
-// 修改指定使用者資料 //patch
-export const patchTodo = async (payload) => {
-  const { id, email, name, account, avatar, introduction, password } = payload;
-  try {
-    const res = await axios.patch(`${baseURL}/todos/${id}`, {
-      email, name, account, avatar, introduction, password
-    });
-    return res.data;
-  } catch (error) {
-    console.error('[Patch Todo failed]:', error);
-  }
-};
-
 // 取得指定使用者發出的所有推文 //get
 export const getUserTwi = async (id) => {
   try {
@@ -110,11 +96,7 @@ export const getUserTwiReply = async (id) => {
 // 取得指定使用者喜歡的所有推文 //get
 export const getUserTwiLike = async (id) => {
   try {
-    const {data} = await axios.get(`${baseURL}/user/${id}/likes`, {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    })
+    const {data} = await axiosInstance.get(`${baseURL}/user/${id}/likes`)
 
     return {sucess: true, data}
   } catch (error) {
@@ -128,11 +110,7 @@ export const getUserTwiLike = async (id) => {
 // 取得指定使用者正在追蹤的使用者 //get
 export const getUserFollowings = async (id) => {
   try {
-    const {data} = await axios.get(`${baseURL}/user/:${id}/followings`, {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    })
+    const {data} = await axiosInstance.get(`${baseURL}/user/:${id}/followings`)
     return {sucess: true, data}
   } catch (error) {
     return{
@@ -145,11 +123,7 @@ export const getUserFollowings = async (id) => {
 // 取得指定使用者的追蹤者 //get
 export const getUserFollowers = async (id) => {
   try {
-    const {data} = await axios.get(`${baseURL}/user/:${id}/followers`, {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    })
+    const {data} = await axiosInstance.get(`${baseURL}/user/:${id}/followers`)
     return {sucess: true, data}
   } catch (error) {
     return{
@@ -164,17 +138,46 @@ export const getUserFollowers = async (id) => {
 
 export const getTopTenFollowList = async() => {
   try{
-    const {data} = await axios.get(`${baseURL}/users/top10`, {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    })
+    const {data} = await axiosInstance.get(`${baseURL}/users/top10`)
      return {success: true, data}
   } catch (error) {
     return {
       success: false,
       message: `[Get Top10 Follow failed]: ${error}`
     }
+  }
+}
+
+// 修改指定使用者資料 //patch
+export const patchUserInfo = async (payload, id) => {
+  const { name, avatar, cover, introduction } = payload;
+  try {
+    const res = await axiosInstance.put(`${baseURL}/users/${id}`, {
+      name, avatar, cover, introduction
+    });
+    return res.data;
+  } catch (error) {
+    return{
+      success: false,
+      message: `[Patch User Info failed]: ${error}`
+    }
+  }
+};
+
+// 編輯個人帳戶設定
+export const putUserSettings = async (payload, id) => {
+  const {name, account, email, password, checkPassword} = payload
+  try{
+    const res = await axiosInstance.put(`${baseURL}/users/${id}/setting`, {
+      name, account, email, password, checkPassword
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error)
+    // return{
+    //   success: false,
+    //   message: `[Patch User Account failed]: ${error}`
+    // }
   }
 }
 

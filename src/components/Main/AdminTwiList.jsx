@@ -18,7 +18,7 @@ const AdminTwiListGroup = ({tweets, onDelete}) => {
               <span className="time"> &#183; {tweet.updatedAt}</span>
             </div>
             <div className="close-group">
-              <button href="#" className="btn-reset close" onClick={() => onDelete?.(tweet.id)}><CloseIcon/></button>
+              <button href="#" className="btn-reset close" onClick={() => onDelete?. (tweet.id)}><CloseIcon/></button>
             </div>
           </div>
           <p className="content">
@@ -39,14 +39,13 @@ const AdminTwiListGroup = ({tweets, onDelete}) => {
 const AdminTwiList = () => {
   const [tweet, setTweets] = useState([])
 
-  const handleDelete = async(id) => {
-    // alert('delete')
-    
+  const handleDelete = async (id) => {
+    // alert(`delete ${id}`)
+
     try{
       await deleteTwi(id)
-      // console.log(id)
       setTweets((prevTweets) => prevTweets.filter((tweet) => tweet.id !== id))
-    } catch (error){
+    } catch(error){
       console.error(error)
     }
   }
@@ -56,7 +55,7 @@ const AdminTwiList = () => {
       const {success, data, message} = await getAllTweetsData();
       if(success){
         setTweets(data.map((data) => ({...data})))
-        // console.log(data)
+        console.log(data)
       } else {
         console.error(message)
       }
@@ -67,7 +66,7 @@ const AdminTwiList = () => {
   return(
     <section className="admin-twi middle-container-border">
         <h5 className="sub-title">推文清單</h5>
-        <AdminTwiListGroup tweets={tweet} onClick={handleDelete}/>
+        <AdminTwiListGroup tweets={tweet} onDelete={handleDelete}/>
     </section>
   )
 }

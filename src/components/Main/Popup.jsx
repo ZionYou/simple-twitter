@@ -3,12 +3,34 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useState, useRef, useEffect } from 'react'
 import {useAuth} from 'contexts/AuthContext'
 import {FormInput, FormTextarea} from 'components'
-import {getUser} from 'api/userInfo'
+import {getUser, patchUserInfo} from 'api/userInfo'
+import useUpdateUser from '../../components/hooks/useUpdateUser'
 
 // 新推文元件
+// const NewTwiPopUp = ({onClick}) => {
+//   const [isError, setIsError] = useState(false)
+//   const [inputValue, setInputValue] = useState('')
+
+//   const handleClick = () => {
+//     if(inputValue === "" ){
+//       setIsError(true)
+//       // setIsError("內容不可空白")
+//       return
+//     } else if (inputValue.length > 140) {
+//       // setIsError("字數不可超過140字")
+//       return
+//     } else {
+//       setIsError(false)
+//     }
+//   }
+  
 const NewTwiPopUp = ({onClick}) => {
+  const [userInfo, setUserInfo] = useState([]);
   const [isError, setIsError] = useState(false)
   const [inputValue, setInputValue] = useState('')
+   const { currentMember } = useAuth();
+
+  const userId = currentMember?.id
 
   const handleClick = () => {
     if(inputValue === "" ){
@@ -22,8 +44,15 @@ const NewTwiPopUp = ({onClick}) => {
       setIsError(false)
     }
   }
-  
-const NewTwiPopUp = ({onClick, avatar}) => {
+  useEffect(() => {
+    const getUserAsync = async () => {
+      const data = await getUser(userId)
+      setUserInfo(data)
+      // console.log(data)
+    }
+    getUserAsync()
+  }, [currentMember])
+
   return(
     <>
       <div className="popup">
@@ -35,16 +64,7 @@ const NewTwiPopUp = ({onClick, avatar}) => {
                   <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
                 </div>
                 <div className="type-area">
-                  <img src="https://picsum.photos/300/300?text=400" alt="" />
-                  <textarea 
-                    name="new-tweet-type" 
-                    className="newtwi-textarea" 
-                    id="tweet-textarea" 
-                    placeholder="有什麼新鮮事?"
-                    value={inputValue}
-                    onChange = {(e) => setInputValue(e.target.value)}
-                    />
-                  <img src={avatar} alt="" />
+                  <img src={userInfo.data?.avatar} alt="" />
                   <textarea 
                     id="tweet-textarea" 
                     className="newtwi-textarea" 
@@ -66,23 +86,16 @@ const NewTwiPopUp = ({onClick, avatar}) => {
     </>
   )
 }
-}
-const dummyUserInfoData = {
-  name: 'John Doe',
-  introduction: '123',
-  avatar: 'https://picsum.photos/300/300?text=1400',
-  coverImg: 'https://picsum.photos/300/300?text=140'
-}
+
+// const dummyUserInfoData = {
+//   name: 'John Doe',
+//   introduction: '123',
+//   avatar: 'https://picsum.photos/300/300?text=1400',
+//   coverImg: 'https://picsum.photos/300/300?text=140'
+// }
 
 // 編輯個人資料元件
-const EditProfile = ({onClick}) => {
-  // let userName = dummyUserInfoData.name
-  // let userIntro = dummyUserInfoData.introduction
-  // let userAvatar = dummyUserInfoData.avatar
-  // let userCoverImg = dummyUserInfoData.coverImg
-
-  // 抓取當前使用者資料
-  // const {currentUser} = useAuth()
+const EditProfileModal = ({onClick, onSave}) => {
   const coverRef = useRef()
   const { currentMember } = useAuth();
   const [userInfo, setUserInfo] = useState([]);
@@ -91,9 +104,10 @@ const EditProfile = ({onClick}) => {
   const [intro, setIntro] = useState('')
   const [introCount, setIntroCount] = useState(0)
   const [avatar, setAvatar] = useState('')
-  const [avatarUrl, setAvatarUrl] = useState('')
+  const [avatarUrl, setAvatarUrl] = useState(avatar)
   const [coverImg, setCoverImg] = useState('')
-  const [coverImgUrl, setCoverImgUrl] = useState('')
+  const [coverImgUrl, setCoverImgUrl] = useState(coverImg)
+  const [toggleModal, setToggleModal] = useState(false)
 
   const userId = currentMember?.id
 
@@ -108,10 +122,11 @@ const EditProfile = ({onClick}) => {
       setAvatarUrl(objectUrl)
     }
   }
-
   const handleSave = () => {
-    if(name === "" || nameCount > 50) return
-    if(intro === '' || introCount > 160) return
+    handleToggleClose()
+  }
+  const handleToggleClose = () => {
+    setToggleModal(false)
   }
   
   useEffect(() => {
@@ -132,14 +147,15 @@ const EditProfile = ({onClick}) => {
   
   return(
     <>
-      <div className="edit-popup">
+    <button className="orange-border-btn radius-50 cursor-pointer" onClick={() => setToggleModal(true)}>編輯個人資料</button>
+      {toggleModal && <div className="edit-popup">
         <div className="edit-popup-bg">
           <Container>
             <Row>
               <Col xs={{span: 7, offset: 2}} className="edit-popup-container">
                 <div className="close-group">
                   <div>
-                    <a href="#" className="close" onClick={onClick}><CloseIcon/></a>
+                    <a href="#" className="close" onClick={handleToggleClose}><CloseIcon/></a>
                     <p className="name">編輯個人資料</p>
                   </div>
                   <button type="submit" className="orange-btn radius-50 cursor-pointer" onClick={handleSave}>儲存</button>
@@ -196,11 +212,11 @@ const EditProfile = ({onClick}) => {
                       nameCount > 50 ? (
                         <div className="form-notification action">
                           <p className="form-caption">名稱不能多於 50 個字</p>
-                          <p className="form-caption count"><span>{name.length}</span>/50</p>
+                          <p className="form-caption count"><span>{nameCount}</span>/50</p>
                         </div>
                       ) : (
                         <div className="form-notification">
-                          <p className="form-caption count"><span>{name.length}</span>/50</p>
+                          <p className="form-caption count"><span>{nameCount}</span>/50</p>
                         </div>
                       )
                     }
@@ -218,11 +234,11 @@ const EditProfile = ({onClick}) => {
                       introCount > 160 ? (
                         <div className="form-notification action">
                           <p className="form-caption">名稱不能多於 160 個字</p>
-                          <p className="form-caption count"><span>{intro.length}</span>/160</p>
+                          <p className="form-caption count"><span>{introCount}</span>/160</p>
                         </div>
                       ) : (
                         <div className="form-notification">
-                          <p className="form-caption count"><span>{intro.length}</span>/160</p>
+                          <p className="form-caption count"><span>{introCount}</span>/160</p>
                         </div>
                       )
                     }
@@ -232,7 +248,7 @@ const EditProfile = ({onClick}) => {
             </Row>
           </Container>
         </div>
-      </div>
+      </div>}
     </>
   )
 }
@@ -311,7 +327,7 @@ const ReplyTwiPopUp = ({onClick, data}) => {
   )
 }
 
-export { NewTwiPopUp, EditProfile, ReplyTwiPopUp}
+export { NewTwiPopUp, EditProfileModal, ReplyTwiPopUp}
 
 
 
