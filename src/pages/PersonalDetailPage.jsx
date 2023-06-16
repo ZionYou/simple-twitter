@@ -55,16 +55,3 @@ const PersonalDetailPage = () => {
 
 export default PersonalDetailPage;
 
-// const PersonalDetailPage = () => {
-
-//   return (
-//     <section className="main">
-//       <section className="main-container">
-//         <MainList/>
-//         <PersonalDetail/>
-//         <PopularFollow/>
-//       </section>
-//     </section>
-//   )
-// };
-

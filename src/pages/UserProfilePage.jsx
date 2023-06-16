@@ -1,6 +1,6 @@
-import { EditProfile, MainList, PopularFollow, Personal, NewTwiPopUp  } from "components";
+import { EditProfile, MainList, PopularFollow, Personal  } from "components";
 import {getUser, getUserTwi, getUserTwiReply, getUserTwiLike} from 'api/userInfo'
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import { useAuth } from 'contexts/AuthContext';
 
@@ -52,7 +52,7 @@ const UserProfilePage = () => {
       <Container>
         <Row>
           <Col xs={2}>
-            <MainList onClick={() => setIsNewTwiPopup(true)}/>
+            <MainList/>
           </Col>
           <Col xs={7}>
             <Personal
@@ -75,25 +75,8 @@ const UserProfilePage = () => {
           </Col>
         </Row>
       </Container>
-
-      {/* {isNewTwiPopup && <NewTwiPopUp onClick={() => setIsNewTwiPopup(false)}/>} */}
     </>
   )
 };
 
 export default UserProfilePage;
-
-// const UserProfilePage = () => {
-//   const [isPopup, setIsPopup] = useState(false)
-
-//   return (
-//     <section className="main">
-//       <section className="main-container">
-//         <MainList/>
-//         <Personal onClick={() => setIsPopup(true)}/>
-//         <PopularFollow/>
-//       </section>
-//       {isPopup && <EditProfile onClick={() => setIsPopup(false)}/>}
-//     </section>
-//   )
-// };
