@@ -16,16 +16,17 @@ const PersonalDetailPage = () => {
     const getUserFollowingsAsync = async () => {
       const data = await getUserFollowings(userId)
       setFollowings(data.data)
-      console.log(followings)
     }
     const getUserFollowersAsync = async () => {
       const data = await getUserFollowers(userId)
       setFollowers(data.data)
-      console.log(followers)
     }
     getUserFollowingsAsync()
     getUserFollowersAsync()
   }, [ currentMember ]);
+
+  console.log(followings)
+  console.log(followers)
   
   return (
     <>
@@ -35,10 +36,13 @@ const PersonalDetailPage = () => {
             <MainList onClick={() => setIsPopup(true)}/>
           </Col>
           <Col xs={7}>
-            <PersonalDetail/>
+            <PersonalDetail 
+              followers={followers} 
+              followings={followings}
+            />
           </Col>
           <Col xs={3}>
-            <PopularFollow followers={followers} followings={followings}/>
+            <PopularFollow />
           </Col>
         </Row>
       </Container>

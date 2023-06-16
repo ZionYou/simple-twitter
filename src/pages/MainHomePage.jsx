@@ -47,7 +47,6 @@ const MainHomePage = () => {
     getUserTwiAsync()
   }, [currentMember])
 
-
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/login');

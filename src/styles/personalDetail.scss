@@ -1,7 +1,7 @@
 .personal-follower-list, .personal-following-list{
   .personal-follow-item{
-    display: flex;
-    align-items: top;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
     padding: 16px 24px 16px 29px;
     border-bottom: var(--border-grey);
     img {
