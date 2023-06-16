@@ -1,44 +1,30 @@
-import { CommentIcon, LikeIcon, CloseIcon } from "assets/icons";
-import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { CommentIcon, LikeIcon, LikeSolidIcon, CloseIcon } from "assets/icons";
+import { useEffect, useState, useContext } from 'react';
+// import { useNavigate } from "react-router-dom";
 import { creatNewTwi, getUser } from 'api/userInfo';
 import { useAuth } from 'contexts/AuthContext';
 import { ReplyTwiPopUp, NewTwiPopUp } from 'components';
 import { Container, Row, Col } from "react-bootstrap";
 import Swal from 'sweetalert2';
+import { TransferTime } from "components/utilities/TransferTime";
 
-
-
-const TweetListItem = ({tweet}) => {
-  return(
-    <div className="tweet-item">
-      <img src={`https://picsum.photos/300/300?text=${tweet.id}`} alt="" />
-      <div className="tweet-info">
-        <div className="name-group">
-          <span className="name">{tweet.name}</span>
-          <span className="account">@{tweet.account}</span>
-          <span className="time"> &#183; {tweet.edit_time}</span>
-        </div>
-        <p className="content">
-          {tweet.content}
-        </p>
-        <div className="icon-group">
-          <div className="comment"><i><CommentIcon/></i>{tweet.commentNum}</div>
-          <div className="like"><i><LikeIcon/></i>{tweet.likeNum}</div>
-        </div>
-      </div>
-    </div>
-  )
-}
+import { LikeContext } from "pages/MainHomePage";
+import clsx from 'clsx';
+import { likeTweet, unlikeTweet, getUserTwi } from "api/userInfo";
 
 const UserProfileTwi = ({datas}) => {
-  
   const [popupcontent, setpopupcontent] = useState([])
   const [ popupToggle, setPopupToggle ] = useState(false)
+  const [isLike, setIsLike] = useState(false)
   const changecontent = (data) => {
     setpopupcontent([data])
     setPopupToggle(!popupToggle)
   }
+
+  const handleClose = () => {
+    setPopupToggle(false)
+  }
+
 
   const userTweets = datas.map((data) => {
     return(
@@ -48,14 +34,15 @@ const UserProfileTwi = ({datas}) => {
           <div className="name-group">
             <span className="name">{data.User.name}</span>
             <span className="account">@{data.User.account}</span>
-            <span className="time"> &#183; {data.updatedAt}</span>
+            <span className="time"> &#183; {TransferTime(data.updatedAt)}</span>
           </div>
           <p className="content">
             {data.description}
           </p>
           <div className="icon-group">
             <button className="comment btn-reset cursor-pointer" onClick={() => changecontent(data)}><i><CommentIcon/></i>{data.RepliesCount}</button>
-            <button className="like btn-reset cursor-pointer"><i><LikeIcon/></i>{data.LikesCount}</button>
+            <button className={`like btn-reset cursor-pointer`} onClick={() =>{
+            }}><i className="normal"> <LikeIcon/></i><i className="like-solid"><LikeSolidIcon/></i>{data.LikesCount}</button>
           </div>
         </div>
       </div>
@@ -66,20 +53,25 @@ const UserProfileTwi = ({datas}) => {
       <div className="tweet-list">
         {userTweets}
       </div>
-      {popupToggle && <ReplyTwiPopUp data={popupcontent} onClick={changecontent}/>}
+      {popupToggle && <ReplyTwiPopUp data={popupcontent} onClick={changecontent} handleClose={handleClose}/>}
     </>
   )
 }
 
-const MainHome = ({tweetDatas}) => {
+const MainHome = ({tweetDatas, onLike, isLiked}) => {
   // const [userTweets, setUserTweets] = useState([])
   const [isPopup, setIsPopup] = useState(false)
-  const [userInfo, setUserInfo] = useState([]);
   const [isError, setIsError] = useState(false)
   const [tweet, setTweet] = useState('')
+
+
+  const [userTweets, setUserTweets] = useState([])
+  
+
   const { currentMember } = useAuth();
 
   const userId = currentMember?.id
+  
 
   const handleClick = async() => {
     if(tweet === "" ){
@@ -120,13 +112,16 @@ const MainHome = ({tweetDatas}) => {
     }
   }
 
+  
+
   useEffect(() => {
-    const getUserAsync = async () => {
-      const data = await getUser(userId)
-      setUserInfo(data)
-      // console.log(data)
+    const getUserTwiAsync = async () => {
+      const data = await getUserTwi(userId)
+      // console.log(data.data)
+      setUserTweets(data.data)
+      // setUserTweets(data.map((data) => ({...data})))
     }
-     getUserAsync()
+    getUserTwiAsync()
   }, [currentMember])
   
 
@@ -137,14 +132,14 @@ const MainHome = ({tweetDatas}) => {
         <div className="input-group cursor-pointer" onClick={() => setIsPopup(true)}>
           <input type="checkbox" className="title-input cursor-pointer" id="new-tweet"/>
           <label htmlFor="new-tweet" className="title-label cursor-pointer">
-            <img src={userInfo.data?.avatar} alt="" />
+            <img src={currentMember?.avatar} alt="" />
             <p className="label-word">有什麼新鮮事?</p>
           </label>
           <button className="orange-btn radius-50 cursor-pointer">推文</button>
         </div>
       </div>
       <hr/>
-      <UserProfileTwi datas={tweetDatas}/>
+      <UserProfileTwi datas={userTweets}/>
       {isPopup && 
       <div className="popup">
         <div className="popup-bg">
@@ -155,21 +150,17 @@ const MainHome = ({tweetDatas}) => {
                   <a href="#" className="close" onClick={() => setIsPopup(false)}><CloseIcon/></a>
                 </div>
                 <div className="type-area">
-                  <img src={userInfo.data?.avatar} alt="" />
+                  <img src={currentMember?.avatar} alt="" />
                   <textarea 
                     id="tweet-textarea" 
                     className="newtwi-textarea" 
                     name="new-tweet-type" 
-                    // maxLength={140} 
                     placeholder="有什麼新鮮事?"
-                    
-                    // onChange={(tweetInputValue) => setTweet(tweetInputValue)}
                     onChange={(e) => setTweet(e.target.value)}
                   >{tweet}</textarea>
                 </div>
                 <div className="btn-group">
                   {(tweet === "" || tweet.length > 140) && isError && (<span className="error">{tweet === "" ? "內容不可空白" : "字數不可超過140字"}</span>)}
-                  {/* {inputValue.length > 140 && <span className="error">字數不可超過140字</span>} */}
                   <button className="orange-btn radius-50 cursor-pointer" onClick={handleClick}>推文</button>
                 </div>
               </Col>
@@ -183,7 +174,7 @@ const MainHome = ({tweetDatas}) => {
 
 
 
-export { TweetListItem, MainHome, UserProfileTwi};
+export { MainHome, UserProfileTwi};
 
 
 
@@ -328,5 +319,28 @@ export { TweetListItem, MainHome, UserProfileTwi};
 //       <UserProfileTwi id={id}/>
 // >>>>>>> c690e8de94f022d62fad334026f59f1b74d002cb
 //     </section>
+//   )
+// }
+
+
+// const TweetListItem = ({tweet}) => {
+//   return(
+//     <div className="tweet-item">
+//       <img src={`https://picsum.photos/300/300?text=${tweet.id}`} alt="" />
+//       <div className="tweet-info">
+//         <div className="name-group">
+//           <span className="name">{tweet.name}</span>
+//           <span className="account">@{tweet.account}</span>
+//           <span className="time"> &#183; {tweet.edit_time}</span>
+//         </div>
+//         <p className="content">
+//           {tweet.content}
+//         </p>
+//         <div className="icon-group">
+//           <div className="comment"><i><CommentIcon/></i>{tweet.commentNum}</div>
+//           <div className="like"><i><LikeIcon/></i>{tweet.likeNum}</div>
+//         </div>
+//       </div>
+//     </div>
 //   )
 // }

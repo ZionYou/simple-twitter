@@ -275,14 +275,29 @@
         display: flex;
         width: 100%;
 
-        .comment,
+        
         .like {
-          i {
-            @include svg-adjust(auto, 14px, var(--grey-secondary));
+          display: flex;
+          @include font-adjust(14px, 600, var(--grey-secondary));
+          .normal {
+            @include svg-adjust(14px, auto, var(--grey-secondary));
             margin-right: 10px;
           }
-
-          @include font-adjust(14px, 600, var(--grey-secondary));
+          .like-solid{
+            display: none;
+          }
+          &.action{
+            // @include font-adjust(14px, 600, var(--red-danger));
+            .normal{
+              display: none;
+            }
+            .like-solid{
+              display: block;
+              @include svg-adjust(14px, auto, var(--red-danger));
+                margin-right: 10px;
+            }
+          }
+          
         }
         .like-solid{
           @include font-adjust(14px, 600, var(--grey-secondary));
@@ -294,6 +309,11 @@
 
         .comment {
           margin-right: 40px;
+          @include font-adjust(14px, 600, var(--grey-secondary));
+          i{
+            @include svg-adjust(auto, 14px, var(--grey-secondary));
+              margin-right: 10px;
+          }
         }
       }
     }

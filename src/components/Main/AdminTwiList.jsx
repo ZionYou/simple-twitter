@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 
 import { getAllTweetsData, deleteTwi } from "api/admin";
 
+import { TransferTime } from "components/utilities/TransferTime";
+
 
 
 const AdminTwiListGroup = ({tweets, onDelete}) => {
@@ -15,7 +17,7 @@ const AdminTwiListGroup = ({tweets, onDelete}) => {
             <div className="name-group">
               <span className="name">{tweet.User.name}</span>
               <span className="account">@ {tweet.User.account}</span>
-              <span className="time"> &#183; {tweet.updatedAt}</span>
+              <span className="time"> &#183; {TransferTime(tweet.updatedAt)}</span>
             </div>
             <div className="close-group">
               <button href="#" className="btn-reset close" onClick={() => onDelete?. (tweet.id)}><CloseIcon/></button>

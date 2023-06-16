@@ -1,6 +1,6 @@
 import { EditProfile, MainList, PopularFollow, Personal, NewTwiPopUp  } from "components";
 import {getUser, getUserTwi, getUserTwiReply, getUserTwiLike} from 'api/userInfo'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import { useAuth } from 'contexts/AuthContext';
 
@@ -34,19 +34,16 @@ const UserProfilePage = () => {
       setReplyTweets(data)
       // console.log(data)
     }
-    // const getUserTwiLikeAsync = async () => {
-    //   const {success, data, message} = await getUserTwiLike(userId)
-    //   if(success){
-    //     setLikeTweets(data.map((data) => ({...data})))
-    //     // console.log(data)
-    //   } else {
-    //     console.error(message)
-    //   } 
-    // }
+    const getUserTwiLikeAsync = async () => {
+      const {data} = await getUserTwiLike(userId)
+      setLikeTweets(data)
+      // setLikeTweets(data.map((data) => ({...data})))
+      // console.log(data)
+    }
     getUserAsync()
     getUserTwiAsync()
     getUserTwiReplyAsync()
-    // getUserTwiLikeAsync()
+    getUserTwiLikeAsync()
   }, [currentMember])
 
   // console.log(userTweets)
@@ -78,8 +75,8 @@ const UserProfilePage = () => {
           </Col>
         </Row>
       </Container>
-      {/* {isPopup && <EditProfile onClick={() => setIsPopup(false)}/>} */}
-      {isNewTwiPopup && <NewTwiPopUp onClick={() => setIsNewTwiPopup(false)}/>}
+
+      {/* {isNewTwiPopup && <NewTwiPopUp onClick={() => setIsNewTwiPopup(false)}/>} */}
     </>
   )
 };

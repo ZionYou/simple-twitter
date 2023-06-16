@@ -10,7 +10,7 @@ const SettingsPage = () => {
       <Container>
         <Row>
           <Col xs={2}>
-            <MainList onClick={() => setIsPopup(true)}/>
+            <MainList/>
           </Col>
           <Col xs={7}>
             <SettingsArea/>
@@ -19,7 +19,7 @@ const SettingsPage = () => {
           </Col>
         </Row>
       </Container>
-      {isPopup && <NewTwiPopUp onClick={() => setIsPopup(false)}/>}
+      {/* {isPopup && <NewTwiPopUp onClick={() => setIsPopup(false)}/>} */}
     </>
   )
 };

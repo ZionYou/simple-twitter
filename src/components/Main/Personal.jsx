@@ -1,10 +1,11 @@
 import { BackArrowIcon, CommentIcon, LikeSolidIcon } from "assets/icons";
-import { UserProfileTwi } from "components";
-import { useState, useEffect } from 'react';
+import { UserProfileTwi, ReplyLikeTwiPopUp } from "components";
+import { useState, useEffect, createContext } from 'react';
 import { Link } from 'react-router-dom';
 import {useAuth} from 'contexts/AuthContext';
 import {EditProfileModal} from 'components/Main/Popup'
-
+import { TransferTime } from "components/utilities/TransferTime";
+import {getUser} from 'api/userInfo'
 
 const PersonalSwitchData = [
   {
@@ -33,7 +34,7 @@ const PersonSwitchBar = ({onClick}) => {
           return(
             <div key={tag.id}>
               <input type="radio" class="tab-input" id={tag.id} name="main" defaultChecked={tag.id === "tweet"} onClick={onClick} value={tag.id}/>
-              <label for={tag.id} class="tab-label cursor-pointer">{tag.name}</label>
+              <label htmlFor={tag.id} class="tab-label cursor-pointer">{tag.name}</label>
             </div>
           )
         })
@@ -44,24 +45,23 @@ const PersonSwitchBar = ({onClick}) => {
 
 
 
-
 const UserProfileTwiReply = ({datas}) => {
   const replyTweet = datas.map((tweet) => {
     return(
       <div className="tweet-item" key={tweet.id}>
-      <img src={tweet.User.avatar} alt="" />
-      <div className="tweet-info" key={tweet.id}>
-        <div className="name-group">
-          <span className="name">John Doe</span>
-          <span className="account">@heyjohn</span>
-          <span className="time"> &#183; {tweet.updatedAt}</span>
+        <img src={tweet.User.avatar} alt="" />
+        <div className="tweet-info">
+          <div className="name-group">
+            <span className="name">{tweet.User.name}</span>
+            <span className="account">@{tweet.User.account}</span>
+            <span className="time"> &#183; {TransferTime(tweet.updatedAt)}</span>
+          </div>
+          <p className="reply-to">回覆 <span>@{tweet.Tweet.account}</span></p>
+          <p className="content">
+            {tweet.comment}
+          </p>
         </div>
-        <p className="reply-to">回覆 <span>@{tweet.account}</span></p>
-        <p className="content">
-          {tweet.comment}
-        </p>
       </div>
-    </div>
     )
   })
   return(
@@ -73,31 +73,46 @@ const UserProfileTwiReply = ({datas}) => {
 
 
 const UserProfileLike = ({datas}) => {
+  const [popupcontent, setpopupcontent] = useState([])
+  const [ popupToggle, setPopupToggle ] = useState(false)
+
+  const changecontent = (data) => {
+    setpopupcontent([data])
+    setPopupToggle(!popupToggle)
+  }
+  const handleClose = () => {
+    setPopupToggle(false)
+  }
+
   const likeTweet = datas.map((tweet) => {
     return (
       <div className="tweet-item" key={tweet.id}>
-        <img src={tweet.Tweet.User.avatar} alt="" />
+        <img src={tweet.Tweet.avatar} alt="" />
         <div className="tweet-info">
           <div className="name-group">
-            <span className="name">{tweet.Tweet.User.name}</span>
-            <span className="account">@{tweet.Tweet.User.account}</span>
-            <span className="time"> &#183; {tweet.Tweet.updatedAt}</span>
+            <span className="name">{tweet.Tweet.name}</span>
+            <span className="account">@{tweet.Tweet.account}</span>
+            <span className="time"> &#183; {TransferTime(tweet.Tweet.updatedAt)}</span>
           </div>
           <p className="content">
             {tweet.Tweet.description}
           </p>
           <div className="icon-group">
-            <div className="comment"><i><CommentIcon/></i>{tweet.RepliesCount}</div>
-            <div className="like-solid"><i><LikeSolidIcon/></i>{tweet.LikesCount}</div>
+            <button className="comment btn-reset cursor-pointer" onClick={() => changecontent(tweet)}><i><CommentIcon/></i>{tweet.Tweet.RepliesCount}</button>
+            <div className="like-solid"><i><LikeSolidIcon/></i>{tweet.Tweet.LikesCount}</div>
           </div>
         </div>
       </div>
     )
   })
   return(
-    <div className="tweet-list">
-      {likeTweet}
-    </div>
+    <>
+      <div className="tweet-list">
+        {likeTweet}
+      </div>
+      {popupToggle && <ReplyLikeTwiPopUp data={popupcontent} onClick={changecontent} handleClose={handleClose}/>}
+    </>
+    
   )
 }
 
@@ -112,12 +127,27 @@ const PersonalPageSwitch = ({value, tweetDatas, replyDatas, likeDatas}) => {
 const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDatas, replyDatas, likeDatas, followerNum, followingNum}) => {
   const [currentValue, setCurrentValue] = useState('tweet')
   // const [editIsOpen, setEditIsOpen] = useState(false)
+  const [userInfo, setUserInfo] = useState([]);
   
   const {currentMember} = useAuth();
+  const userId = currentMember?.id
 
   const handlePageClick = (e) => {
     setCurrentValue(e.target.value)
   }
+
+  
+  
+  useEffect(() => {
+    const getUserAsync = async () => {
+      const data = await getUser(userId)
+      setUserInfo(data.data)
+      // console.log(data.data)
+    }
+    
+    getUserAsync()
+    // getUserTwiLikeAsync()
+  }, [currentMember])
 
 
 
@@ -137,7 +167,7 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
         <img src={avatar} alt="" className="personal-img" />
         <div className="btn-group" data-user="other">
           {/* <button className="orange-border-btn radius-50 cursor-pointer" onClick={onClick}>編輯個人資料</button> */}
-          <EditProfileModal/>
+          <EditProfileModal props={userInfo}/>
         </div>
         <div className="personal-info">
           <div className="personal-info-name-group">
