@@ -1,4 +1,5 @@
 import { BackArrowIcon } from "assets/icons";
+import { UserTitle } from "components";
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
 
@@ -112,7 +113,7 @@ const PersonDetailSwitchBar = ({onClick}) => {
 const PersonalFollowItem = ({follow}) => {
   return(
     <div className="personal-follow-item">
-      <img src={`${follow.avatar}`} alt="" />
+      <img src={`${follow.avatar}`} value={follow.id} alt="" />
       <div className="personal-follow-info">
         <div className="personal-title">
           <span className="name">{follow.name}</span>
@@ -176,11 +177,7 @@ const PersonalDetail = ({ followers, followings }) => {
     <section className="personal-detail middle-container-border">
       <div className="back-bar">
         <Link to="/user" className="back-link">
-          <span className="back-icon"><BackArrowIcon/></span>
-          <div className="title-group">
-            <p className="name">John Doe</p>
-            <p className="tweet-num"><span>25</span> 推文</p>
-          </div>
+          <UserTitle />
         </Link>
       </div>
       <PersonDetailSwitchBar onClick={handleFollowPageClick}/>

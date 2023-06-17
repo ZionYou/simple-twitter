@@ -1,8 +1,8 @@
-import { ACLogoIcon, HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon } from "assets/icons";
+import { ACLogoIcon, HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon, BackArrowIcon } from "assets/icons";
 import { useEffect, useState } from "react";
 import {Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/AuthContext';
-import { getTopTenFollowList } from "api/userInfo";
+import { getUser, getUserTwi, getTopTenFollowList } from 'api/userInfo'
 // import {logout} from 'api/admin'
 
 const MainListData = [
@@ -110,6 +110,56 @@ const MainListLink = ({data, className}) =>{
   )
 }
 
+const UserTitle = ()=>{
+  const [userInfo, setUserInfo] = useState([]);
+  const [userTweets, setUserTweets] = useState([])
+  const [userId, setUserId] = useState([])
+  const { currentMember } = useAuth();
+  const tweetCount = userTweets.length
+  const userID= localStorage.getItem('User');
+
+  useEffect(() => {
+    const user = () =>{
+      if (userID === currentMember?.id){
+        setUserId(currentMember?.id)
+      } else {
+        setUserId(userID)
+      }
+    }
+    const getUserAsync = async () => {
+      const data = await getUser(userId)
+      setUserInfo(data)
+    }
+    const getUserTwiAsync = async () => {
+      const {data} = await getUserTwi(userId)
+      setUserTweets(data)
+    }
+    getUserAsync()
+    getUserTwiAsync()
+    user()
+    // getUserTwiLikeAsync()
+  }, [currentMember])
+
+  // const handleClick = () => {
+  //   localStorage.removeItem('User');
+  //   onClick={handleClick}
+  // };
+
+  return(
+    <>
+      <span 
+        className="back-icon" 
+      ><BackArrowIcon/></span>
+      <div className="title-group">
+        <p className="name">{userInfo.data?.name}</p>
+        <p className="tweet-num"><span>{tweetCount}</span> 推文</p>
+      </div>
+    </>
+  )
+}
+
+
+
 // 主要列表元件
 const MainList = ({onClick}) => {
   const location = useLocation()
@@ -155,17 +205,17 @@ const MainList = ({onClick}) => {
   )
 }
 
+
 // 推薦跟隨元件
 const PopularFollow = () => {
   const [topFollow, setTopFollow] = useState([])
+  const { currentMember } = useAuth();
   useEffect(() => {
     const getTopTenFollowListAsync = async () => {
       try{
         const {success, data, message} = await getTopTenFollowList();
         if(success){
-          // setTopFollow({...data})
           setTopFollow(data.map((data) => ({...data})))
-          // console.log(data)
         } else {
           console.log(message)
         }
@@ -176,12 +226,20 @@ const PopularFollow = () => {
     getTopTenFollowListAsync()
   }, [])
 
-  // const top10 = topFollow.filter((item) => item.id <= 104)
+  const handleClick= (e) => {
+    const id = e.target.id;
+    localStorage.setItem('User', id)
+  }
 
+  // const top10 = topFollow.filter((item) => item.id <= 104)
   const topFollowList = topFollow.map((item) => {
     return(
       <div className="popular-follow-item" key={item.id}>
-        <img src={item.avatar === null ? "https://www.seekpng.com/png/detail/966-9665317_placeholder-image-person-jpg.png" : item.avatar} alt={item.name} className="popular-follow-img" />
+        <Link to={item.id === currentMember?.id ? '/user' : '/otherUser'}>
+          <img src={item.avatar === null ? "https://www.seekpng.com/png/detail/966-9665317_placeholder-image-person-jpg.png" : item.avatar} alt={item.name} className="popular-follow-img"
+          id={item.id} 
+          onClick={handleClick}/>
+        </Link>
         <div className="popular-follow-name-group">
           <a herf="" className="popular-follow-name">{item.name}</a>
           <p className="popular-follow-account">@<span>{item.account}</span></p>
@@ -245,7 +303,7 @@ const AdminList = () => {
   )
 }
 
-export { MainList, PopularFollow, AdminList };
+export { MainList, PopularFollow, AdminList, UserTitle};
 
 // const MainList = () => {
 //   return(

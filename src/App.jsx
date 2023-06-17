@@ -11,7 +11,8 @@ import {
   SettingsPage, 
   TwiItemPage,
   AdminTwiListPage,
-  AdminUserListPage
+  AdminUserListPage,
+  OtherProfilePage
 } from "pages"
 import { AuthProvider } from 'contexts/AuthContext';
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="twiItem" element={<TwiItemPage/>} />
             <Route path="adminTwi" element={<AdminTwiListPage/>} />
             <Route path="adminUser" element={<AdminUserListPage/>} />
+            <Route path="otherUser" element={<OtherProfilePage/>} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

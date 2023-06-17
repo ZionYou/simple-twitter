@@ -37,8 +37,6 @@ const AuthProvider = ({ children }) => {
       if (authToken) {
         setIsAuthenticated(true);
         const tempPayload = jwt.decode(authToken);
-        // console.log(tempPayload)
-
         setPayload(tempPayload);
       } else {
         setIsAuthenticated(false);
@@ -89,6 +87,7 @@ const AuthProvider = ({ children }) => {
             setPayload(tempPayload);
             setIsAuthenticated(true);
             localStorage.setItem('authToken', token);
+            localStorage.setItem('User', payload.id);
           } else {
             setPayload(null);
             setIsAuthenticated(false);

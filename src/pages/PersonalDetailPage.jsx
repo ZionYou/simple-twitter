@@ -27,7 +27,7 @@ const PersonalDetailPage = () => {
 
   console.log(followings)
   console.log(followers)
-  
+
   return (
     <>
       <Container>

@@ -2,10 +2,11 @@ import { EditProfile, MainList, PopularFollow, Personal, NewTwiPopUp  } from "co
 import {getUser, getUserTwi, getUserTwiReply, getUserTwiLike} from 'api/userInfo'
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/AuthContext';
 
 // 個人資料頁面
-const UserProfilePage = () => {
+const OtherProfilePage = () => {
   const [isPopup, setIsPopup] = useState(false)
   const [isNewTwiPopup, setIsNewTwiPopup] = useState(false)
   const [userInfo, setUserInfo] = useState([]);
@@ -13,8 +14,9 @@ const UserProfilePage = () => {
   const [replyTweets, setReplyTweets] = useState([])
   const [likeTweets, setLikeTweets] = useState([])
   const { currentMember } = useAuth();
+  const navigate = useNavigate();
   const tweetCount = userTweets.length
-  const userId = currentMember?.id
+  const userId = localStorage.getItem('User');
 
    useEffect(() => {
     const getUserAsync = async () => {
@@ -73,19 +75,4 @@ const UserProfilePage = () => {
   )
 };
 
-export default UserProfilePage;
-
-// const UserProfilePage = () => {
-//   const [isPopup, setIsPopup] = useState(false)
-
-//   return (
-//     <section className="main">
-//       <section className="main-container">
-//         <MainList/>
-//         <Personal onClick={() => setIsPopup(true)}/>
-//         <PopularFollow/>
-//       </section>
-//       {isPopup && <EditProfile onClick={() => setIsPopup(false)}/>}
-//     </section>
-//   )
-// };
+export default OtherProfilePage;

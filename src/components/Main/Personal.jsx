@@ -1,5 +1,5 @@
 import { BackArrowIcon, CommentIcon, LikeSolidIcon } from "assets/icons";
-import { UserProfileTwi } from "components";
+import { UserProfileTwi, UserTitle } from "components";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {useAuth} from 'contexts/AuthContext';
@@ -21,8 +21,6 @@ const PersonalSwitchData = [
   },
 
 ]
-
-
 
 
 const PersonSwitchBar = ({onClick}) => {
@@ -109,7 +107,7 @@ const PersonalPageSwitch = ({value, tweetDatas, replyDatas, likeDatas}) => {
 
 
 
-const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDatas, replyDatas, likeDatas, followerNum, followingNum}) => {
+const Personal = ({onClick, name, count, account, introduction, cover, avatar, tweetDatas, replyDatas, likeDatas, followerNum, followingNum}) => {
   const [currentValue, setCurrentValue] = useState('tweet')
   // const [editIsOpen, setEditIsOpen] = useState(false)
   
@@ -120,16 +118,11 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
   }
 
 
-
   return(
     <section className="person middle-container-border">
       <div className="back-bar">
         <Link to="/main" className="back-link">
-          <span className="back-icon"><BackArrowIcon/></span>
-          <div className="title-group">
-            <p className="name">{name}</p>
-            <p className="tweet-num"><span>25</span> 推文</p>
-          </div>
+          <UserTitle name={name} count={count}/>
         </Link>
       </div>
       <div className="personal-area">

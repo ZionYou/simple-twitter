@@ -31,8 +31,8 @@ const MainHomePage = () => {
   const [isPopup, setIsPopup] = useState(false)
   const navigate = useNavigate();
   const { isAuthenticated, currentMember } = useAuth();
-
   const userId = currentMember?.id
+
   useEffect(() => {
     const getUserAsync = async () => {
       const data = await getUser(userId)

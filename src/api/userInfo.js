@@ -41,7 +41,7 @@ const axiosInstance = axios.create({
 // 取得指定使用者資料 //get
 export const getUser = async (id) => {
   try {
-    const { data } = await axiosInstance.get(`${baseURL}/users/${id}`,{
+    const { data } = await axiosInstance.get(`${baseURL}/users/${id}`, {
       headers: {
         'Authorization': 'Bearer ' + token
       }
@@ -59,15 +59,15 @@ export const getUser = async (id) => {
 // 取得指定使用者發出的所有推文 //get
 export const getUserTwi = async (id) => {
   try {
-    const {data} = await axiosInstance.get(`${baseURL}/users/${id}/tweets`, {
+    const { data } = await axiosInstance.get(`${baseURL}/users/${id}/tweets`, {
       headers: {
         'Authorization': 'Bearer ' + token
       }
     })
 
-    return {sucess: true, data}
+    return { sucess: true, data }
   } catch (error) {
-    return{
+    return {
       //success: false,
       message: `[Get user all tweets failed]:${error}`
     }
@@ -77,15 +77,15 @@ export const getUserTwi = async (id) => {
 // 取得指定使用者有回復的所有推文 //get
 export const getUserTwiReply = async (id) => {
   try {
-    const {data} = await axiosInstance.get(`${baseURL}/users/${id}/replied_tweets`, {
+    const { data } = await axiosInstance.get(`${baseURL}/users/${id}/replied_tweets`, {
       headers: {
         'Authorization': 'Bearer ' + token
       }
     })
 
-    return {sucess: true, data}
+    return { sucess: true, data }
   } catch (error) {
-    return{
+    return {
       success: false,
       message: `[Get user all reply tweets failed]: ${error}`
     }
@@ -95,11 +95,11 @@ export const getUserTwiReply = async (id) => {
 // 取得指定使用者喜歡的所有推文 //get
 export const getUserTwiLike = async (id) => {
   try {
-    const {data} = await axiosInstance.get(`${baseURL}/user/${id}/likes`)
+    const { data } = await axiosInstance.get(`${baseURL}/user/${id}/likes`)
 
-    return {sucess: true, data}
+    return { sucess: true, data }
   } catch (error) {
-    return{
+    return {
       success: false,
       message: `[Get user like failed]: ${error}`
     }
@@ -116,7 +116,7 @@ export const getUserFollowings = async (id) => {
     });
     return { success: true, data }
   } catch (error) {
-    return{
+    return {
       success: false,
       message: `[Get user followings failed]: ${error}`
     }
@@ -133,7 +133,7 @@ export const getUserFollowers = async (id) => {
     });
     return { success: true, data }
   } catch (error) {
-    return{
+    return {
       success: false,
       message: `[Get user followers failed]: ${error}`
     }
@@ -143,10 +143,14 @@ export const getUserFollowers = async (id) => {
 
 // 取得top10推薦跟隨名單
 
-export const getTopTenFollowList = async() => {
-  try{
-    const {data} = await axiosInstance.get(`${baseURL}/users/top10`)
-     return {success: true, data}
+export const getTopTenFollowList = async () => {
+  try {
+    const { data } = await axiosInstance.get(`${baseURL}/users/top10`, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    });
+    return { success: true, data }
   } catch (error) {
     return {
       success: false,
@@ -164,7 +168,7 @@ export const patchUserInfo = async (payload, id) => {
     });
     return res.data;
   } catch (error) {
-    return{
+    return {
       success: false,
       message: `[Patch User Info failed]: ${error}`
     }
@@ -173,8 +177,8 @@ export const patchUserInfo = async (payload, id) => {
 
 // 編輯個人帳戶設定
 export const putUserSettings = async (payload, id) => {
-  const {name, account, email, password, checkPassword} = payload
-  try{
+  const { name, account, email, password, checkPassword } = payload
+  try {
     const res = await axiosInstance.put(`${baseURL}/users/${id}/setting`, {
       name, account, email, password, checkPassword
     });

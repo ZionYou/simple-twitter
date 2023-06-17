@@ -6,6 +6,7 @@ import {FormInput, FormTextarea} from 'components'
 import {getUser, patchUserInfo} from 'api/userInfo'
 import useUpdateUser from '../../components/hooks/useUpdateUser'
 
+
 // 新推文元件
 // const NewTwiPopUp = ({onClick}) => {
 //   const [isError, setIsError] = useState(false)
@@ -108,8 +109,11 @@ const EditProfileModal = ({onClick, onSave}) => {
   const [coverImg, setCoverImg] = useState('')
   const [coverImgUrl, setCoverImgUrl] = useState(coverImg)
   const [toggleModal, setToggleModal] = useState(false)
-
   const userId = currentMember?.id
+  //設變數存name的長度
+  const countName = name.length
+  //設變數存Intro的長度
+  const countIntro = intro.length
 
   const handleImgChange = (e, type) => {
     const selectedFile = e.target.files[0]
@@ -134,13 +138,14 @@ const EditProfileModal = ({onClick, onSave}) => {
       const data = await getUser(userId)
       setUserInfo(data)
       setName(data.data.name)
-      // setNameCount(data.data.name.length)
+      // name的長度
+      setNameCount(countName)
       setIntro(data.data.introduction)
-      // setIntroCount(data.data.introduction.length)
+      // Intro的長度
+      setIntroCount(countIntro)
       setAvatarUrl(data.data.avatar)
       setCoverImgUrl(data.data.cover)
     }
-    
     getUserAsync()
     // getUserTwiLikeAsync()
   }, [currentMember])
