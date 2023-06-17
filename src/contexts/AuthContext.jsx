@@ -55,6 +55,9 @@ const AuthProvider = ({ children }) => {
         currentMember: payload && {
           id: payload.id,
           name: payload.name,
+          intro: payload.introduction,
+          avatar: payload.avatar,
+          cover: payload.cover
         },
         // register: async (data) => {
         //   const { message, token,  } = await register({

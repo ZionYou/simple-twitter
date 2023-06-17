@@ -1,50 +1,34 @@
 // 元件
 import { MainHome, NewTwiPopUp, MainList, PopularFollow, ReplyTwiPopUp } from "components";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, createContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
-import { getUserTwi, getUser } from 'api/userInfo';
+import { getUserTwi, getUser, likeTweet, unlikeTweet } from 'api/userInfo';
 import { useAuth } from '../contexts/AuthContext';
 
-// 首頁
-// const MainHomePage = () => {
-//   const [tweets, setTweets] = useState([])
-//   const [isPopup, setIsPopup] = useState(false)
-//   // const { id } = useParams()
-//   // const params = useParams()
-//   // console.log(params)
-  
-// =======
-// // Hook
-// import { useState, useEffect } from 'react';
-// import { useNavigate, useParams } from 'react-router-dom';
-// import { Container, Row, Col } from "react-bootstrap";
-// // API
-// import { getUserTwi, getUser } from 'api/userInfo';
-// import { useAuth } from 'contexts/AuthContext';
 
 // 首頁
+
+export const LikeContext = createContext()
+
 const MainHomePage = () => {
   const [userInfo, setUserInfo] = useState([]);
-  const [userTweets, setUserTweets] = useState([])
+  // const [userTweets, setUserTweets] = useState([])
+  // const [isLike, setIsLike] = useState(false)
   // 彈跳視窗狀態
   const [isPopup, setIsPopup] = useState(false)
   const navigate = useNavigate();
   const { isAuthenticated, currentMember } = useAuth();
 
   const userId = currentMember?.id
+
+  
   useEffect(() => {
     const getUserAsync = async () => {
       const data = await getUser(userId)
       setUserInfo(data)
-      // console.log(data)
-    }
-    const getUserTwiAsync = async () => {
-      const data = await getUserTwi(userId)
-      setUserTweets(data.data)
     }
     getUserAsync()
-    getUserTwiAsync()
   }, [currentMember])
 
   useEffect(() => {
@@ -58,14 +42,10 @@ const MainHomePage = () => {
       <Container>
         <Row>
           <Col xs={2}>
-            <MainList onClick={() => setIsPopup(true)}
-            />
+            <MainList />
           </Col>
           <Col xs={7}>
             <MainHome
-              // id={currentUser?.id} 
-              // avatar={currentUser?.avatar}
-              tweetDatas={userTweets}
               onClick={() => setIsPopup(true)}
             />
           </Col>
@@ -74,7 +54,6 @@ const MainHomePage = () => {
           </Col>
         </Row>
       </Container>
-      {isPopup && <NewTwiPopUp onClick={() => setIsPopup(false)}/>}
     </>
   )
 };

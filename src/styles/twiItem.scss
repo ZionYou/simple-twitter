@@ -58,6 +58,12 @@
     }
     .like{
       margin-left: 133px;
+      .like-solid{
+        @include svg-adjust(auto, 25px, var(--red-danger));
+      }
+      .normal{
+        @include svg-adjust(auto, 25px, var(--grey-secondary));
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-import { EditProfile, MainList, PopularFollow, Personal, NewTwiPopUp  } from "components";
+import { EditProfile, MainList, PopularFollow, Personal  } from "components";
 import {getUser, getUserTwi, getUserTwiReply, getUserTwiLike} from 'api/userInfo'
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
@@ -15,6 +15,8 @@ const UserProfilePage = () => {
   const { currentMember } = useAuth();
 
   const userId = currentMember?.id
+
+  
 
    useEffect(() => {
     const getUserAsync = async () => {
@@ -34,19 +36,16 @@ const UserProfilePage = () => {
       setReplyTweets(data)
       // console.log(data)
     }
-    // const getUserTwiLikeAsync = async () => {
-    //   const {success, data, message} = await getUserTwiLike(userId)
-    //   if(success){
-    //     setLikeTweets(data.map((data) => ({...data})))
-    //     // console.log(data)
-    //   } else {
-    //     console.error(message)
-    //   } 
-    // }
+    const getUserTwiLikeAsync = async () => {
+      const {data} = await getUserTwiLike(userId)
+      setLikeTweets(data)
+      // setLikeTweets(data.map((data) => ({...data})))
+      // console.log(data)
+    }
     getUserAsync()
     getUserTwiAsync()
     getUserTwiReplyAsync()
-    // getUserTwiLikeAsync()
+    getUserTwiLikeAsync()
   }, [currentMember])
 
   // console.log(userTweets)
@@ -55,7 +54,7 @@ const UserProfilePage = () => {
       <Container>
         <Row>
           <Col xs={2}>
-            <MainList onClick={() => setIsNewTwiPopup(true)}/>
+            <MainList/>
           </Col>
           <Col xs={7}>
             <Personal
@@ -70,6 +69,7 @@ const UserProfilePage = () => {
               tweetDatas={userTweets} 
               likeDatas={likeTweets} 
               replyDatas={replyTweets}
+              
               // onClick={() => setIsPopup(true)}
             />
           </Col>
@@ -78,25 +78,8 @@ const UserProfilePage = () => {
           </Col>
         </Row>
       </Container>
-      {/* {isPopup && <EditProfile onClick={() => setIsPopup(false)}/>} */}
-      {isNewTwiPopup && <NewTwiPopUp onClick={() => setIsNewTwiPopup(false)}/>}
     </>
   )
 };
 
 export default UserProfilePage;
-
-// const UserProfilePage = () => {
-//   const [isPopup, setIsPopup] = useState(false)
-
-//   return (
-//     <section className="main">
-//       <section className="main-container">
-//         <MainList/>
-//         <Personal onClick={() => setIsPopup(true)}/>
-//         <PopularFollow/>
-//       </section>
-//       {isPopup && <EditProfile onClick={() => setIsPopup(false)}/>}
-//     </section>
-//   )
-// };

@@ -1,8 +1,12 @@
-import { ACLogoIcon, HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon } from "assets/icons";
+import { ACLogoIcon, HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, SettingsIcon, SettingsCheckedIcon, LogoutIcon, CloseIcon } from "assets/icons";
 import { useEffect, useState } from "react";
 import {Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/AuthContext';
 import { getTopTenFollowList } from "api/userInfo";
+// import { NewTwiPopUp } from "./Popup";
+import { Container, Row, Col } from "react-bootstrap";
+import Swal from 'sweetalert2';
+import { creatNewTwi, getUser } from "api/userInfo";
 // import {logout} from 'api/admin'
 
 const MainListData = [
@@ -116,10 +120,52 @@ const MainList = ({onClick}) => {
   const {pathname} = location
   const splitLocation = pathname.split("/");
   const navigate = useNavigate()
-  const { isAuthenticated, logout } = useAuth();
+  const [userInfo, setUserInfo] = useState([]);
+  const [isError, setIsError] = useState(false)
+  const [tweet, setTweet] = useState('')
+  const [isPopup, setIsPopup] = useState(false)
+  const { isAuthenticated, logout, currentMember } = useAuth();
   // const navigate = useNavigate()
   // const { logout } = useAuth();
+   const userId = currentMember?.id
+   const handlePopupClick = async() => {
+    if(tweet === "" ){
+      setIsError(true)
+      return
+    }  
+    if (tweet.length > 140) {
+      setIsError(true)
+      return
+    } 
 
+     try{
+      const data = await creatNewTwi(tweet)
+      console.log(data.message)
+      if(data.message === "發送成功"){
+        Swal.fire({
+          position: 'top',
+          title: data.message,
+          timer: 1000,
+          icon: 'success',
+          showConfirmButton: false,
+        })
+        setTweet('')
+        setIsPopup(false)
+      } else {
+        Swal.fire({
+          position: 'top',
+          title: data.message,
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        })
+        setTweet('')
+      }
+    } catch (error){
+      setTweet('')
+      console.error(error)
+    }
+  }
   const handleClick = () => {
     logout();
     // localStorage.removeItem('authToken');
@@ -127,31 +173,70 @@ const MainList = ({onClick}) => {
     // navigate('login')
   }
   useEffect(() => {
+    const getUserAsync = async () => {
+      const data = await getUser(userId)
+      setUserInfo(data)
+      // console.log(data)
+    }
+    getUserAsync()
+  }, [currentMember])
+  useEffect(() => {
     if(!isAuthenticated){
       navigate('/login')
     }
   }, [navigate, isAuthenticated])
 
   return(
-    <div className="main-list">
-      <Link to="/main" className="icon">
-        <ACLogoIcon/>
-      </Link>
-      <div className="main-list-group">
-        {
-          MainListData.map((data) => {
-            return <MainListLink data={data} key={data.id} className = {splitLocation[1] === data.id? "action" : ""}/>
-          })
-        }
-        <button className="orange-btn radius-50 cursor-pointer" onClick={onClick}>推文</button>
+    <>
+      <div className="main-list">
+        <Link to="/main" className="icon">
+          <ACLogoIcon/>
+        </Link>
+        <div className="main-list-group">
+          {
+            MainListData.map((data) => {
+              return <MainListLink data={data} key={data.id} className = {splitLocation[1] === data.id? "action" : ""}/>
+            })
+          }
+          <button className="orange-btn radius-50 cursor-pointer" onClick={() => setIsPopup(true)}>推文</button>
+          {/* <NewTwiPopUp/> */}
+        </div>
+        <a className="logout-group" onClick={handleClick}>
+          <span className="logout">
+            <LogoutIcon/>
+          </span>
+          <a herf="" className="logout-name">登出</a>
+        </a>
       </div>
-      <a className="logout-group" onClick={handleClick}>
-        <span className="logout">
-          <LogoutIcon/>
-        </span>
-        <a herf="" className="logout-name">登出</a>
-      </a>
-    </div>
+      {isPopup && <div className="popup-main">
+        <div className="popup-bg">
+          <Container>
+            <Row>
+              <Col xs={{span: 7, offset: 2}} className="popup-container">
+                <div className="close-group">
+                  <a href="#" className="close" onClick={() => setIsPopup(false)}><CloseIcon/></a>
+                </div>
+                <div className="type-area">
+                  <img src={userInfo.data?.avatar} alt="" />
+                  <textarea 
+                    id="tweet-textarea" 
+                    className="newtwi-textarea" 
+                    name="new-tweet-type" 
+                    placeholder="有什麼新鮮事?"
+                    onChange={(e) => setTweet(e.target.value)}
+                  >{tweet}</textarea>
+                </div>
+                <div className="btn-group">
+                  {(tweet === "" || tweet.length > 140) && isError && (<span className="error">{tweet === "" ? "內容不可空白" : "字數不可超過140字"}</span>)}
+                  <button className="orange-btn radius-50 cursor-pointer" onClick={handlePopupClick}>推文</button>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </div>}
+    </>
+    
   )
 }
 

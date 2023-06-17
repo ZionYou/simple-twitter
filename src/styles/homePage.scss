@@ -138,6 +138,7 @@
   border-radius: 16px;
   margin-top: 16px;
 
+
   position: sticky;
   top: 16px;
   left: 0;
@@ -231,7 +232,8 @@
 
 .tweet-list {
   .tweet-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 50px auto;
     align-items: top;
     padding: 16px 24px 16px 29px;
 
@@ -274,14 +276,30 @@
         display: flex;
         width: 100%;
 
-        .comment,
+        
         .like {
-          i {
-            @include svg-adjust(auto, 14px, var(--grey-secondary));
+          display: flex;
+          @include font-adjust(14px, 600, var(--grey-secondary));
+          .normal {
+            @include svg-adjust(14px, auto, var(--grey-secondary));
             margin-right: 10px;
           }
-
-          @include font-adjust(14px, 600, var(--grey-secondary));
+          .like-solid{
+            @include svg-adjust(14px, auto, var(--red-danger));
+            margin-right: 10px;
+          }
+          // &.action{
+          //   // @include font-adjust(14px, 600, var(--red-danger));
+          //   .normal{
+          //     display: none;
+          //   }
+          //   .like-solid{
+          //     display: block;
+          //     @include svg-adjust(14px, auto, var(--red-danger));
+          //       margin-right: 10px;
+          //   }
+          // }
+          
         }
         .like-solid{
           @include font-adjust(14px, 600, var(--grey-secondary));
@@ -293,6 +311,11 @@
 
         .comment {
           margin-right: 40px;
+          @include font-adjust(14px, 600, var(--grey-secondary));
+          i{
+            @include svg-adjust(auto, 14px, var(--grey-secondary));
+              margin-right: 10px;
+          }
         }
       }
     }
