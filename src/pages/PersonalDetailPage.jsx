@@ -1,39 +1,33 @@
 import { MainList, PopularFollow, PersonalDetail, NewTwiPopUp } from "components";
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
-import { useAuth } from '../contexts/AuthContext';
-import {getUserFollowings, getUserFollowers} from 'api/userInfo'
+import { useAuth } from 'contexts/AuthContext';
+import { getUserFollowings, getUserFollowers} from 'api/userInfo'
 
 //個人追隨動態頁面
 const PersonalDetailPage = () => {
   const [isPopup, setIsPopup] = useState(false)
   const [followers, setFollowers] = useState([])
   const [followings, setFollowings] = useState([])
-  const {currentMember} = useAuth()
+  const { currentMember } = useAuth();
+  const userId = currentMember?.id
 
   useEffect(() => {
     const getUserFollowingsAsync = async () => {
-      const {success, data, message} = await getUserFollowings()
-      if(success){
-        setFollowings(data.map((data) => ({...data})))
-        // console.log(data)
-      } else {
-        console.error(message)
-      }
+      const data = await getUserFollowings(userId)
+      setFollowings(data.data)
     }
     const getUserFollowersAsync = async () => {
-      const {success, data, message} = await getUserFollowers()
-      if(success){
-        setFollowers(data.map((data) => ({...data})))
-        // console.log(data)
-      } else {
-        console.error(message)
-      }
+      const data = await getUserFollowers(userId)
+      setFollowers(data.data)
     }
-
     getUserFollowingsAsync()
     getUserFollowersAsync()
-  }, [currentMember])
+  }, [ currentMember ]);
+
+  console.log(followings)
+  console.log(followers)
+  
   return (
     <>
       <Container>
@@ -42,10 +36,13 @@ const PersonalDetailPage = () => {
             <MainList/>
           </Col>
           <Col xs={7}>
-            <PersonalDetail/>
+            <PersonalDetail 
+              followers={followers} 
+              followings={followings}
+            />
           </Col>
           <Col xs={3}>
-            <PopularFollow ollowerDatas={followers} followingDatas={followings}/>
+            <PopularFollow />
           </Col>
         </Row>
       </Container>

@@ -266,7 +266,9 @@ const PopularFollow = () => {
   const topFollowList = topFollow.map((item) => {
     return(
       <div className="popular-follow-item" key={item.id}>
-        <img src={item.avatar === null ? "https://www.seekpng.com/png/detail/966-9665317_placeholder-image-person-jpg.png" : item.avatar} alt={item.name} className="popular-follow-img" />
+        <Link to={`/otherUser/${item.id}`}>
+          <img src={item.avatar === null ? "https://www.seekpng.com/png/detail/966-9665317_placeholder-image-person-jpg.png" : item.avatar} alt={item.name} className="popular-follow-img" />
+        </Link>
         <div className="popular-follow-name-group">
           <a herf="" className="popular-follow-name">{item.name}</a>
           <p className="popular-follow-account">@<span>{item.account}</span></p>

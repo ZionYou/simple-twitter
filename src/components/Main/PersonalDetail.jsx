@@ -99,7 +99,7 @@ const PersonDetailSwitchBar = ({onClick}) => {
         PersonalDetailSwitchData.map((tag) => {
           return(
             <div key={tag.id}>
-              <input type="radio" class="tab-input" id={tag.id} name="main" defaultChecked={tag.id === "follower"} onClick={onClick} value={tag.id}/>
+              <input type="radio" className="tab-input" id={tag.id} name="main" defaultChecked={tag.id === "follower"} onClick={onClick} value={tag.id}/>
               <label for={tag.id} class="tab-label">{tag.name}</label>
             </div>
           )
@@ -112,49 +112,61 @@ const PersonDetailSwitchBar = ({onClick}) => {
 const PersonalFollowItem = ({follow}) => {
   return(
     <div className="personal-follow-item">
-      <img src={`https://picsum.photos/300/300?text=${follow.id}`} alt="" />
+      <img src={`${follow.avatar}`} alt="" />
       <div className="personal-follow-info">
         <div className="personal-title">
-          <span className="name">{follow.user_name}</span>
+          <span className="name">{follow.name}</span>
           <button className={`radius-50 ${follow.isFollowed ? "orange-btn" : "orange-border-btn"}`}>{follow.isFollowed ? "正在跟隨" : "跟隨"}</button>
         </div>
         <p className="content">
-          {follow.user_intro}
+          {follow.introduction}
         </p>
       </div>
     </div>
   )
 }
 
-const PersonalFollowerList = ({datas}) => {
-  const follower = datas.map((follow) => {
-    return <PersonalFollowItem follow={follow} key={follow.id}/>
+const PersonalFollowerList = ({ datas}) => {
+
+  const userFollowers = datas.map((data) => {
+    return(
+      <>
+        <PersonalFollowItem follow={data} key={data.followingId}/>
+      </>
+    )
   })
+
   return(
     <div className="personal-follower-list">
-      {follower}
+      { userFollowers }
     </div>
   )
 }
 
-const PersonalFollowingList = ({datas}) => {
-  const following = datas.map((follow) => {
-    return <PersonalFollowItem follow={follow} key={follow.id}/>
+const PersonalFollowingList = ({ datas }) => {
+
+  const userFollowings = datas.map((data) => {
+    return(
+      <>
+        <PersonalFollowItem follow={data} key={data.id}/>
+      </>
+    )
   })
+
   return(
     <div className="personal-following-list">
-      {following}
+      { userFollowings  }
     </div>
   )
 }
 
-const PersonalFollowPageSwitch = ({value, followerDatas, followingDatas}) => {
-  if(value === 'follower') return <PersonalFollowerList datas={followerDatas}/>
-  if(value === 'following') return <PersonalFollowingList datas={followingDatas}/>
+const PersonalFollowPageSwitch = ({value, followers, followings}) => {
+  if(value === 'follower') return <PersonalFollowerList datas={followers}/>
+  if(value === 'following') return <PersonalFollowingList datas={followings}/>
 }
 
 // 追隨動態元件
-const PersonalDetail = ({followerDatas, followingDatas}) => {
+const PersonalDetail = ({ followers, followings }) => {
   const [currentFollowValue, setCurrentFollowValue] = useState('follower')
 
   const handleFollowPageClick = (e) => {
@@ -172,7 +184,11 @@ const PersonalDetail = ({followerDatas, followingDatas}) => {
         </Link>
       </div>
       <PersonDetailSwitchBar onClick={handleFollowPageClick}/>
-      <PersonalFollowPageSwitch value={currentFollowValue} followerDatas={followerDatas} followingDatas={followingDatas}/>
+      <PersonalFollowPageSwitch 
+        value={currentFollowValue} 
+        followers={followers} 
+        followings={followings}
+      />
     </section>
   )
 }

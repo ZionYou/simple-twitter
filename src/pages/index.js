@@ -9,6 +9,7 @@ import SettingsPage from './SettingsPage';
 import TwiItemPage from './TwiItemPage';
 import AdminTwiListPage from './AdminTwiListPage';
 import AdminUserListPage from './AdminUserListPage';
+import OtherUserPage from './OtherUserPage';
 
 
 export {
@@ -22,5 +23,6 @@ export {
   SettingsPage,
   TwiItemPage,
   AdminTwiListPage,
-  AdminUserListPage
+  AdminUserListPage,
+  OtherUserPage
 } 
