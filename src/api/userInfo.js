@@ -266,9 +266,24 @@ export const getSingleTwiReply = async(tweetId) => {
     const res = await axiosInstance.get(`${baseURL}/tweets/${tweetId}/replies`)
     return res.data
   } catch(error){
-    console.log('[Get single twi reply failed]:', error)
+    console.error('[Get single twi reply failed]:', error)
   }
 }
 
 // ************************ Tweet **************************
 
+// *********************** Followship **********************
+export const followOther = async(userId) => {
+  try{
+    const res = await axiosInstance.post(`${baseURL}/followships/${userId}`)
+    return res.data
+  } catch (error){
+    console.error(error)
+  }
+}
+
+export const unfollowOther = async(userId) => {
+  
+}
+
+// *********************** Followship **********************

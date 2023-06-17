@@ -263,6 +263,9 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
         <img src={cover} alt="" className="personal-bg-img"/>
         <img src={avatar} alt="" className="personal-img" />
         <div className="btn-group" data-user="other">
+          {/* {currentMember.id ? <EditProfileModal props={userInfo}/>: <button>
+              you
+            </button>} */}
           <EditProfileModal props={userInfo}/>
         </div>
         <div className="personal-info">

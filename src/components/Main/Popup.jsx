@@ -131,19 +131,21 @@ const EditProfileModal = ({props, onClick, onSave}) => {
 
   // console.log(currentMember)
    const [userInfo, setUserInfo] = useState([]);
-  const [name, setName] = useState('')
-  const [nameCount, setNameCount] = useState(0)
-  const [introduction, setIntro] = useState('')
-  const [introCount, setIntroCount] = useState('')
-  const [avatar, setAvatar] = useState('')
+  const [name, setName] = useState(currentMember?.name)
+  // let countName = name.length
+  const [nameCount, setNameCount] = useState()
+  const [introduction, setIntro] = useState(currentMember?.introduction)
+  // let countIntro = introduction.length
+  const [introCount, setIntroCount] = useState()
+  const [avatar, setAvatar] = useState(currentMember?.avatar)
   const [avatarUrl, setAvatarUrl] = useState(avatar)
-  const [cover, setCover] = useState('')
+  const [cover, setCover] = useState(currentMember?.cover)
   const [coverUrl, setCoverUrl] = useState(cover)
   const [toggleModal, setToggleModal] = useState(false)
 
   const userId = currentMember?.id
-  let countName = name.length
-  let countIntro = introduction.length
+
+
 
   const handleSave = async () => {
     try{
@@ -188,9 +190,9 @@ const EditProfileModal = ({props, onClick, onSave}) => {
       const data = await getUser(userId)
       // setUserInfo(data)
       setName(data.data.name)
-      setNameCount(countName)
+      // setNameCount(countName)
       setIntro(data.data.introduction)
-      setIntroCount(countIntro)
+      // setIntroCount(countIntro)
       setAvatar(data.data.avatar)
       setCover(data.data.cover)
       
