@@ -1,4 +1,4 @@
-import { BackArrowIcon, CommentIcon, LikeSolidIcon } from "assets/icons";
+import { BackArrowIcon, CommentIcon, LikeSolidIcon, LikeIcon } from "assets/icons";
 import { UserProfileTwi, ReplyLikeTwiPopUp } from "components";
 import { useState, useEffect, createContext } from 'react';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,10 @@ import {useAuth} from 'contexts/AuthContext';
 import {EditProfileModal} from 'components/Main/Popup'
 import { TransferTime } from "components/utilities/TransferTime";
 import {getUser} from 'api/userInfo'
+import Swal from 'sweetalert2';
+
+import { likeTweet, unlikeTweet, getUserTwi } from "api/userInfo";
+
 
 const PersonalSwitchData = [
   {
@@ -56,10 +60,12 @@ const UserProfileTwiReply = ({datas}) => {
             <span className="account">@{tweet.User.account}</span>
             <span className="time"> &#183; {TransferTime(tweet.updatedAt)}</span>
           </div>
-          <p className="reply-to">回覆 <span>@{tweet.Tweet.account}</span></p>
-          <p className="content">
-            {tweet.comment}
-          </p>
+          <Link to={`/twiItem/${tweet.TweetId}`}>
+            <p className="reply-to">回覆 <span>@{tweet.Tweet.account}</span></p>
+            <p className="content">
+              {tweet.comment}
+            </p>
+          </Link>
         </div>
       </div>
     )
@@ -72,7 +78,7 @@ const UserProfileTwiReply = ({datas}) => {
 }
 
 
-const UserProfileLike = ({datas}) => {
+const UserProfileLike = ({datas, onLike}) => {
   const [popupcontent, setpopupcontent] = useState([])
   const [ popupToggle, setPopupToggle ] = useState(false)
 
@@ -94,12 +100,18 @@ const UserProfileLike = ({datas}) => {
             <span className="account">@{tweet.Tweet.account}</span>
             <span className="time"> &#183; {TransferTime(tweet.Tweet.updatedAt)}</span>
           </div>
-          <p className="content">
-            {tweet.Tweet.description}
-          </p>
+          <Link to={`/twiItem/${tweet.id}`}>
+            <p className="content">
+              {tweet.Tweet.description}
+            </p>
+          </Link>
           <div className="icon-group">
             <button className="comment btn-reset cursor-pointer" onClick={() => changecontent(tweet)}><i><CommentIcon/></i>{tweet.Tweet.RepliesCount}</button>
-            <div className="like-solid"><i><LikeSolidIcon/></i>{tweet.Tweet.LikesCount}</div>
+            <button className={`like btn-reset cursor-pointer`} onClick={() =>{ 
+              onLike?.(tweet.id)
+            }}>
+              {tweet.Tweet.isLiked ? (<i className="like-solid"><LikeSolidIcon/></i>) : (<i className="normal"> <LikeIcon/></i>)}
+            {tweet.Tweet.LikesCount}</button>
           </div>
         </div>
       </div>
@@ -116,15 +128,16 @@ const UserProfileLike = ({datas}) => {
   )
 }
 
-const PersonalPageSwitch = ({value, tweetDatas, replyDatas, likeDatas}) => {
-  if(value === 'tweet') return <UserProfileTwi datas={tweetDatas}/>
+const PersonalPageSwitch = ({value, tweetDatas, replyDatas, likeDatas, onTweetLike, onLikeLike}) => {
+  
+  if(value === 'tweet') return <UserProfileTwi datas={tweetDatas}  onLike={(id) =>{onTweetLike?.(id)}}/>
   if(value === 'reply') return <UserProfileTwiReply datas={replyDatas}/>
-  if(value === 'like') return <UserProfileLike datas={likeDatas}/>
+  if(value === 'like') return <UserProfileLike datas={likeDatas} onLike={(id) =>{onLikeLike?.(id)}}/>
 }
 
 
 
-const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDatas, replyDatas, likeDatas, followerNum, followingNum}) => {
+const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDatas, replyDatas, likeDatas, followerNum, followingNum, onLike}) => {
   const [currentValue, setCurrentValue] = useState('tweet')
   // const [editIsOpen, setEditIsOpen] = useState(false)
   const [userInfo, setUserInfo] = useState([]);
@@ -135,7 +148,91 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
   const handlePageClick = (e) => {
     setCurrentValue(e.target.value)
   }
+  
+  const handleTweetLike = async(id) => {
+    // console.log(id)
+    const currentTweet =  tweetDatas.find((tweet) => tweet.id === id)
 
+    if(currentTweet.isLiked === false){
+      try{
+      const data = await likeTweet(id, {
+        isLiked: true
+      })
+      console.log(data.message)
+      if(data.status === 'error'){
+        Swal.fire({
+          position: 'top',
+          title: data.message,
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        })
+        return
+      }
+      // if(data.message === '')
+      } catch (error) {
+        console.error(error)
+      }
+    } else if (currentTweet.isLiked === true){
+      try{
+        const data = await unlikeTweet(id, {isLiked: false})
+        if(data.status === 'error'){
+          Swal.fire({
+            position: 'top',
+            title: data.message,
+            timer: 1000,
+            icon: 'error',
+            showConfirmButton: false,
+          })
+          return
+        }
+      } catch(error){
+        console.error(error)
+      }
+    }
+  }
+
+  const handleLikeLike = async(id) => {
+    // console.log(id)
+    const currentTweet =  likeDatas.find((tweet) => tweet.id === id)
+    console.log(currentTweet.Tweet)
+    if(currentTweet.Tweet.isLiked === false){
+      try{
+      const data = await likeTweet(id)
+      console.log(data.message)
+      if(data.status === 'error'){
+        Swal.fire({
+          position: 'top',
+          title: data.message,
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        })
+        return
+      }
+      // if(data.message === '')
+      } catch (error) {
+        console.error(error)
+      }
+    } else if (currentTweet.Tweet.isLiked === true){
+      try{
+        const data = await unlikeTweet(id)
+        console.log(data)
+        if(data.status === 'error'){
+          Swal.fire({
+            position: 'top',
+            title: data.message,
+            timer: 1000,
+            icon: 'error',
+            showConfirmButton: false,
+          })
+          return
+        }
+      } catch(error){
+        console.error(error)
+      }
+    }
+  }
   
   
   useEffect(() => {
@@ -181,10 +278,11 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
         </div>
       </div>
       <PersonSwitchBar onClick={handlePageClick}/>
-      <PersonalPageSwitch value={currentValue} tweetDatas={tweetDatas} likeDatas={likeDatas} replyDatas={replyDatas}/>
+      <PersonalPageSwitch value={currentValue} tweetDatas={tweetDatas} likeDatas={likeDatas} replyDatas={replyDatas} onTweetLike={handleTweetLike} onLikeLike={handleLikeLike}/>
     </section>
   )
 }
+
 
 export { Personal, UserProfileTwiReply };
 

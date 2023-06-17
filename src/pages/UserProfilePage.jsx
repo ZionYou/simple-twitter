@@ -16,6 +16,8 @@ const UserProfilePage = () => {
 
   const userId = currentMember?.id
 
+  
+
    useEffect(() => {
     const getUserAsync = async () => {
       const data = await getUser(userId)
@@ -67,6 +69,7 @@ const UserProfilePage = () => {
               tweetDatas={userTweets} 
               likeDatas={likeTweets} 
               replyDatas={replyTweets}
+              
               // onClick={() => setIsPopup(true)}
             />
           </Col>

@@ -155,17 +155,23 @@ export const putUserInfo = async (payload, id) => {
   try {
     const res = await axiosInstance.put(`${baseURL}/users/${id}`, {
       name, avatar, cover, introduction,
-    }, {
-      headers: {
-      Accept: 'application/json','Content-Type': 'multipart/form-data',
-      },
-    }
+     }, 
+    // {
+    //   responseType: 'blob'
+    // }
+    //  {
+    //   headers: {
+    //   Accept: 'application/json',
+    //   'Content-Type': 'multipart/form-data',
+    //   },
+    //   // responseType: 'bolb'
+    // }
   );
 
     // console.log(payload)
     return res.data;
   } catch (error) {
-    return{
+    return {
       success: false,
       message: `[Patch User Info failed]: ${error}`
     }
@@ -227,9 +233,7 @@ export const replyTwi = async (tweet_id, comment) => {
 // 喜歡指定貼文
 export const likeTweet = async(tweetId, isLiked) => {
   try{
-    const res = await axiosInstance.post(`${baseURL}/tweets/${tweetId}/like`, {
-      isLiked: true
-    })
+    const res = await axiosInstance.post(`${baseURL}/tweets/${tweetId}/like`)
     return res.data
   } catch (error){
     console.error('[Like tweet failed]:', error)
@@ -237,11 +241,9 @@ export const likeTweet = async(tweetId, isLiked) => {
 }
 
 // 取消喜歡指定貼文
-export const unlikeTweet = async(tweetId) => {
+export const unlikeTweet = async(tweetId, isLiked) => {
   try{
-    const res = await axiosInstance.post(`${baseURL}/tweets/${tweetId}/unlike`, {
-      isLike:false
-    })
+    const res = await axiosInstance.post(`${baseURL}/tweets/${tweetId}/unlike`)
     return res
   } catch (error){
     console.error('[Unlike tweet failed]:', error)
@@ -258,6 +260,7 @@ export const getSingleTwi = async(tweetId) => {
   }
 }
 
+// 取得指定貼文回復資料
 export const getSingleTwiReply = async(tweetId) => {
   try{
     const res = await axiosInstance.get(`${baseURL}/tweets/${tweetId}/replies`)

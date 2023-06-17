@@ -130,24 +130,28 @@ const EditProfileModal = ({props, onClick, onSave}) => {
   const { currentMember } = useAuth();
 
   // console.log(currentMember)
-  
-  const [name, setName] = useState(currentMember?.name)
-  const [nameCount, setNameCount] = useState(name?.length)
-  const [introduction, setIntro] = useState(currentMember?.intro)
-  const [introCount, setIntroCount] = useState(introduction?.length)
-  const [avatar, setAvatar] = useState(currentMember?.avatar)
+   const [userInfo, setUserInfo] = useState([]);
+  const [name, setName] = useState('')
+  const [nameCount, setNameCount] = useState(0)
+  const [introduction, setIntro] = useState('')
+  const [introCount, setIntroCount] = useState('')
+  const [avatar, setAvatar] = useState('')
   const [avatarUrl, setAvatarUrl] = useState(avatar)
-  const [cover, setCover] = useState(currentMember?.cover)
+  const [cover, setCover] = useState('')
   const [coverUrl, setCoverUrl] = useState(cover)
   const [toggleModal, setToggleModal] = useState(false)
 
   const userId = currentMember?.id
-
+  let countName = name.length
+  let countIntro = introduction.length
 
   const handleSave = async () => {
     try{
       const data = await putUserInfo({
-        name, avatarUrl, coverUrl, introduction
+        name, 
+        avatar: avatarUrl, 
+        cover: coverUrl, 
+        introduction
       }, userId)
       console.log(data)
       // console.log(data.message)
@@ -178,6 +182,22 @@ const EditProfileModal = ({props, onClick, onSave}) => {
   const handleToggleClose = () => {
     setToggleModal(false)
   }
+
+   useEffect(() => {
+    const getUserAsync = async () => {
+      const data = await getUser(userId)
+      // setUserInfo(data)
+      setName(data.data.name)
+      setNameCount(countName)
+      setIntro(data.data.introduction)
+      setIntroCount(countIntro)
+      setAvatar(data.data.avatar)
+      setCover(data.data.cover)
+      
+    }
+    getUserAsync()
+  }, [currentMember])
+
 
   return(
     <>

@@ -232,7 +232,8 @@
 
 .tweet-list {
   .tweet-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 50px auto;
     align-items: top;
     padding: 16px 24px 16px 29px;
 
@@ -284,19 +285,20 @@
             margin-right: 10px;
           }
           .like-solid{
-            display: none;
+            @include svg-adjust(14px, auto, var(--red-danger));
+            margin-right: 10px;
           }
-          &.action{
-            // @include font-adjust(14px, 600, var(--red-danger));
-            .normal{
-              display: none;
-            }
-            .like-solid{
-              display: block;
-              @include svg-adjust(14px, auto, var(--red-danger));
-                margin-right: 10px;
-            }
-          }
+          // &.action{
+          //   // @include font-adjust(14px, 600, var(--red-danger));
+          //   .normal{
+          //     display: none;
+          //   }
+          //   .like-solid{
+          //     display: block;
+          //     @include svg-adjust(14px, auto, var(--red-danger));
+          //       margin-right: 10px;
+          //   }
+          // }
           
         }
         .like-solid{

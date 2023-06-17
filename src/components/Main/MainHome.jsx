@@ -7,15 +7,15 @@ import { ReplyTwiPopUp, NewTwiPopUp } from 'components';
 import { Container, Row, Col } from "react-bootstrap";
 import Swal from 'sweetalert2';
 import { TransferTime } from "components/utilities/TransferTime";
+import {Link} from 'react-router-dom';
 
-import { LikeContext } from "pages/MainHomePage";
-import clsx from 'clsx';
+
 import { likeTweet, unlikeTweet, getUserTwi } from "api/userInfo";
 
-const UserProfileTwi = ({datas}) => {
+const UserProfileTwi = ({datas, onLike}) => {
   const [popupcontent, setpopupcontent] = useState([])
   const [ popupToggle, setPopupToggle ] = useState(false)
-  // const [isLike, setIsLike] = useState(false)
+  const [isLike, setIsLike] = useState(false)
   const changecontent = (data) => {
     setpopupcontent([data])
     setPopupToggle(!popupToggle)
@@ -24,6 +24,15 @@ const UserProfileTwi = ({datas}) => {
   const handleClose = () => {
     setPopupToggle(false)
   }
+
+  // const handleLike = (id) => {
+  //   // alert(id)
+  //   const getData = datas.filter((data) => data.id === id)
+  //   console.log(getData)
+  //   if(getData){
+  //     setIsLike((prevState) => !prevState)
+  //   }
+  // }
 
 
   const userTweets = datas.map((data) => {
@@ -36,13 +45,18 @@ const UserProfileTwi = ({datas}) => {
             <span className="account">@{data.User.account}</span>
             <span className="time"> &#183; {TransferTime(data.updatedAt)}</span>
           </div>
-          <p className="content">
-            {data.description}
-          </p>
+          <Link to={`/twiItem/${data.id}`}>
+            <p className="content">
+              {data.description}
+            </p>
+          </Link>
           <div className="icon-group">
             <button className="comment btn-reset cursor-pointer" onClick={() => changecontent(data)}><i><CommentIcon/></i>{data.RepliesCount}</button>
-            <button className={`like btn-reset cursor-pointer`} onClick={() =>{
-            }}><i className="normal"> <LikeIcon/></i><i className="like-solid"><LikeSolidIcon/></i>{data.LikesCount}</button>
+            <button className={`like btn-reset cursor-pointer`} onClick={() =>{ 
+              onLike?.(data.id)
+            }}>
+              {data.isLiked ? (<i className="like-solid"><LikeSolidIcon/></i>) : (<i className="normal"> <LikeIcon/></i>)}
+            {data.LikesCount}</button>
           </div>
         </div>
       </div>
@@ -58,14 +72,17 @@ const UserProfileTwi = ({datas}) => {
   )
 }
 
-const MainHome = ({tweetDatas, onLike, isLiked}) => {
+const MainHome = ({tweetDatas, onLike}) => {
   // const [userTweets, setUserTweets] = useState([])
   const [isPopup, setIsPopup] = useState(false)
   const [isError, setIsError] = useState(false)
   const [tweet, setTweet] = useState('')
 
+  const [isLiked, setIsLiked] = useState('')
+
 
   const [userTweets, setUserTweets] = useState([])
+
   
 
   const { currentMember } = useAuth();
@@ -112,13 +129,88 @@ const MainHome = ({tweetDatas, onLike, isLiked}) => {
     }
   }
 
+  const handleLike = async (id) => {
+    // console.log(id)
+    const currentTweet = userTweets.find((tweet) => tweet.id === id)
+    console.log(currentTweet)
+    console.log(currentTweet.isLiked)
+    if(currentTweet.isLiked === false){
+      try{
+      const data = await likeTweet(id, {
+        isLiked: true
+      })
+      console.log(data.message)
+      if(data.status === 'error'){
+        Swal.fire({
+          position: 'top',
+          title: data.message,
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        })
+        return
+      }
+      // if(data.message === '')
+      } catch (error) {
+        console.error(error)
+      }
+    } else if (currentTweet.isLiked === true){
+      try{
+        const data = await unlikeTweet(id, {isLiked: false})
+        setIsLiked(!currentTweet.isLiked)
+        if(data.status === 'error'){
+          Swal.fire({
+            position: 'top',
+            title: data.message,
+            timer: 1000,
+            icon: 'error',
+            showConfirmButton: false,
+          })
+          return
+        }
+      } catch(error){
+        console.error(error)
+      }
+    }
+    
+    // } else if (currentTweet.isLiked === true){
+      // try{
+      //   const data = await unlikeTweet(id, {isLiked: false})
+      //   console.log(data.data)
+        // setUserTweets((prevTweets) => {
+        //   return [
+        //     ...prevTweets,
+        //     {
+        //       isLiked: data.isLiked
+        //     }
+        //   ]
+        // })
+      // } catch (error) {
+      //   console.error(error)
+      // }
+    // }
+    // setUserTweets((prevTweets) => {
+    //   return prevTweets.map((tweet) => {
+    //     if(tweet.id === id){
+    //       return {
+    //         ...tweet,
+    //         isLiked: !tweet.isLiked
+    //       }
+    //     }
+    //     return tweet
+    //   })
+    // })
+  }
   
 
   useEffect(() => {
     const getUserTwiAsync = async () => {
       const data = await getUserTwi(userId)
+      const userTweets = data.data
       // console.log(data.data)
-      setUserTweets(data.data)
+      setUserTweets(userTweets)
+      // setUserTweets(userTweets.map((tweet) => ({...tweet, isLiked: false})))
+      // setUserTweets(data.data.map((tweet) => ({...tweet, isLiked: false})))
       // setUserTweets(data.map((data) => ({...data})))
     }
     getUserTwiAsync()
@@ -139,7 +231,7 @@ const MainHome = ({tweetDatas, onLike, isLiked}) => {
         </div>
       </div>
       <hr/>
-      <UserProfileTwi datas={userTweets}/>
+      <UserProfileTwi datas={userTweets} onLike={handleLike}/>
       {isPopup && 
       <div className="popup">
         <div className="popup-bg">
