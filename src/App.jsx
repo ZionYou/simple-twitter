@@ -16,12 +16,11 @@ import {
 } from "pages"
 import { AuthProvider } from 'contexts/AuthContext';
 
-const basename = process.env.PUBLIC_URL;
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter basename={basename} >
+      <BrowserRouter  >
         <AuthProvider>
           <Routes>
             <Route path="*" element={<HomePage />} />
