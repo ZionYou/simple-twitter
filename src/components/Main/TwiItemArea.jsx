@@ -1,9 +1,58 @@
-import { BackArrowIcon, CommentIcon, LikeIcon } from "assets/icons";
+import { BackArrowIcon, CommentIcon, LikeIcon, LikeSolidIcon } from "assets/icons";
 import { UserProfileTwiReply } from "components";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import {getSingleTwi, getSingleTwiReply} from 'api/userInfo'
+import { useEffect, useState } from "react";
+
+import { MakeTime } from "components/utilities/MakeTime";
+import { TransferTime } from "components/utilities/TransferTime";
 
 
 const TwiItemArea = () => {
+  const id = useParams()
+  // console.log(id.id)
+
+  const [singleTwi, setSingleTwi] = useState([])
+  const [singleReply, setSingleReply] = useState([])
+
+  useEffect(() => {
+    const getSingleTwiAsync = async() => {
+      const data = await getSingleTwi(id.id)
+      // console.log(data)
+      setSingleTwi(data)
+    }
+    const getSingleTwiReplyAsync = async()=>{
+      const data = await getSingleTwiReply(id.id)
+      setSingleReply(data)
+      console.log(data)
+    }
+
+    getSingleTwiAsync()
+    getSingleTwiReplyAsync()
+  },[id])
+
+  const replyList = singleReply.map((tweet) => {
+    return(
+      <div className="tweet-list" key={tweet.id}>
+        <div className="tweet-item">
+          <img src={tweet.User.avatar} alt="" />
+          <div className="tweet-info">
+            <div className="name-group">
+              <span className="name">{tweet.User.name}</span>
+              <span className="account">@{tweet.User.account}</span>
+              <span className="time"> &#183; {TransferTime(tweet.updatedAt)}</span>
+            </div>
+            <p className="reply-to">回覆 <span>@{tweet.Tweet.account}</span></p>
+            <p className="content">
+              {tweet.comment}
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  })
+
+
   return(
     <section className="twi-item middle-container-border">
       <div className="back-bar">
@@ -16,28 +65,30 @@ const TwiItemArea = () => {
       </div>
       <div className="twi-item-body">
         <div className="twi-item-user">
-          <img src="https://picsum.photos/300/300?text=500" alt="" className="twi-item-img" />
+          <img src="" alt="" className="twi-item-img" />
           <div className="twi-item-name-group">
-            <a herf="" className="twi-item-name">Apple</a>
-            <p className="twi-item-account">@<span>apple</span></p>
+            <a herf="" className="twi-item-name">{singleTwi.User?.name}</a>
+            <p className="twi-item-account">@<span>{singleTwi.User?.account}</span></p>
           </div>
         </div>
         <div className="twi-item-content-group">
           <p className="twi-item-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac lectus elementum, varius turpis non, pretium enim. Nam eu diam non tortor porta viverra sed et velit. Duis et vestibulum lacus, id condimentum purus. Donec facilisis erat a tellus cursus, sit amet accumsan urna tincidunt. Vestibulum ut tortor massa. Phasellus risus nulla, vestibulum non dapibus in, dignissim in libero.
+            {singleTwi.description}
           </p>
-          <p className="twi-item-time">上午 10:05 &#183; 2021年11月10日</p>
+          <p className="twi-item-time">{MakeTime(singleTwi.updatedAt)}</p>
         </div>
         <div className="twi-item-interac-group">
-          <span className="reply"><span>34</span>回復</span>
-          <span className="like"><span>808</span>喜歡次數</span>
+          <span className="reply"><span>{singleTwi.RepliesCount}</span> 回復</span>
+          <span className="like"><span>{singleTwi.LikesCount}</span> 喜歡次數</span>
         </div>
         <div className="twi-item-icon-group">
           <a className="rpely"><CommentIcon/></a>
-          <a className="like"><LikeIcon/></a>
+          <button className={`like btn-reset cursor-pointer`}>
+            {singleTwi.isLiked ? (<i className="like-solid"><LikeSolidIcon/></i>) : (<i className="normal"> <LikeIcon/></i>)}</button>
         </div>
       </div>
-      <UserProfileTwiReply/>
+      {replyList}
+      {/* <UserProfileTwiReply/> */}
     </section>
   )
 }

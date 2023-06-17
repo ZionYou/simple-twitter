@@ -2,7 +2,7 @@ export const FormInput = ({label, type, value, placeholder, onChange, defaultVal
   return(
      <div className="form-group">
         <div className="form-bar">
-          <label for="" className="form-label">{label}</label>
+          <label htmlFor="" className="form-label">{label}</label>
           <input 
             className={`form-input ${className}`} 
             type={type || 'text'} 
@@ -24,7 +24,7 @@ export const FormTextarea = ({
   return(
     <div class="form-group">
       <div class="form-bar-textarea">
-        <label for="" class="form-label">{label}</label>
+        <label htmlFor="" class="form-label">{label}</label>
         <textarea 
           name="form-textarea" 
           className={`form-textarea ${className}`}

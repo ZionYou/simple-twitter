@@ -21,24 +21,10 @@ const LoginPage = () => {
 
   const handleClick = async () => {
     if(account.length === 0) {
-      // Swal.fire({
-      //   position: 'top',
-      //   title: '帳號不可為空白',
-      //   timer: 1000,
-      //   icon: 'error',
-      //   showConfirmButton: false,
-      // });
       setAccountError(true)
       return
     }
     if(password.length === 0){
-      // Swal.fire({
-      //   position: 'top',
-      //   title: '密碼不可為空白',
-      //   timer: 1000,
-      //   icon: 'error',
-      //   showConfirmButton: false,
-      // });
       setPasswordError(true)
       return
     }
@@ -132,35 +118,3 @@ const LoginPage = () => {
 }
 
 export default LoginPage;
-
-// import {
-//   AuthContainer,
-//   AuthInputContainer,
-//   AuthButton,
-//   AuthLinkText,
-// } from 'components/common/auth.styled';
-// import { AuthInput } from 'components';
-
-// const LoginPage = () => {
-//   return (
-//     <AuthContainer>
-//       <div>
-//         <ACLogoIcon />
-//       </div>
-//       <h1>登入 Alphitter</h1>
-
-//       <AuthInputContainer>
-//         <AuthInput />
-//       </AuthInputContainer>
-
-//       <AuthInputContainer>
-//         <AuthInput />
-//       </AuthInputContainer>
-//       <AuthButton>登入</AuthButton>
-//       <AuthLinkText><Link to="/regist">註冊 Alphitter</Link></AuthLinkText>
-//       <span>.</span>
-//       <AuthLinkText><Link to="/adminLogin">後台登入</Link></AuthLinkText>
-//     </AuthContainer>
-//   );
-// };
-

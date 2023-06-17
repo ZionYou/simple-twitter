@@ -39,7 +39,7 @@ const PersonalDetailPage = () => {
       <Container>
         <Row>
           <Col xs={2}>
-            <MainList onClick={() => setIsPopup(true)}/>
+            <MainList/>
           </Col>
           <Col xs={7}>
             <PersonalDetail/>
@@ -49,23 +49,9 @@ const PersonalDetailPage = () => {
           </Col>
         </Row>
       </Container>
-      {isPopup && <NewTwiPopUp onClick={() => setIsPopup(false)}/>}
     </>
   )
 };
 
 export default PersonalDetailPage;
-
-// const PersonalDetailPage = () => {
-
-//   return (
-//     <section className="main">
-//       <section className="main-container">
-//         <MainList/>
-//         <PersonalDetail/>
-//         <PopularFollow/>
-//       </section>
-//     </section>
-//   )
-// };
 

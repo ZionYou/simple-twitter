@@ -29,9 +29,10 @@ function App() {
             <Route path="user" element={<UserProfilePage />} />
             <Route path="personalDetail" element={<PersonalDetailPage />} />
             <Route path="setting" element={<SettingsPage />} />
-            <Route path="twiItem" element={<TwiItemPage/>} />
+            {/* <Route path="twiItem" element={<TwiItemPage/>} /> */}
             <Route path="adminTwi" element={<AdminTwiListPage/>} />
             <Route path="adminUser" element={<AdminUserListPage/>} />
+            <Route path="twiItem/:id" element={<TwiItemPage/>}/>
           </Routes>
         </AuthProvider>
       </BrowserRouter>
