@@ -1,4 +1,4 @@
-import { BackArrowIcon, CommentIcon, LikeSolidIcon, LikeIcon } from "assets/icons";
+import { BackArrowIcon, CommentIcon, LikeSolidIcon, LikeIcon,MessageIcon, NoticeIcon, NoticeSolidIcon } from "assets/icons";
 import { UserProfileTwi, ReplyLikeTwiPopUp } from "components";
 import { useState, useEffect, createContext } from 'react';
 import { Link } from 'react-router-dom';
@@ -28,7 +28,38 @@ const PersonalSwitchData = [
 ]
 
 
-
+const OtherBtnGroup = () => {
+  const [showNotice, setShowNotice] = useState(false);
+  const [isFollowed, setIsFollowed] = useState(false)
+  // 預設為不開啟小鈴鐺
+  function handleShowNotice() {
+    setShowNotice(!showNotice);
+  }
+  
+  return(
+    <div class="other-user-btn">
+      <button class="message orange-border-btn radius-50">
+        <MessageIcon />
+      </button>
+      {showNotice ? 
+        (
+          <button class="notice-icon-solid" onClick={handleShowNotice}>
+            <NoticeSolidIcon />
+            <i>
+            </i>
+          </button>
+        ) : (
+          <button class="notice-icon" onClick={handleShowNotice}>
+           <i>
+            <NoticeIcon />
+           </i>
+          </button>
+        )
+      }
+      <button className={`radius-50 cursor-pointer ${isFollowed ? "orange-btn" : "orange-border-btn"}`}>{isFollowed ? "正在跟隨" : "跟隨"}</button>
+    </div>
+  )
+}
 
 const PersonSwitchBar = ({onClick}) => {
   return(
@@ -246,8 +277,6 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
     // getUserTwiLikeAsync()
   }, [currentMember])
 
-
-
   return(
     <section className="person middle-container-border">
       <div className="back-bar">
@@ -266,7 +295,8 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
           {/* {currentMember.id ? <EditProfileModal props={userInfo}/>: <button>
               you
             </button>} */}
-          <EditProfileModal props={userInfo}/>
+          <OtherBtnGroup />
+          {/* <EditProfileModal props={userInfo}/> */}
         </div>
         <div className="personal-info">
           <div className="personal-info-name-group">
@@ -275,8 +305,16 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
           </div>
           <p className="personal-intro">{introduction}</p>
           <div className="personal-follow-group">
-            <Link to="/personalDetail" className="follower"><span>{followerNum} 個</span>跟隨中</Link>
-            <Link to="/personalDetail" className="following"><span>{followingNum} 個</span>跟隨者</Link>
+            <Link 
+              to={`/personalDetail/${userId}`} 
+              className="follower"
+            ><span>{followerNum} 個</span>跟隨中
+            </Link>
+            <Link 
+              to={`/personalDetail/${userId}`}  
+              className="following"
+            ><span>{followingNum}個</span>跟隨者
+            </Link>
           </div>
         </div>
       </div>

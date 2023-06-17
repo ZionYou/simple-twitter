@@ -77,16 +77,9 @@ const MainHome = ({tweetDatas, onLike}) => {
   const [isPopup, setIsPopup] = useState(false)
   const [isError, setIsError] = useState(false)
   const [tweet, setTweet] = useState('')
-
   const [isLiked, setIsLiked] = useState('')
-
-
   const [userTweets, setUserTweets] = useState([])
-
-  
-
   const { currentMember } = useAuth();
-
   const userId = currentMember?.id
   
 
@@ -172,50 +165,18 @@ const MainHome = ({tweetDatas, onLike}) => {
         console.error(error)
       }
     }
-    
-    // } else if (currentTweet.isLiked === true){
-      // try{
-      //   const data = await unlikeTweet(id, {isLiked: false})
-      //   console.log(data.data)
-        // setUserTweets((prevTweets) => {
-        //   return [
-        //     ...prevTweets,
-        //     {
-        //       isLiked: data.isLiked
-        //     }
-        //   ]
-        // })
-      // } catch (error) {
-      //   console.error(error)
-      // }
-    // }
-    // setUserTweets((prevTweets) => {
-    //   return prevTweets.map((tweet) => {
-    //     if(tweet.id === id){
-    //       return {
-    //         ...tweet,
-    //         isLiked: !tweet.isLiked
-    //       }
-    //     }
-    //     return tweet
-    //   })
-    // })
   }
-  
 
   useEffect(() => {
     const getUserTwiAsync = async () => {
       const data = await getUserTwi(userId)
-      const userTweets = data.data
-      // console.log(data.data)
-      setUserTweets(userTweets)
-      // setUserTweets(userTweets.map((tweet) => ({...tweet, isLiked: false})))
-      // setUserTweets(data.data.map((tweet) => ({...tweet, isLiked: false})))
-      // setUserTweets(data.map((data) => ({...data})))
+      // const userTweets = data.data
+      setUserTweets(data.data)
     }
     getUserTwiAsync()
   }, [currentMember])
   
+  // console.log(userTweets)
 
   return(
     <section className="home middle-container-border" data-page="main-home">
@@ -263,6 +224,7 @@ const MainHome = ({tweetDatas, onLike}) => {
     </section>
   )
 }
+
 
 
 
