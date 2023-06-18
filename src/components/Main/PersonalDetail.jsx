@@ -1,9 +1,9 @@
 import { BackArrowIcon } from "assets/icons";
 import { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 // import { useParams} from "react-router";
 import { useAuth } from 'contexts/AuthContext';
-import { getUser, followOther, unfollowOther} from "api/userInfo";
+import { followOther, unfollowOther} from "api/userInfo";
 
 const PersonalDetailSwitchData = [
   {
@@ -125,8 +125,7 @@ const PersonalFollowItem = ({follow}) => {
       try{
         const data = await unfollowOther(follow.id)
         // console.log(data.message)
-        // console.log(data)
-        
+        console.log(data)
       } catch (error){
         console.error(error)
       }
@@ -202,6 +201,8 @@ const PersonalFollowPageSwitch = ({value, followers, followings}) => {
 // 追隨動態元件
 const PersonalDetail = ({ name, tweetDatas ,followers, followings }) => {
   const [currentFollowValue, setCurrentFollowValue] = useState('follower')
+  const {currentMember} = useAuth()
+  const id = useParams ()
 
   const handleFollowPageClick = (e) => {
     setCurrentFollowValue(e.target.value)
@@ -209,7 +210,7 @@ const PersonalDetail = ({ name, tweetDatas ,followers, followings }) => {
   return(
     <section className="personal-detail middle-container-border">
       <div className="back-bar">
-        <Link to="/user" className="back-link">
+        <Link to={id.id !== currentMember?.id ? `/otherUser/${id.id}`:`/user`} className="back-link">
           <span className="back-icon"><BackArrowIcon/></span>
           <div className="title-group">
             <p className="name">{name}</p>

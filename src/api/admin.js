@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 
-const adminURL = 'https://twitter-azx79115.herokuapp.com/api';
-// const adminURL = 'http://localhost:3500/api'
+// const adminURL = 'https://twitter-azx79115.herokuapp.com/api';
+const adminURL = 'http://localhost:3500/api'
 
 const token = localStorage.getItem('authToken')
 

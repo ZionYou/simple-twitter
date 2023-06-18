@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const authURL = 'https://twitter-azx79115.herokuapp.com/api';
-// const authURL = 'http://localhost:3500/api';
+// const authURL = 'https://twitter-azx79115.herokuapp.com/api';
+const authURL = 'http://localhost:3500/api';
 
 // 使用者登入驗證
 export const login = async ({ account, password }) => {

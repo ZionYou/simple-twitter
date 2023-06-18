@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const baseURL = 'https://twitter-azx79115.herokuapp.com/api';
-// const baseURL = 'http://localhost:3500/api'
+// const baseURL = 'https://twitter-azx79115.herokuapp.com/api';
+const baseURL = 'http://localhost:3500/api'
 
 const token = localStorage.getItem('authToken')
 
@@ -131,7 +131,7 @@ export const putUserInfo = async (payload, id) => {
     const res = await axiosInstance.put(`${baseURL}/users/${id}`, {
       name, avatar, cover, introduction,
     },
-  );
+    );
 
     // console.log(payload)
     return res.data;

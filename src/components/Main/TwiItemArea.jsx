@@ -1,21 +1,73 @@
 import { BackArrowIcon, CommentIcon, LikeIcon, LikeSolidIcon } from "assets/icons";
 import { UserProfileTwiReply } from "components";
 import { Link, useParams } from 'react-router-dom';
-import {getSingleTwi, getSingleTwiReply} from 'api/userInfo'
+import {getSingleTwi, getSingleTwiReply, likeTweet, unlikeTweet} from 'api/userInfo'
 import { useEffect, useState } from "react";
 import { useAuth } from 'contexts/AuthContext';
+import { ReplyTwiPopUp } from 'components';
 
 import { MakeTime } from "components/utilities/MakeTime";
 import { TransferTime } from "components/utilities/TransferTime";
-
+import Swal from 'sweetalert2';
 
 const TwiItemArea = () => {
   const id = useParams()
   // console.log(id.id)
-
+  
   const [singleTwi, setSingleTwi] = useState([])
   const [singleReply, setSingleReply] = useState([])
+
+  const [popupcontent, setpopupcontent] = useState([])
+  const [ popupToggle, setPopupToggle ] = useState(false)
+
   const { currentMember } = useAuth();
+
+  const changecontent = (data) => {
+    setpopupcontent([data])
+    setPopupToggle(!popupToggle)
+  }
+
+  // console.log(singleTwi)
+  let isLiked = singleTwi.isLiked
+  let tweetId = singleTwi.id
+  // console.log(isLiked, tweetId)
+
+  const handleLike = async () => {
+    if(isLiked === false){
+      try{
+      const data = await likeTweet(tweetId)
+      if(data.status === 'error'){
+        Swal.fire({
+          position: 'top',
+          title: data.message,
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        })
+        return
+      }
+      // if(data.message === '')
+      } catch (error) {
+        console.error(error)
+      }
+    } else if (isLiked === true){
+      try{
+        const data = await unlikeTweet(tweetId)
+        if(data.status === 'error'){
+          Swal.fire({
+            position: 'top',
+            title: data.message,
+            timer: 1000,
+            icon: 'error',
+            showConfirmButton: false,
+          })
+          return
+        }
+      } catch(error){
+        console.error(error)
+      }
+    }
+  }
 
   useEffect(() => {
     const getSingleTwiAsync = async() => {
@@ -60,6 +112,7 @@ const TwiItemArea = () => {
   })
 
   return(
+    <>
     <section className="twi-item middle-container-border">
       <div className="back-bar">
         <Link to="/main" className="back-link">
@@ -88,14 +141,16 @@ const TwiItemArea = () => {
           <span className="like"><span>{singleTwi.LikesCount}</span> 喜歡次數</span>
         </div>
         <div className="twi-item-icon-group">
-          <a className="rpely"><CommentIcon/></a>
-          <button className={`like btn-reset cursor-pointer`}>
+          <button className="comment btn-reset cursor-pointer" onClick={() => changecontent(singleTwi)}><i><CommentIcon/></i></button>
+          <button className={`like btn-reset cursor-pointer`} onClick={handleLike}>
             {singleTwi.isLiked ? (<i className="like-solid"><LikeSolidIcon/></i>) : (<i className="normal"> <LikeIcon/></i>)}</button>
         </div>
       </div>
       {replyList}
       {/* <UserProfileTwiReply/> */}
     </section>
+    {popupToggle && <ReplyTwiPopUp data={popupcontent} onClick={changecontent} handleClose={() => setPopupToggle(false)}/>}
+    </>
   )
 }
 
