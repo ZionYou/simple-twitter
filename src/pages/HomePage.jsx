@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 const HomePage = () => {
   const { isAuthenticated, currentMember } = useAuth();
   const navigate = useNavigate();
-
   useEffect(() => {
     if(currentMember?.name === "admin" ){
       navigate('/adminTwi');
