@@ -1,11 +1,7 @@
 import { CloseIcon } from "assets/icons";
 import { useState, useEffect } from "react";
-
 import { getAllTweetsData, deleteTwi } from "api/admin";
-
 import { TransferTime } from "components/utilities/TransferTime";
-
-
 
 const AdminTwiListGroup = ({tweets, onDelete}) => {
   const twiList = tweets.map((tweet) => {

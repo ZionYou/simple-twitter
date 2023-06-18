@@ -1,7 +1,7 @@
 import { BackArrowIcon } from "assets/icons";
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
-import { useParams} from "react-router";
+// import { useParams} from "react-router";
 import { useAuth } from 'contexts/AuthContext';
 import { getUser, followOther, unfollowOther} from "api/userInfo";
 
@@ -125,7 +125,7 @@ const PersonalFollowItem = ({follow}) => {
       try{
         const data = await unfollowOther(follow.id)
         // console.log(data.message)
-        console.log(data)
+        // console.log(data)
         
       } catch (error){
         console.error(error)

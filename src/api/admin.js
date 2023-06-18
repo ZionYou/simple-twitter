@@ -26,18 +26,10 @@ export const adminLogin = async ({account, password}) => {
       console.log(data.message)
       return { success: true, ...data}
     }
-
     // console.log(data.message)
     return data;
 
   } catch (error) {
-    // const {data, status} = error.response
-    // if(status === 401){
-    //   return {
-    //     status: 'error',
-    //     message: data.message
-    //   }
-    // }
     console.error('[Admin Login Failed]:', error)
   }
 }

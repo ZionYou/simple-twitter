@@ -109,7 +109,7 @@ const AuthProvider = ({ children }) => {
             setIsAuthenticated(true);
             localStorage.setItem('authToken', token);
             // 印出登入者資料
-            console.log(tempPayload)
+            // console.log(tempPayload)
           } else {
             setPayload(null);
             setIsAuthenticated(false);
@@ -127,7 +127,7 @@ const AuthProvider = ({ children }) => {
             setIsAuthenticated(true);
             localStorage.setItem('authToken', token);
             // 印出後台登入者資料
-            console.log(tempPayload)
+            // console.log(tempPayload)
           } else {
             setPayload(null);
             setIsAuthenticated(false);

@@ -1,14 +1,13 @@
 // 元件
 import { MainHome, NewTwiPopUp, MainList, PopularFollow, ReplyTwiPopUp } from "components";
-import { useState, useEffect, useRef, createContext } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect, createContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
-import { getUserTwi, getUser, likeTweet, unlikeTweet } from 'api/userInfo';
+// import { getUserTwi, getUser, likeTweet, unlikeTweet } from 'api/userInfo';
 import { useAuth } from '../contexts/AuthContext';
 
 
 // 首頁
-
 export const LikeContext = createContext()
 
 const MainHomePage = () => {

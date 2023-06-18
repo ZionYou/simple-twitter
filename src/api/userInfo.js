@@ -12,32 +12,6 @@ const axiosInstance = axios.create({
   }
 })
 
-// axiosInstance.interceptors.request.use(
-//   function (config) {
-//     const token = localStorage.getItem('authToken')
-//     if (token) {
-//       config.headers["Authorization"] = 'Bearer ' + token
-//     }
-//     return config;
-//   },
-//   function (error) {
-//     console.error(error)
-//   }
-// )
-
-// ************************ User **************************
-// 取得指定使用者資料 //get
-// <<<<<<< HEAD
-// export const getUserInfo = async(id) => {
-//   try{
-//     // const res = await axios.get(`${baseURL}/user/:${id}`)
-//     // return res.data
-//     const {data} = await axiosInstance.get(`${baseURL}/user/${id}`)
-//     return{success: true, data}
-// =======
-
-
-
 // ************************ User **************************
 // 取得指定使用者資料 //get
 export const getUser = async (id) => {
@@ -157,17 +131,7 @@ export const putUserInfo = async (payload, id) => {
     const res = await axiosInstance.put(`${baseURL}/users/${id}`, {
       name, avatar, cover, introduction,
     },
-      // {
-      //   responseType: 'blob'
-      // }
-      //  {
-      //   headers: {
-      //   Accept: 'application/json',
-      //   'Content-Type': 'multipart/form-data',
-      //   },
-      //   // responseType: 'bolb'
-      // }
-    );
+  );
 
     // console.log(payload)
     return res.data;

@@ -29,18 +29,9 @@ export const register = async ({ account, name, email, password, checkPassword }
     const { newUser } = data;
     if (newUser) {
       return { success: true, ...data }
-
     }
     return data;
   } catch (error) {
     console.error('[Register Failed]:', error)
-    // console.log(error)
-    // Swal.fire({
-    //   position: 'top',
-    //   title: error.message,
-    //   timer: 1000,
-    //   icon: 'error',
-    //   showConfirmButton: false,
-    // });
   }
 }

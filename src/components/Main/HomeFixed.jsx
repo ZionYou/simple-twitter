@@ -115,7 +115,7 @@ const MainListLink = ({data, className}) =>{
 }
 
 // 主要列表元件
-const MainList = ({onClick}) => {
+const MainList = () => {
   const location = useLocation()
   const {pathname} = location
   const splitLocation = pathname.split("/");
@@ -284,7 +284,6 @@ const PopularFollowItem = ({item}) => {
     )
 }
 
-
 // 推薦跟隨元件
 const PopularFollow = () => {
   const [topFollow, setTopFollow] = useState([])
@@ -308,7 +307,6 @@ const PopularFollow = () => {
   }, [])
 
   // const top10 = topFollow.filter((item) => item.id <= 104)
-
   const topFollowList = topFollow.map((item) => {
     return <PopularFollowItem item={item} key={item.id}/>
   })
@@ -367,36 +365,3 @@ const AdminList = () => {
 }
 
 export { MainList, PopularFollow, AdminList };
-
-// const MainList = () => {
-//   return(
-//     <div className="main-list">
-//       <div className="icon">
-//         <ACLogoIcon/>
-//       </div>
-//       <div className="main-list-group">
-//         {
-//           MainListData.map((item) => {
-//             return(
-//               <div key={item.id}>
-//                 <input type="radio" className="main-list-input" id={item.id} name="main-list" defaultChecked={item.id === "home"} value={item.id}/>
-//                 <label htmlFor={item.id} className="main-list-label cursor-pointer">
-//                   <span className="default">{item.icon}</span>
-//                   <span className="checked">{item.icon_checked}</span>
-//                   <p className="label-name">{item.name}</p>
-//                 </label>
-//               </div>
-//             )
-//           })
-//         }
-//         <button className="orange-btn radius-50">推文</button>
-//       </div>
-//       <div className="logout-group">
-//         <span className="logout">
-//           <LogoutIcon/>
-//         </span>
-//         <p className="logout-name">登出</p>
-//       </div>
-//     </div>
-//   )
-// }

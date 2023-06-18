@@ -156,7 +156,7 @@ const EditProfileModal = ({props, onClick, onSave}) => {
         cover: coverUrl, 
         introduction
       }, userId)
-      console.log(data)
+      // console.log(data)
       // console.log(data.message)
       // console.log(postInfo.data.avatar)
       if(data.message === "修改成功"){
@@ -200,10 +200,9 @@ const EditProfileModal = ({props, onClick, onSave}) => {
     getUserAsync()
   }, [currentMember])
 
-
   return(
     <>
-    <button className="orange-border-btn radius-50 cursor-pointer" onClick={() => setToggleModal(true)}>編輯個人資料</button>
+    <button className="follow orange-border-btn radius-50 cursor-pointer" onClick={() => setToggleModal(true)}>編輯個人資料</button>
       {toggleModal && <div className="edit-popup">
         <div className="edit-popup-bg">
           <Container>
@@ -410,11 +409,8 @@ const ReplyLikeTwiPopUp = ({onClick, data, handleClose}) => {
     } catch (error){
       console.error(error)
     }
-
-  
-
-    
   }
+  
   return(
     <>
       <div className="reply-popup">

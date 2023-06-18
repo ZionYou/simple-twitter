@@ -1,5 +1,5 @@
 /* add here edit later */
-import { FormInput, FormTextarea } from 'components';
+import { FormInput } from 'components';
 /* add here edit later */
 import { ACLogoIcon } from 'assets/icons';
 import { Link, useNavigate } from 'react-router-dom';

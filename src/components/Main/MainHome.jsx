@@ -35,7 +35,7 @@ const UserProfileTwi = ({datas, onLike}) => {
   //   }
   // }
 
-  console.log(datas)
+  // console.log(datas)
 
   const userTweets = datas.map((data) => {
     return(
@@ -77,7 +77,7 @@ const UserProfileTwi = ({datas, onLike}) => {
   )
 }
 
-const MainHome = ({tweetDatas, onLike}) => {
+const MainHome = () => {
   // const [userTweets, setUserTweets] = useState([])
   const [isPopup, setIsPopup] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -87,7 +87,6 @@ const MainHome = ({tweetDatas, onLike}) => {
   const { currentMember } = useAuth();
   const userId = currentMember?.id
   
-
   const handleClick = async() => {
     if(tweet === "" ){
       setIsError(true)
@@ -229,9 +228,6 @@ const MainHome = ({tweetDatas, onLike}) => {
     </section>
   )
 }
-
-
-
 
 export { MainHome, UserProfileTwi};
 

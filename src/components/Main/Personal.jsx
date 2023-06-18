@@ -452,9 +452,8 @@ const OtherPersonal = ({onClick, id, name, account, introduction, cover, avatar,
     const getUserAsync = async () => {
       const data = await getUser(userId)
       setUserInfo(data.data)
-      console.log(data.data)
+      // console.log(data.data)
     }
-    
     getUserAsync()
     // getUserTwiLikeAsync()
   }, [currentMember])
@@ -511,7 +510,6 @@ const OtherPersonal = ({onClick, id, name, account, introduction, cover, avatar,
     </section>
   )
 }
-
 
 export { Personal, OtherPersonal, UserProfileTwiReply };
 

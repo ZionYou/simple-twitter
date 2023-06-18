@@ -7,15 +7,15 @@ import { useParams} from "react-router";
 
 //個人追隨動態頁面
 const PersonalDetailPage = () => {
-  const [isPopup, setIsPopup] = useState(false)
+  // const [isPopup, setIsPopup] = useState(false)
   const [userInfo, setUserInfo] = useState([])
   const [userTweets, setUserTweets] = useState([])
   const [followers, setFollowers] = useState([])
   const [followings, setFollowings] = useState([])
   const { currentMember } = useAuth();
   const id  = useParams();
-  console.log(id.id)
-  const userId = currentMember?.id
+  // console.log(id.id)
+  // const userId = currentMember?.id
 
   useEffect(() => {
     const getUserAsync = async () => {
@@ -38,7 +38,7 @@ const PersonalDetailPage = () => {
     const getUserFollowersAsync = async () => {
       const data = await getUserFollowers(id.id)
       setFollowers(data.data)
-      console.log(data.data)
+      // console.log(data.data)
     }
     getUserAsync()
     getUserTwiAsync()
