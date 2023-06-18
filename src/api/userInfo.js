@@ -41,7 +41,7 @@ const axiosInstance = axios.create({
 // 取得指定使用者資料 //get
 export const getUser = async (id) => {
   try {
-    const { data } = await axiosInstance.get(`${baseURL}/users/${id}`,{
+    const { data } = await axiosInstance.get(`${baseURL}/users/${id}`, {
       headers: {
         'Authorization': 'Bearer ' + token
       }
@@ -60,15 +60,15 @@ export const getUser = async (id) => {
 // 取得指定使用者發出的所有推文 //get
 export const getUserTwi = async (id) => {
   try {
-    const {data} = await axiosInstance.get(`${baseURL}/users/${id}/tweets`, {
+    const { data } = await axiosInstance.get(`${baseURL}/users/${id}/tweets`, {
       headers: {
         'Authorization': 'Bearer ' + token
       }
     })
 
-    return {success: true, data}
+    return { success: true, data }
   } catch (error) {
-    return{
+    return {
       //success: false,
       message: `[Get user all tweets failed]:${error}`
     }
@@ -78,15 +78,15 @@ export const getUserTwi = async (id) => {
 // 取得指定使用者有回復的所有推文 //get
 export const getUserTwiReply = async (id) => {
   try {
-    const {data} = await axiosInstance.get(`${baseURL}/users/${id}/replied_tweets`, {
+    const { data } = await axiosInstance.get(`${baseURL}/users/${id}/replied_tweets`, {
       headers: {
         'Authorization': 'Bearer ' + token
       }
     })
 
-    return {success: true, data}
+    return { success: true, data }
   } catch (error) {
-    return{
+    return {
       success: false,
       message: `[Get user all reply tweets failed]: ${error}`
     }
@@ -96,11 +96,11 @@ export const getUserTwiReply = async (id) => {
 // 取得指定使用者喜歡的所有推文 //get
 export const getUserTwiLike = async (id) => {
   try {
-    const {data} = await axiosInstance.get(`${baseURL}/users/${id}/likes`)
+    const { data } = await axiosInstance.get(`${baseURL}/users/${id}/likes`)
 
-    return {sucess: true, data}
+    return { sucess: true, data }
   } catch (error) {
-    return{
+    return {
       success: false,
       message: `[Get user like failed]: ${error}`
     }
@@ -110,10 +110,10 @@ export const getUserTwiLike = async (id) => {
 // 取得指定使用者正在追蹤的使用者 //get
 export const getUserFollowings = async (id) => {
   try {
-    const {data} = await axiosInstance.get(`${baseURL}/user/:${id}/followings`)
-    return {success: true, data}
+    const { data } = await axiosInstance.get(`${baseURL}/user/:${id}/followings`)
+    return { success: true, data }
   } catch (error) {
-    return{
+    return {
       success: false,
       message: `[Get user followings failed]: ${error}`
     }
@@ -123,10 +123,10 @@ export const getUserFollowings = async (id) => {
 // 取得指定使用者的追蹤者 //get
 export const getUserFollowers = async (id) => {
   try {
-    const {data} = await axiosInstance.get(`${baseURL}/user/:${id}/followers`)
-    return {success: true, data}
+    const { data } = await axiosInstance.get(`${baseURL}/user/:${id}/followers`)
+    return { success: true, data }
   } catch (error) {
-    return{
+    return {
       success: false,
       message: `[Get user followers failed]: ${error}`
     }
@@ -136,10 +136,10 @@ export const getUserFollowers = async (id) => {
 
 // 取得top10推薦跟隨名單
 
-export const getTopTenFollowList = async() => {
-  try{
-    const {data} = await axiosInstance.get(`${baseURL}/users/top10`)
-     return {success: true, data}
+export const getTopTenFollowList = async () => {
+  try {
+    const { data } = await axiosInstance.get(`${baseURL}/users/top10`)
+    return { success: true, data }
   } catch (error) {
     return {
       success: false,
@@ -155,18 +155,18 @@ export const putUserInfo = async (payload, id) => {
   try {
     const res = await axiosInstance.put(`${baseURL}/users/${id}`, {
       name, avatar, cover, introduction,
-     }, 
-    // {
-    //   responseType: 'blob'
-    // }
-    //  {
-    //   headers: {
-    //   Accept: 'application/json',
-    //   'Content-Type': 'multipart/form-data',
-    //   },
-    //   // responseType: 'bolb'
-    // }
-  );
+    },
+      // {
+      //   responseType: 'blob'
+      // }
+      //  {
+      //   headers: {
+      //   Accept: 'application/json',
+      //   'Content-Type': 'multipart/form-data',
+      //   },
+      //   // responseType: 'bolb'
+      // }
+    );
 
     // console.log(payload)
     return res.data;
@@ -180,8 +180,8 @@ export const putUserInfo = async (payload, id) => {
 
 // 編輯個人帳戶設定
 export const putUserSettings = async (payload, id) => {
-  const {name, account, email, password, checkPassword} = payload
-  try{
+  const { name, account, email, password, checkPassword } = payload
+  try {
     const res = await axiosInstance.put(`${baseURL}/users/${id}/setting`, {
       name, account, email, password, checkPassword
     });
@@ -207,19 +207,19 @@ export const getTwiReply = async (id) => {
 
 export const creatNewTwi = async (description) => {
   // const {description} = payload
-  try{
+  try {
     const res = await axiosInstance.post(`${baseURL}/tweets`, {
       description
     })
     return res.data
-  } catch(error) {
+  } catch (error) {
     console.error('[Create new twi failed]:', error)
   }
 }
 
 // 回復指定貼文
 export const replyTwi = async (tweet_id, comment) => {
-  
+
   try {
     const res = await axiosInstance.post(`${baseURL}/tweets/${tweet_id}/replies`, {
       comment
@@ -231,28 +231,28 @@ export const replyTwi = async (tweet_id, comment) => {
 };
 
 // 喜歡指定貼文
-export const likeTweet = async(tweetId, isLiked) => {
-  try{
+export const likeTweet = async (tweetId, isLiked) => {
+  try {
     const res = await axiosInstance.post(`${baseURL}/tweets/${tweetId}/like`)
     return res.data
-  } catch (error){
+  } catch (error) {
     console.error('[Like tweet failed]:', error)
   }
 }
 
 // 取消喜歡指定貼文
-export const unlikeTweet = async(tweetId, isLiked) => {
-  try{
+export const unlikeTweet = async (tweetId, isLiked) => {
+  try {
     const res = await axiosInstance.post(`${baseURL}/tweets/${tweetId}/unlike`)
     return res
-  } catch (error){
+  } catch (error) {
     console.error('[Unlike tweet failed]:', error)
   }
 }
 
 // 取得指定貼文資料
-export const getSingleTwi = async(tweetId) => {
-  try{
+export const getSingleTwi = async (tweetId) => {
+  try {
     const res = await axiosInstance.get(`${baseURL}/tweets/${tweetId}`)
     return res.data
   } catch (error) {
@@ -261,11 +261,11 @@ export const getSingleTwi = async(tweetId) => {
 }
 
 // 取得指定貼文回復資料
-export const getSingleTwiReply = async(tweetId) => {
-  try{
+export const getSingleTwiReply = async (tweetId) => {
+  try {
     const res = await axiosInstance.get(`${baseURL}/tweets/${tweetId}/replies`)
     return res.data
-  } catch(error){
+  } catch (error) {
     console.error('[Get single twi reply failed]:', error)
   }
 }
@@ -273,15 +273,16 @@ export const getSingleTwiReply = async(tweetId) => {
 // ************************ Tweet **************************
 
 // *********************** Followship **********************
-export const followOther = async(userId) => {
-  try{
+export const followOther = async (userId) => {
+  try {
     const res = await axiosInstance.post(`${baseURL}/followships/${userId}`)
     return res.data
-  } catch (error){
+  } catch (error) {
     console.error(error)
   }
 }
 
+<<<<<<< HEAD
 export const unfollowOther = async(userId) => {
   try{
     const res = await axiosInstance.delete(`${baseURL}/followships/${userId}`)
@@ -289,6 +290,10 @@ export const unfollowOther = async(userId) => {
   } catch (error){
     console.error(error)
   }
+=======
+export const unfollowOther = async (userId) => {
+
+>>>>>>> 8032d66b19d96f092d3f45a37744cd2859498f7e
 }
 
 // *********************** Followship **********************

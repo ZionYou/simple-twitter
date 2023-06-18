@@ -195,7 +195,6 @@ const EditProfileModal = ({props, onClick, onSave}) => {
       // setIntroCount(countIntro)
       setAvatar(data.data.avatar)
       setCover(data.data.cover)
-      
     }
     getUserAsync()
   }, [currentMember])

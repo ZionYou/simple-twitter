@@ -14,6 +14,8 @@ import { ReactComponent as SettingsCheckedIcon } from "./settings-checked.svg";
 import { ReactComponent as LogoutIcon } from "./logout.svg";
 
 
+
+
 //Main/MainHome
 import { ReactComponent as CommentIcon } from "./comment.svg";
 import { ReactComponent as LikeIcon } from "./like.svg";
@@ -25,6 +27,9 @@ import { ReactComponent as LikeSolidIcon } from "./like-solid.svg";
 // other
 import { ReactComponent as CameraIcon } from "./cameraIcon.svg";
 import { ReactComponent as CloseIcon } from "./closeIcon.svg";
+import { ReactComponent as MessageIcon } from "./message.svg";
+import { ReactComponent as NoticeIcon } from "./notice.svg";
+import { ReactComponent as NoticeSolidIcon } from "./notice-solid.svg";
 
 //AuthUserList
 import { ReactComponent as FeatherIcon } from "./feather.svg";
@@ -45,5 +50,5 @@ export { CommentIcon, LikeIcon };
 export { BackArrowIcon, LikeSolidIcon };
 
 //other
-export { CameraIcon, CloseIcon };
+export { CameraIcon, CloseIcon, MessageIcon, NoticeIcon, NoticeSolidIcon };
 

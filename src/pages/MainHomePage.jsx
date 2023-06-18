@@ -31,7 +31,6 @@ const MainHomePage = () => {
     getUserAsync()
   }, [currentMember])
 
-
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/login');
