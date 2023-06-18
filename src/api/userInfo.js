@@ -283,7 +283,12 @@ export const followOther = async(userId) => {
 }
 
 export const unfollowOther = async(userId) => {
-  
+  try{
+    const res = await axiosInstance.delete(`${baseURL}/followships/${userId}`)
+    return res.data
+  } catch (error){
+    console.error(error)
+  }
 }
 
 // *********************** Followship **********************
