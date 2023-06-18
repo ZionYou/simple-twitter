@@ -10,12 +10,10 @@ import { TransferTime } from "components/utilities/TransferTime";
 import {Link} from 'react-router-dom';
 
 
-
 const UserProfileTwi = ({datas, onLike}) => {
-  
   const [popupcontent, setpopupcontent] = useState([])
   const [ popupToggle, setPopupToggle ] = useState(false)
-  // const [isLike, setIsLike] = useState(false)
+  const [isLike, setIsLike] = useState(false)
   const changecontent = (data) => {
     setpopupcontent([data])
     setPopupToggle(!popupToggle)
@@ -31,51 +29,6 @@ const UserProfileTwi = ({datas, onLike}) => {
   //   console.log(getData)
   //   if(getData){
   //     setIsLike((prevState) => !prevState)
-  //   }
-  // }
-
-  // const handleLike = async (id) => {
-  //   // console.log(id)
-  //   const currentTweet = datas.find((tweet) => tweet.id === id)
-  //   // console.log(currentTweet)
-  //   // console.log(currentTweet.isLiked)
-  //   if(currentTweet.isLiked === false){
-  //     try{
-  //     const data = await likeTweet(id, {
-  //       isLiked: true
-  //     })
-  //     // console.log(data.message)
-  //     if(data.status === 'error'){
-  //       Swal.fire({
-  //         position: 'top',
-  //         title: data.message,
-  //         timer: 1000,
-  //         icon: 'error',
-  //         showConfirmButton: false,
-  //       })
-  //       return
-  //     }
-  //     // if(data.message === '')
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
-  //   } else if (currentTweet.isLiked === true){
-  //     try{
-  //       const data = await unlikeTweet(id, {isLiked: false})
-  //       // setIsLiked(!currentTweet.isLiked)
-  //       if(data.status === 'error'){
-  //         Swal.fire({
-  //           position: 'top',
-  //           title: data.message,
-  //           timer: 1000,
-  //           icon: 'error',
-  //           showConfirmButton: false,
-  //         })
-  //         return
-  //       }
-  //     } catch(error){
-  //       console.error(error)
-  //     }
   //   }
   // }
 
@@ -122,7 +75,7 @@ const MainHome = ({tweetDatas, onLike}) => {
   const [isPopup, setIsPopup] = useState(false)
   const [isError, setIsError] = useState(false)
   const [tweet, setTweet] = useState('')
-  const [isLiked, setIsLiked] = useState([])
+  const [isLiked, setIsLiked] = useState('')
   const [userTweets, setUserTweets] = useState([])
   const { currentMember } = useAuth();
   const userId = currentMember?.id
@@ -170,20 +123,14 @@ const MainHome = ({tweetDatas, onLike}) => {
   const handleLike = async (id) => {
     // console.log(id)
     const currentTweet = userTweets.find((tweet) => tweet.id === id)
+    console.log(currentTweet)
+    console.log(currentTweet.isLiked)
     if(currentTweet.isLiked === false){
       try{
-      const data = await likeTweet(id)
-      console.log(data)
-      // setUserTweets((prevUserTweets) => {
-      //   return[
-      //     ...prevUserTweets,
-      //     {
-      //       isLiked: true,
-      //     }
-      //   ]
-      // })
-      // console.log(data.message)
-      
+      const data = await likeTweet(id, {
+        isLiked: true
+      })
+      console.log(data.message)
       if(data.status === 'error'){
         Swal.fire({
           position: 'top',
@@ -201,6 +148,7 @@ const MainHome = ({tweetDatas, onLike}) => {
     } else if (currentTweet.isLiked === true){
       try{
         const data = await unlikeTweet(id, {isLiked: false})
+        setIsLiked(!currentTweet.isLiked)
         if(data.status === 'error'){
           Swal.fire({
             position: 'top',
@@ -215,23 +163,17 @@ const MainHome = ({tweetDatas, onLike}) => {
         console.error(error)
       }
     }
-    console.log(currentTweet.isLiked)
   }
-  // let _tweet = [...userTweets]
-  // setUserTweets(_tweet)
-  
 
   useEffect(() => {
     const getUserTwiAsync = async () => {
       const data = await getUserTwi(userId)
       // const userTweets = data.data
-
       setUserTweets(data.data)
-      
     }
     getUserTwiAsync()
   }, [currentMember])
-
+  
   // console.log(userTweets)
 
   return(
@@ -280,6 +222,7 @@ const MainHome = ({tweetDatas, onLike}) => {
     </section>
   )
 }
+
 
 
 

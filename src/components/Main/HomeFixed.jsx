@@ -247,6 +247,7 @@ const PopularFollowItem = ({item}) => {
   let isFollow = item.isFollowed
   const [followState, setFollowState] = useState(isFollow)
   // console.log(isFollow)
+  const {currentMember} = useAuth()
 
   const handleFollow = async () => {
     if(followState === true) {
@@ -261,10 +262,11 @@ const PopularFollowItem = ({item}) => {
         console.error(error)
       }
     } else if (followState === false){
+      if(item.id === currentMember.id) return
       setFollowState(true)
       try{
         const data = await followOther(item.id)
-        // console.log(data)
+        console.log(data)
       } catch(error){
         console.error(error)
       }

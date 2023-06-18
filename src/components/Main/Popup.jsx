@@ -130,13 +130,13 @@ const EditProfileModal = ({props, onClick, onSave}) => {
   const { currentMember } = useAuth();
 
   // console.log(currentMember)
-   const [userInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
   const [name, setName] = useState(currentMember?.name)
-  // let countName = name.length
-  const [nameCount, setNameCount] = useState()
-  const [introduction, setIntro] = useState(currentMember?.introduction)
-  // let countIntro = introduction.length
-  const [introCount, setIntroCount] = useState()
+  let countName = currentMember?.name.length
+  const [nameCount, setNameCount] = useState(countName)
+  const [introduction, setIntro] = useState(currentMember?.intro)
+  let countIntro = currentMember?.intro.length
+  const [introCount, setIntroCount] = useState(countIntro)
   const [avatar, setAvatar] = useState(currentMember?.avatar)
   const [avatarUrl, setAvatarUrl] = useState(avatar)
   const [cover, setCover] = useState(currentMember?.cover)

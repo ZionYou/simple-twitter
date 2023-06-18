@@ -291,12 +291,12 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
       <div className="personal-area">
         <img src={cover} alt="" className="personal-bg-img"/>
         <img src={avatar} alt="" className="personal-img" />
-        {/* <div className="btn-group" data-user="current">
+        <div className="btn-group" data-user="current">
           <EditProfileModal props={userInfo}/>
-        </div> */}
-        <div className="btn-group" data-user="other">
-          <OtherBtnGroup />
         </div>
+        {/* <div className="btn-group" data-user="other">
+          <OtherBtnGroup />
+        </div> */}
         <div className="personal-info">
           <div className="personal-info-name-group">
             <h5 className="name">{name}</h5>
