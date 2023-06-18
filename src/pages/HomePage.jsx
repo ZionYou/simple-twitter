@@ -3,11 +3,13 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, currentMember } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if(currentMember?.name === "admin" ){
+      navigate('/adminTwi');
+    }else if (isAuthenticated) {
       navigate('/main');
     } else {
       navigate('/login');
