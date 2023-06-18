@@ -231,7 +231,7 @@ export const replyTwi = async (tweet_id, comment) => {
 };
 
 // 喜歡指定貼文
-export const likeTweet = async (tweetId, isLiked) => {
+export const likeTweet = async (tweetId) => {
   try {
     const res = await axiosInstance.post(`${baseURL}/tweets/${tweetId}/like`)
     return res.data
@@ -275,7 +275,9 @@ export const getSingleTwiReply = async (tweetId) => {
 // *********************** Followship **********************
 export const followOther = async (userId) => {
   try {
-    const res = await axiosInstance.post(`${baseURL}/followships/${userId}`)
+    const res = await axiosInstance.post(`${baseURL}/followships`, {
+      id: userId
+    })
     return res.data
   } catch (error) {
     console.error(error)
