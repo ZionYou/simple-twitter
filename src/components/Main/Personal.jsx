@@ -1,14 +1,14 @@
 import { BackArrowIcon, CommentIcon, LikeSolidIcon, LikeIcon,MessageIcon, NoticeIcon, NoticeSolidIcon } from "assets/icons";
 import { UserProfileTwi, ReplyLikeTwiPopUp } from "components";
-import { useState, useEffect, createContext } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {useAuth} from 'contexts/AuthContext';
 import {EditProfileModal} from 'components/Main/Popup'
 import { TransferTime } from "components/utilities/TransferTime";
-import {getUser} from 'api/userInfo'
+import { getUser, followOther, unfollowOther} from "api/userInfo";
 import Swal from 'sweetalert2';
 
-import { likeTweet, unlikeTweet, getUserTwi } from "api/userInfo";
+import { likeTweet, unlikeTweet } from "api/userInfo";
 
 
 const PersonalSwitchData = [
@@ -27,17 +27,46 @@ const PersonalSwitchData = [
 
 ]
 
-
-const OtherBtnGroup = () => {
+const OtherBtnGroup = ({item}) => {
+  let isFollow = item.isFollowed
+  const [followState, setFollowState] = useState(isFollow)
+  console.log(followState)
   const [showNotice, setShowNotice] = useState(false);
-  const [isFollowed, setIsFollowed] = useState(false)
+  const { currentMember } = useAuth()
+  let id = item.id
   // 預設為不開啟小鈴鐺
   function handleShowNotice() {
     setShowNotice(!showNotice);
   }
+
+  const handleFollow = async () => {
+    setFollowState()
+    if(followState === true) {
+      setFollowState(false)
+      try{
+        const data = await unfollowOther(item.id)
+        
+        // console.log(data.message)
+        console.log(data)
+        
+      } catch (error){
+        console.error(error)
+      }
+    } else if (followState === false){
+      if(item.id === currentMember.id) return
+      setFollowState(true)
+      try{
+        const data = await followOther(item.id)
+        console.log(data)
+      } catch(error){
+        console.error(error)
+      }
+    }
+  }
+  
   
   return(
-    <div class="other-user-btn">
+    <>
       <button class="message orange-border-btn radius-50">
         <MessageIcon />
       </button>
@@ -56,8 +85,8 @@ const OtherBtnGroup = () => {
           </button>
         )
       }
-      <button className={`radius-50 cursor-pointer ${isFollowed ? "orange-btn" : "orange-border-btn"}`}>{isFollowed ? "正在跟隨" : "跟隨"}</button>
-    </div>
+      <button className={`follow  radius-50 cursor-pointer ${followState ? "orange-btn" : "orange-border-btn"}`} onClick={handleFollow}>{followState  ? "正在跟隨" : "跟隨"}</button>
+    </>
   )
 }
 
@@ -77,8 +106,6 @@ const PersonSwitchBar = ({onClick}) => {
     </div>
   )
 }
-
-
 
 const UserProfileTwiReply = ({datas}) => {
   const replyTweet = datas.map((tweet) => {
@@ -108,10 +135,10 @@ const UserProfileTwiReply = ({datas}) => {
   )
 }
 
-
 const UserProfileLike = ({datas, onLike}) => {
   const [popupcontent, setpopupcontent] = useState([])
   const [ popupToggle, setPopupToggle ] = useState(false)
+  const { currentMember } = useAuth();
 
   const changecontent = (data) => {
     setpopupcontent([data])
@@ -120,11 +147,13 @@ const UserProfileLike = ({datas, onLike}) => {
   const handleClose = () => {
     setPopupToggle(false)
   }
-
   const likeTweet = datas.map((tweet) => {
+    console.log(tweet)
     return (
       <div className="tweet-item" key={tweet.id}>
-        <img src={tweet.Tweet.avatar} alt="" />
+        <Link to={tweet.UserId!== currentMember?.id ? `/otherUser/${tweet.UserId}`:`/user`}>
+          <img src={tweet.Tweet.avatar} alt="" />
+        </Link>
         <div className="tweet-info">
           <div className="name-group">
             <span className="name">{tweet.Tweet.name}</span>
@@ -148,6 +177,8 @@ const UserProfileLike = ({datas, onLike}) => {
       </div>
     )
   })
+
+
   return(
     <>
       <div className="tweet-list">
@@ -166,13 +197,10 @@ const PersonalPageSwitch = ({value, tweetDatas, replyDatas, likeDatas, onTweetLi
   if(value === 'like') return <UserProfileLike datas={likeDatas} onLike={(id) =>{onLikeLike?.(id)}}/>
 }
 
-
-
-const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDatas, replyDatas, likeDatas, followerNum, followingNum, onLike}) => {
+const Personal = ({onClick, id, name, account, introduction, cover, avatar, tweetDatas, replyDatas, likeDatas, followerNum, followingNum, onLike}) => {
   const [currentValue, setCurrentValue] = useState('tweet')
   // const [editIsOpen, setEditIsOpen] = useState(false)
   const [userInfo, setUserInfo] = useState([]);
-  
   const {currentMember} = useAuth();
   const userId = currentMember?.id
 
@@ -295,8 +323,7 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
           {/* {currentMember.id ? <EditProfileModal props={userInfo}/>: <button>
               you
             </button>} */}
-          <OtherBtnGroup />
-          {/* <EditProfileModal props={userInfo}/> */}
+            <EditProfileModal props={userInfo}/> 
         </div>
         <div className="personal-info">
           <div className="personal-info-name-group">
@@ -324,7 +351,168 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
   )
 }
 
+const OtherPersonal = ({onClick, id, name, account, introduction, cover, avatar, tweetDatas, replyDatas, likeDatas, followerNum, followingNum, onLike}) => {
+  const [currentValue, setCurrentValue] = useState('tweet')
+  // const [editIsOpen, setEditIsOpen] = useState(false)
+  const [userInfo, setUserInfo] = useState([]);
+  const {currentMember} = useAuth();
+  const userId = currentMember?.id
 
-export { Personal, UserProfileTwiReply };
+  const handlePageClick = (e) => {
+    setCurrentValue(e.target.value)
+  }
+  
+  const handleTweetLike = async(id) => {
+    // console.log(id)
+    const currentTweet =  tweetDatas.find((tweet) => tweet.id === id)
+
+    if(currentTweet.isLiked === false){
+      try{
+      const data = await likeTweet(id, {
+        isLiked: true
+      })
+      console.log(data.message)
+      if(data.status === 'error'){
+        Swal.fire({
+          position: 'top',
+          title: data.message,
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        })
+        return
+      }
+      // if(data.message === '')
+      } catch (error) {
+        console.error(error)
+      }
+    } else if (currentTweet.isLiked === true){
+      try{
+        const data = await unlikeTweet(id, {isLiked: false})
+        if(data.status === 'error'){
+          Swal.fire({
+            position: 'top',
+            title: data.message,
+            timer: 1000,
+            icon: 'error',
+            showConfirmButton: false,
+          })
+          return
+        }
+      } catch(error){
+        console.error(error)
+      }
+    }
+  }
+
+  const handleLikeLike = async(id) => {
+    // console.log(id)
+    const currentTweet =  likeDatas.find((tweet) => tweet.id === id)
+    console.log(currentTweet.Tweet)
+    if(currentTweet.Tweet.isLiked === false){
+      try{
+      const data = await likeTweet(id)
+      console.log(data.message)
+      if(data.status === 'error'){
+        Swal.fire({
+          position: 'top',
+          title: data.message,
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        })
+        return
+      }
+      // if(data.message === '')
+      } catch (error) {
+        console.error(error)
+      }
+    } else if (currentTweet.Tweet.isLiked === true){
+      try{
+        const data = await unlikeTweet(id)
+        console.log(data)
+        if(data.status === 'error'){
+          Swal.fire({
+            position: 'top',
+            title: data.message,
+            timer: 1000,
+            icon: 'error',
+            showConfirmButton: false,
+          })
+          return
+        }
+      } catch(error){
+        console.error(error)
+      }
+    }
+  }
+  
+  
+  useEffect(() => {
+    const getUserAsync = async () => {
+      const data = await getUser(userId)
+      setUserInfo(data.data)
+      console.log(data.data)
+    }
+    
+    getUserAsync()
+    // getUserTwiLikeAsync()
+  }, [currentMember])
+
+  return(
+    <section className="person middle-container-border">
+      <div className="back-bar">
+        <Link to="/main" className="back-link">
+          <span className="back-icon"><BackArrowIcon/></span>
+          <div className="title-group">
+            <p className="name">{name}</p>
+            <p className="tweet-num"><span>{tweetDatas.length}</span> 推文</p>
+          </div>
+        </Link>
+      </div>
+      <div className="personal-area">
+        <img src={cover} alt="" className="personal-bg-img"/>
+        <img src={avatar} alt="" className="personal-img" />
+        <div className="btn-group" data-user="other">
+          {/* {currentMember.id ? <EditProfileModal props={userInfo}/>: <button>
+              you
+            </button>} */}
+          <OtherBtnGroup item={userInfo} /> 
+        </div>
+        <div className="personal-info">
+          <div className="personal-info-name-group">
+            <h5 className="name">{name}</h5>
+            <p className="account">@{account}</p>
+          </div>
+          <p className="personal-intro">{introduction}</p>
+          <div className="personal-follow-group">
+            <Link 
+              to={`/personalDetail/${id}`} 
+              className="follower"
+            ><span>{followerNum} 個</span>跟隨中
+            </Link>
+            <Link 
+              to={`/personalDetail/${id}`}  
+              className="following"
+            ><span>{followingNum}個</span>跟隨者
+            </Link>
+          </div>
+        </div>
+      </div>
+      <PersonSwitchBar onClick={handlePageClick}/>
+      <PersonalPageSwitch 
+        value={currentValue} 
+        tweetDatas={tweetDatas} 
+        likeDatas={likeDatas} 
+        replyDatas={replyDatas} 
+        onTweetLike={handleTweetLike} 
+        onLikeLike={handleLikeLike}
+      />
+    </section>
+  )
+}
+
+
+export { Personal, OtherPersonal, UserProfileTwiReply };
 
 

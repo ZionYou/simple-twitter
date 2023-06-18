@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const baseURL = 'https://twitter-azx79115.herokuapp.com/api'
+const baseURL = 'https://twitter-azx79115.herokuapp.com/api';
+// const baseURL = 'http://localhost:3500/api'
 
 const token = localStorage.getItem('authToken')
 
@@ -110,7 +111,7 @@ export const getUserTwiLike = async (id) => {
 // 取得指定使用者正在追蹤的使用者 //get
 export const getUserFollowings = async (id) => {
   try {
-    const { data } = await axiosInstance.get(`${baseURL}/user/:${id}/followings`)
+    const { data } = await axiosInstance.get(`${baseURL}/users/${id}/followings`)
     return { success: true, data }
   } catch (error) {
     return {
@@ -123,7 +124,7 @@ export const getUserFollowings = async (id) => {
 // 取得指定使用者的追蹤者 //get
 export const getUserFollowers = async (id) => {
   try {
-    const { data } = await axiosInstance.get(`${baseURL}/user/:${id}/followers`)
+    const { data } = await axiosInstance.get(`${baseURL}/users/${id}/followers`)
     return { success: true, data }
   } catch (error) {
     return {
@@ -275,7 +276,9 @@ export const getSingleTwiReply = async (tweetId) => {
 // *********************** Followship **********************
 export const followOther = async (userId) => {
   try {
-    const res = await axiosInstance.post(`${baseURL}/followships/${userId}`)
+    const res = await axiosInstance.post(`${baseURL}/followships`, {
+      id: userId
+    })
     return res.data
   } catch (error) {
     console.error(error)
@@ -283,7 +286,13 @@ export const followOther = async (userId) => {
 }
 
 export const unfollowOther = async (userId) => {
-
+  try {
+    const res = await axiosInstance.delete(`${baseURL}/followships/${userId}`)
+    return res.data
+  } catch (error) {
+    console.error(error)
+  }
 }
+
 
 // *********************** Followship **********************

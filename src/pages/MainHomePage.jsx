@@ -12,24 +12,24 @@ import { useAuth } from '../contexts/AuthContext';
 export const LikeContext = createContext()
 
 const MainHomePage = () => {
-  const [userInfo, setUserInfo] = useState([]);
+  // const [userInfo, setUserInfo] = useState([]);
   // const [userTweets, setUserTweets] = useState([])
   // const [isLike, setIsLike] = useState(false)
   // 彈跳視窗狀態
   const [isPopup, setIsPopup] = useState(false)
   const navigate = useNavigate();
   const { isAuthenticated, currentMember } = useAuth();
-
-  const userId = currentMember?.id
+  // const userId = currentMember?.id
+  
 
   
-  useEffect(() => {
-    const getUserAsync = async () => {
-      const data = await getUser(userId)
-      setUserInfo(data)
-    }
-    getUserAsync()
-  }, [currentMember])
+  // useEffect(() => {
+  //   const getUserAsync = async () => {
+  //     const data = await getUser(userId)
+  //     setUserInfo(userInfo)
+  //   }
+  //   getUserAsync()
+  // }, [currentMember])
 
   useEffect(() => {
     if (!isAuthenticated) {

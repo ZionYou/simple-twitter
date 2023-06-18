@@ -16,6 +16,7 @@ const UserProfileTwi = ({datas, onLike}) => {
   const [popupcontent, setpopupcontent] = useState([])
   const [ popupToggle, setPopupToggle ] = useState(false)
   const [isLike, setIsLike] = useState(false)
+  const { currentMember } = useAuth();
   const changecontent = (data) => {
     setpopupcontent([data])
     setPopupToggle(!popupToggle)
@@ -34,11 +35,15 @@ const UserProfileTwi = ({datas, onLike}) => {
   //   }
   // }
 
+  console.log(datas)
 
   const userTweets = datas.map((data) => {
     return(
       <div className="tweet-item" key={data.id}>
-        <img src={data.User.avatar} alt="" />
+        <Link to={data.UserId !== currentMember?.id ? `/otherUser/${data.id}`:`/user`}>
+          <img src={data.User.avatar} alt="" />
+        </Link>
+        
         <div className="tweet-info">
           <div className="name-group">
             <span className="name">{data.User.name}</span>

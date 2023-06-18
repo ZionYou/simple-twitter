@@ -2,7 +2,7 @@ import { ACLogoIcon, HomeIcon, HomeCheckedIcon, PersonIcon, PersonCheckedIcon, S
 import { useEffect, useState } from "react";
 import {Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/AuthContext';
-import { getTopTenFollowList } from "api/userInfo";
+import { getTopTenFollowList, followOther, unfollowOther} from "api/userInfo";
 // import { NewTwiPopUp } from "./Popup";
 import { Container, Row, Col } from "react-bootstrap";
 import Swal from 'sweetalert2';
@@ -179,7 +179,7 @@ const MainList = ({onClick}) => {
       // console.log(data)
     }
     getUserAsync()
-  }, [currentMember])
+  }, [ currentMember ])
   useEffect(() => {
     if(!isAuthenticated){
       navigate('/login')
@@ -236,13 +236,59 @@ const MainList = ({onClick}) => {
         </div>
       </div>}
     </>
-    
   )
 }
+
+const PopularFollowItem = ({item}) => {
+  let isFollow = item.isFollowed
+  const [followState, setFollowState] = useState(isFollow)
+  // console.log(isFollow)
+  const {currentMember} = useAuth()
+
+  const handleFollow = async () => {
+    console.log(isFollow)
+    console.log(followState)
+    if(followState === true) {
+      setFollowState(false)
+      try{
+        const data = await unfollowOther(item.id)
+        
+        // console.log(data.message)
+        console.log(data)
+        
+      } catch (error){
+        console.error(error)
+      }
+    } else if (followState === false){
+      if(item.id === currentMember.id) return
+      setFollowState(true)
+      try{
+        const data = await followOther(item.id)
+        console.log(data)
+      } catch(error){
+        console.error(error)
+      }
+    }
+  }
+  return(
+      <div className="popular-follow-item" key={item.id}>
+        <Link to={item.id !== currentMember?.id ? `/otherUser/${item.id}`:`/user`}>
+          <img src={item.avatar === null ? "https://www.seekpng.com/png/detail/966-9665317_placeholder-image-person-jpg.png" : item.avatar} alt={item.name} className="popular-follow-img" />
+        </Link>
+        <div className="popular-follow-name-group">
+          <a herf="" className="popular-follow-name">{item.name}</a>
+          <p className="popular-follow-account">@<span>{item.account}</span></p>
+        </div>
+        <button className={`radius-50 cursor-pointer ${followState ? "orange-btn" : "orange-border-btn"}`} onClick={handleFollow}>{followState ? "正在跟隨" : "跟隨"}</button>
+      </div>
+    )
+}
+
 
 // 推薦跟隨元件
 const PopularFollow = () => {
   const [topFollow, setTopFollow] = useState([])
+  
   useEffect(() => {
     const getTopTenFollowListAsync = async () => {
       try{
@@ -264,20 +310,8 @@ const PopularFollow = () => {
   // const top10 = topFollow.filter((item) => item.id <= 104)
 
   const topFollowList = topFollow.map((item) => {
-    return(
-      <div className="popular-follow-item" key={item.id}>
-        <Link to={`/otherUser/${item.id}`}>
-          <img src={item.avatar === null ? "https://www.seekpng.com/png/detail/966-9665317_placeholder-image-person-jpg.png" : item.avatar} alt={item.name} className="popular-follow-img" />
-        </Link>
-        <div className="popular-follow-name-group">
-          <a herf="" className="popular-follow-name">{item.name}</a>
-          <p className="popular-follow-account">@<span>{item.account}</span></p>
-        </div>
-        <button className={`radius-50 cursor-pointer ${item.isFollowed ? "orange-btn" : "orange-border-btn"}`}>{item.isFollowed ? "正在跟隨" : "跟隨"}</button>
-      </div>
-    )
+    return <PopularFollowItem item={item} key={item.id}/>
   })
-
   return(
     <div className="popular-follow">
       <h5 className="sub-title">推薦跟隨</h5>

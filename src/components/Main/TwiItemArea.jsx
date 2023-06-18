@@ -3,6 +3,7 @@ import { UserProfileTwiReply } from "components";
 import { Link, useParams } from 'react-router-dom';
 import {getSingleTwi, getSingleTwiReply} from 'api/userInfo'
 import { useEffect, useState } from "react";
+import { useAuth } from 'contexts/AuthContext';
 
 import { MakeTime } from "components/utilities/MakeTime";
 import { TransferTime } from "components/utilities/TransferTime";
@@ -14,6 +15,7 @@ const TwiItemArea = () => {
 
   const [singleTwi, setSingleTwi] = useState([])
   const [singleReply, setSingleReply] = useState([])
+  const { currentMember } = useAuth();
 
   useEffect(() => {
     const getSingleTwiAsync = async() => {
@@ -24,25 +26,30 @@ const TwiItemArea = () => {
     const getSingleTwiReplyAsync = async()=>{
       const data = await getSingleTwiReply(id.id)
       setSingleReply(data)
-      console.log(data)
+      // console.log(data)
     }
 
     getSingleTwiAsync()
     getSingleTwiReplyAsync()
   },[id])
 
+  // console.log(singleTwi)
+  // console.log(singleTwi.user)
+
   const replyList = singleReply.map((tweet) => {
     return(
       <div className="tweet-list" key={tweet.id}>
         <div className="tweet-item">
+          <Link to={tweet.User.id !== currentMember?.id ? `/otherUser/${tweet.User.id}`:`/user`}>
           <img src={tweet.User.avatar} alt="" />
+          </Link>
           <div className="tweet-info">
             <div className="name-group">
               <span className="name">{tweet.User.name}</span>
               <span className="account">@{tweet.User.account}</span>
               <span className="time"> &#183; {TransferTime(tweet.updatedAt)}</span>
             </div>
-            <p className="reply-to">回覆 <span>@{tweet.Tweet.account}</span></p>
+            <p className="reply-to">回覆 <span>@{tweet.User.account}</span></p>
             <p className="content">
               {tweet.comment}
             </p>
@@ -51,7 +58,6 @@ const TwiItemArea = () => {
       </div>
     )
   })
-
 
   return(
     <section className="twi-item middle-container-border">
@@ -67,8 +73,8 @@ const TwiItemArea = () => {
         <div className="twi-item-user">
           <img src="" alt="" className="twi-item-img" />
           <div className="twi-item-name-group">
-            <a herf="" className="twi-item-name">{singleTwi.User?.name}</a>
-            <p className="twi-item-account">@<span>{singleTwi.User?.account}</span></p>
+            <a herf="" className="twi-item-name">{singleTwi.user?.name}</a>
+            <p className="twi-item-account">@<span>{singleTwi.user?.account}</span></p>
           </div>
         </div>
         <div className="twi-item-content-group">

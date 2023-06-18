@@ -27,36 +27,43 @@
   }
 }
 
-.back-bar{
+.back-bar {
   width: 100%;
+
   // line-height: 75px;
-  .back-link{
+  .back-link {
     display: flex;
     align-items: center;
     height: 75px;
-    .back-icon{
+
+    .back-icon {
       margin: 0 28px 0 19px;
       @include svg-adjust(auto, 14px, var(--greyscale-dark-100));
     }
-    .title-group{
-      .name{
+
+    .title-group {
+      .name {
         @include font-adjust(18px, 700, var(--greyscale-dark-100));
         line-height: 26px;
       }
-      .tweet-num{
+
+      .tweet-num {
         @include font-adjust(13px, 500, var(--grey-secondary));
       }
     }
   }
 }
-.personal-area{
+
+.personal-area {
   position: relative;
-  .personal-bg-img{
+
+  .personal-bg-img {
     width: 100%;
     height: 200px;
     object-fit: cover;
   }
-  .personal-img{
+
+  .personal-img {
     width: 140px;
     height: 140px;
     border: 4px solid var(--white);
@@ -66,40 +73,96 @@
     top: 130px;
     left: 16px;
   }
-  .btn-group{
+
+  .btn-group[data-user="current"] {
     height: 70px;
     display: flex;
     align-items: center;
     justify-content: end;
     padding-right: 16px;
-    button{
+
+    button {
       padding: 8px 16px;
     }
   }
-  .personal-info{
+
+  .btn-group[data-user="other"] {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 16px;
+
+    .message {
+      width: 40px;
+      height: 40px;
+      @include svg-adjust(auto, 18px, var(--major));
+    }
+
+    .notice-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--major);
+      border-radius: 50px;
+      background-color: transparent;
+      margin: 16px;
+
+      i {
+        @include svg-adjust(auto, 22px, var(--major));
+      }
+    }
+
+    .notice-icon-solid {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background-color: var(--major);
+      border-radius: 50px;
+      margin: 16px;
+
+      i {
+        @include svg-adjust(auto, 22px, var(--white));
+      }
+    }
+
+    .follow {
+      padding: 8px 16px;
+      font-size: 16px;
+    }
+  }
+
+  .personal-info {
     margin-top: 8px;
     padding: 0 16px;
-    .personal-info-name-group{
-      .name{
+
+    .personal-info-name-group {
+      .name {
         @include font-adjust(18px, 700, var(--greyscale-dark-100));
         line-height: 16px;
       }
-      .account{
+
+      .account {
         @include font-adjust(14px, 400, var(--grey-secondary));
       }
     }
-    .personal-intro{
+
+    .personal-intro {
       padding: 6px 0 8px;
       @include font-adjust(14px, 400, var(--greyscale-dark-100));
     }
-    .personal-follow-group{
-      .follower, .following{
+
+    .personal-follow-group {
+
+      .follower,
+      .following {
         @include font-adjust(14px, 400, var(--grey-secondary));
-        span{
+
+        span {
           @include font-adjust(14px, 400, var(--greyscale-dark-100));
         }
       }
-      .follower{
+
+      .follower {
         margin-right: 20px;
       }
     }

@@ -16,8 +16,6 @@ const UserProfilePage = () => {
 
   const userId = currentMember?.id
 
-  
-
    useEffect(() => {
     const getUserAsync = async () => {
       const data = await getUser(userId)

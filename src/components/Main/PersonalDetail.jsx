@@ -1,7 +1,9 @@
 import { BackArrowIcon } from "assets/icons";
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
-
+import { useParams} from "react-router";
+import { useAuth } from 'contexts/AuthContext';
+import { getUser, followOther, unfollowOther} from "api/userInfo";
 
 const PersonalDetailSwitchData = [
   {
@@ -14,83 +16,83 @@ const PersonalDetailSwitchData = [
   },
 ]
 
-const PersonalFollowerData = [
-  {
-    id: 1,
-    user_name: "user1",
-    user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
-    isFollowed: true,
-  },
-  {
-    id: 2,
-    user_name: "user2",
-    user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
-    isFollowed: true,
-  },
-  {
-    id: 3,
-    user_name: "user3",
-    user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
-    isFollowed: false,
-  },
-  {
-    id: 4,
-    user_name: "user3",
-    user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
-    isFollowed: false,
-  },
-  {
-    id: 5,
-    user_name: "user3",
-    user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
-    isFollowed: false,
-  },
-  {
-    id: 6,
-    user_name: "user3",
-    user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
-    isFollowed: false,
-  },
-]
+// const PersonalFollowerData = [
+//   {
+//     id: 1,
+//     user_name: "user1",
+//     user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
+//     isFollowed: true,
+//   },
+//   {
+//     id: 2,
+//     user_name: "user2",
+//     user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
+//     isFollowed: true,
+//   },
+//   {
+//     id: 3,
+//     user_name: "user3",
+//     user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
+//     isFollowed: false,
+//   },
+//   {
+//     id: 4,
+//     user_name: "user3",
+//     user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
+//     isFollowed: false,
+//   },
+//   {
+//     id: 5,
+//     user_name: "user3",
+//     user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
+//     isFollowed: false,
+//   },
+//   {
+//     id: 6,
+//     user_name: "user3",
+//     user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
+//     isFollowed: false,
+//   },
+// ]
 
-const PersonalFollowingData = [
-  {
-    id: 1,
-    user_name: "user1",
-    user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
-    isFollowed: true,
-  },
-  {
-    id: 2,
-    user_name: "user2",
-    user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
-    isFollowed: true,
-  },
-  {
-    id: 3,
-    user_name: "user3",
-    user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
-    isFollowed: true,
-  },
-  {
-    id: 4,
-    user_name: "user3",
-    user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
-    isFollowed: true,
-  },
-  {
-    id: 5,
-    user_name: "user3",
-    user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
-    isFollowed: true,
-  },
-  {
-    id: 6,
-    user_name: "user3",
-    user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
-    isFollowed: true,
-  },
-]
+// const PersonalFollowingData = [
+//   {
+//     id: 1,
+//     user_name: "user1",
+//     user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
+//     isFollowed: true,
+//   },
+//   {
+//     id: 2,
+//     user_name: "user2",
+//     user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
+//     isFollowed: true,
+//   },
+//   {
+//     id: 3,
+//     user_name: "user3",
+//     user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
+//     isFollowed: true,
+//   },
+//   {
+//     id: 4,
+//     user_name: "user3",
+//     user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
+//     isFollowed: true,
+//   },
+//   {
+//     id: 5,
+//     user_name: "user3",
+//     user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
+//     isFollowed: true,
+//   },
+//   {
+//     id: 6,
+//     user_name: "user3",
+//     user_intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh est, finibus ac dolor et, volutpat ullamcorper nibh. Etiam vitae viverra neque. Nulla consectetur eleifend hendrerit. Sed congue turpis porta velit dignissim sodales. Morbi ultrices venenatis finibus. Pellentesque sit amet lectus vestibulum lectus volutpat suscipit ac ac tortor. Proin ac.",
+//     isFollowed: true,
+//   },
+// ]
 
 const PersonDetailSwitchBar = ({onClick}) => {
   return(
@@ -110,13 +112,45 @@ const PersonDetailSwitchBar = ({onClick}) => {
 }
 
 const PersonalFollowItem = ({follow}) => {
+  let isFollow = follow.isFollowed
+  const [followState, setFollowState] = useState(isFollow)
+  // console.log(isFollow)
+  const {currentMember} = useAuth()
+
+  const handleFollow = async () => {
+    console.log(isFollow)
+    console.log(followState)
+    if(followState === true) {
+      setFollowState(false)
+      try{
+        const data = await unfollowOther(follow.id)
+        // console.log(data.message)
+        console.log(data)
+        
+      } catch (error){
+        console.error(error)
+      }
+    } else if (followState === false){
+      if(follow.id === currentMember.id) return
+      setFollowState(true)
+      try{
+        const data = await followOther(follow.id)
+        console.log(data)
+      } catch(error){
+        console.error(error)
+      }
+    }
+  }
+
   return(
     <div className="personal-follow-item">
-      <img src={`${follow.avatar}`} alt="" />
+      <Link to={follow.id !== currentMember?.id ? `/otherUser/${follow.id}`:`/user`}>
+        <img src={`${follow.avatar}`} alt="" />
+      </Link>
       <div className="personal-follow-info">
         <div className="personal-title">
           <span className="name">{follow.name}</span>
-          <button className={`radius-50 ${follow.isFollowed ? "orange-btn" : "orange-border-btn"}`}>{follow.isFollowed ? "正在跟隨" : "跟隨"}</button>
+          <button className={`radius-50 cursor-pointer ${followState ? "orange-btn" : "orange-border-btn"}`} onClick={handleFollow}>{followState ? "正在跟隨" : "跟隨"}</button>
         </div>
         <p className="content">
           {follow.introduction}
@@ -127,7 +161,7 @@ const PersonalFollowItem = ({follow}) => {
 }
 
 const PersonalFollowerList = ({ datas}) => {
-
+  
   const userFollowers = datas.map((data) => {
     return(
       <>
@@ -166,7 +200,7 @@ const PersonalFollowPageSwitch = ({value, followers, followings}) => {
 }
 
 // 追隨動態元件
-const PersonalDetail = ({ followers, followings }) => {
+const PersonalDetail = ({ name, tweetDatas ,followers, followings }) => {
   const [currentFollowValue, setCurrentFollowValue] = useState('follower')
 
   const handleFollowPageClick = (e) => {
@@ -178,14 +212,14 @@ const PersonalDetail = ({ followers, followings }) => {
         <Link to="/user" className="back-link">
           <span className="back-icon"><BackArrowIcon/></span>
           <div className="title-group">
-            <p className="name">John Doe</p>
-            <p className="tweet-num"><span>25</span> 推文</p>
+            <p className="name">{name}</p>
+            <p className="tweet-num"><span>{tweetDatas.length}</span> 推文</p>
           </div>
         </Link>
       </div>
       <PersonDetailSwitchBar onClick={handleFollowPageClick}/>
       <PersonalFollowPageSwitch 
-        value={currentFollowValue} 
+        value={currentFollowValue}
         followers={followers} 
         followings={followings}
       />
