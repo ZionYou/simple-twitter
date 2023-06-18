@@ -66,7 +66,7 @@
     top: 130px;
     left: 16px;
   }
-  .btn-group{
+  .btn-group[data-user="current"]{
     height: 70px;
     display: flex;
     align-items: center;
@@ -74,6 +74,44 @@
     padding-right: 16px;
     button{
       padding: 8px 16px;
+    }
+  }
+  .btn-group[data-user="other"]{
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 16px;
+    .message{
+      width: 40px;
+      height: 40px;
+      @include svg-adjust(auto, 18px, var(--major));
+    }
+    .notice-icon{
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--major);
+      border-radius: 50px;
+      background-color: transparent;
+      margin: 16px;
+      i{
+        @include svg-adjust(auto, 22px, var(--major));
+      }
+    }
+    .notice-icon-solid{
+      width: 40px;
+      height: 40px;
+      border: none;
+      background-color: var(--major);
+      border-radius: 50px;
+      margin: 16px;
+      i {
+        @include svg-adjust(auto, 22px, var(--white));
+      }
+    }
+    .follow{
+      padding: 8px 16px;
+      font-size: 16px;
     }
   }
   .personal-info{

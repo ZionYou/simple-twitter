@@ -1,40 +1,40 @@
-.other-user-btn {
-  text-align: center;
-  display: flex;
+// .other-user-btn {
+//   // text-align: center;
+//   // display: flex;
 
-  .message {
-    width: 40px;
-    height: 40px;
-    padding: 10px;
+//   .message {
+//     width: 40px;
+//     height: 40px;
+//     padding: 10px;
 
-    @include svg-adjust(auto, 18px, var(--major));
-  }
+//     @include svg-adjust(auto, 18px, var(--major));
+//   }
 
-  .notice-icon {
-    width: 40px;
-    height: 40px;
-    padding: 8px;
-    border: 1px solid var(--major);
-    border-radius: 50px;
-    // padding: 10px;
-    // display: flex;
-    justify-content: end;
-    align-items: center;
+//   .notice-icon {
+//     width: 40px;
+//     height: 40px;
+//     padding: 8px;
+//     border: 1px solid var(--major);
+//     border-radius: 50px;
+//     // padding: 10px;
+//     // display: flex;
+//     justify-content: end;
+//     align-items: center;
 
-    i {
-      @include svg-adjust(auto, 22px, var(--major));
-    }
-  }
+//     i {
+//       @include svg-adjust(auto, 22px, var(--major));
+//     }
+//   }
 
-  .notice-icon-solid {
-    width: 40px;
-    height: 40px;
-    padding: 10px;
-    background-color: var(--major);
-    border-radius: 50px;
+//   .notice-icon-solid {
+//     width: 40px;
+//     height: 40px;
+//     padding: 10px;
+//     background-color: var(--major);
+//     border-radius: 50px;
 
-    i {
-      @include svg-adjust(auto, 22px, var(--white));
-    }
-  }
-}
+//     i {
+//       @include svg-adjust(auto, 22px, var(--white));
+//     }
+//   }
+// }

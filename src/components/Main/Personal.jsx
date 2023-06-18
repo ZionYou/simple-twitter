@@ -37,7 +37,7 @@ const OtherBtnGroup = () => {
   }
   
   return(
-    <div class="other-user-btn">
+    <>
       <button class="message orange-border-btn radius-50">
         <MessageIcon />
       </button>
@@ -56,8 +56,8 @@ const OtherBtnGroup = () => {
           </button>
         )
       }
-      <button className={`radius-50 cursor-pointer ${isFollowed ? "orange-btn" : "orange-border-btn"}`}>{isFollowed ? "正在跟隨" : "跟隨"}</button>
-    </div>
+      <button className={`radius-50 cursor-pointer follow ${isFollowed ? "orange-btn" : "orange-border-btn"}`}>{isFollowed ? "正在跟隨" : "跟隨"}</button>
+    </>
   )
 }
 
@@ -291,12 +291,11 @@ const Personal = ({onClick, name, account, introduction, cover, avatar, tweetDat
       <div className="personal-area">
         <img src={cover} alt="" className="personal-bg-img"/>
         <img src={avatar} alt="" className="personal-img" />
+        {/* <div className="btn-group" data-user="current">
+          <EditProfileModal props={userInfo}/>
+        </div> */}
         <div className="btn-group" data-user="other">
-          {/* {currentMember.id ? <EditProfileModal props={userInfo}/>: <button>
-              you
-            </button>} */}
           <OtherBtnGroup />
-          {/* <EditProfileModal props={userInfo}/> */}
         </div>
         <div className="personal-info">
           <div className="personal-info-name-group">
