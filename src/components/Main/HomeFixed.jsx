@@ -246,8 +246,8 @@ const PopularFollowItem = ({item}) => {
   const {currentMember} = useAuth()
 
   const handleFollow = async () => {
-    console.log(isFollow)
-    console.log(followState)
+    // console.log(isFollow)
+    // console.log(followState)
     if(followState === true) {
       setFollowState(false)
       try{

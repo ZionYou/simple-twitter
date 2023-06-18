@@ -73,7 +73,7 @@ export const getUserTwiLike = async (id) => {
   try {
     const { data } = await axiosInstance.get(`${baseURL}/users/${id}/likes`)
 
-    return { sucess: true, data }
+    return { success: true, data }
   } catch (error) {
     return {
       success: false,

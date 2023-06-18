@@ -11,7 +11,7 @@ import { ReactComponent as PersonIcon } from "./person.svg";
 import { ReactComponent as PersonCheckedIcon } from "./person-checked.svg"
 import { ReactComponent as SettingsIcon } from "./settings.svg";
 import { ReactComponent as SettingsCheckedIcon } from "./settings-checked.svg";
-import { ReactComponent as LogoutIcon } from "./logout.svg";
+import { ReactComponent as LogoutIcon } from "./Logout.svg";
 
 
 

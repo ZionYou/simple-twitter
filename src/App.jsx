@@ -23,21 +23,21 @@ function App() {
     <div className="App">
       <BrowserRouter basename={basename} >
         <AuthProvider>
-          <Routes>
-            <Route path="*" element={<HomePage />} />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="regist" element={<RegistPage />} />
-            <Route path="adminLogin" element={<AdminLoginPage />} />
-            <Route path="main" element={<MainHomePage />} />
-            <Route path="user" element={<UserProfilePage />} />
-            <Route path="otherUser/:id" element={<OtherUserPage />} />
-            <Route path="personalDetail/:id" element={<PersonalDetailPage />} />
-            <Route path="setting" element={<SettingsPage />} />
-            {/* <Route path="twiItem" element={<TwiItemPage/>} /> */}
-            <Route path="adminTwi" element={<AdminTwiListPage/>} />
-            <Route path="adminUser" element={<AdminUserListPage/>} />
-            <Route path="twiItem/:id" element={<TwiItemPage/>}/>
-          </Routes>
+            <Routes>
+              <Route path="*" element={<HomePage />} />
+              <Route path="login" element={<LoginPage />} />
+              <Route path="regist" element={<RegistPage />} />
+              <Route path="adminLogin" element={<AdminLoginPage />} />
+              <Route path="main" element={<MainHomePage />} />
+              <Route path="user" element={<UserProfilePage />} />
+              <Route path="otherUser/:id" element={<OtherUserPage />} />
+              <Route path="personalDetail/:id" element={<PersonalDetailPage />} />
+              <Route path="setting" element={<SettingsPage />} />
+              {/* <Route path="twiItem" element={<TwiItemPage/>} /> */}
+              <Route path="adminTwi" element={<AdminTwiListPage/>} />
+              <Route path="adminUser" element={<AdminUserListPage/>} />
+              <Route path="twiItem/:id" element={<TwiItemPage/>}/>
+            </Routes>
         </AuthProvider>
       </BrowserRouter>
     </div>
