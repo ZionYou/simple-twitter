@@ -14,6 +14,9 @@ const TwiItemArea = () => {
   const id = useParams()
   // console.log(id.id)
   
+  let isLiked = singleTwi.isLiked || false
+  const [likeStatus, setLikeStatus] = useState(isLiked)
+  
   const [singleTwi, setSingleTwi] = useState([])
   const [singleReply, setSingleReply] = useState([])
 
@@ -28,12 +31,11 @@ const TwiItemArea = () => {
   }
 
   // console.log(singleTwi)
-  let isLiked = singleTwi.isLiked
   let tweetId = singleTwi.id
   // console.log(isLiked, tweetId)
 
   const handleLike = async () => {
-    if(isLiked === false){
+    if(likeStatus === false){
       try{
       const data = await likeTweet(tweetId)
       if(data.status === 'error'){
@@ -50,7 +52,7 @@ const TwiItemArea = () => {
       } catch (error) {
         console.error(error)
       }
-    } else if (isLiked === true){
+    } else {
       try{
         const data = await unlikeTweet(tweetId)
         if(data.status === 'error'){
@@ -69,6 +71,9 @@ const TwiItemArea = () => {
     }
   }
 
+  // console.log(isLiked, tweetId)
+
+ 
   useEffect(() => {
     const getSingleTwiAsync = async() => {
       const data = await getSingleTwi(id.id)

@@ -28,10 +28,11 @@ const PersonalSwitchData = [
 ]
 
 const OtherBtnGroup = ({item}) => {
-  const isFollow = item.isFollowed
+ const isFollow = item.isFollowed || false
   const [followState, setFollowState] = useState(isFollow)
   const [showNotice, setShowNotice] = useState(false);
   const { currentMember } = useAuth()
+  console.log(followState)
   // 預設為不開啟小鈴鐺
   function handleShowNotice() {
     setShowNotice(!showNotice);
@@ -49,7 +50,7 @@ const OtherBtnGroup = ({item}) => {
       } catch (error){
         console.error(error)
       }
-    } else if (followState === false){
+    } else{
       if(item.id === currentMember.id) return
       setFollowState(true)
       try{

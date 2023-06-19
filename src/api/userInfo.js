@@ -149,6 +149,11 @@ export const putUserSettings = async (payload, id) => {
   try {
     const res = await axiosInstance.put(`${baseURL}/users/${id}/setting`, {
       name, account, email, password, checkPassword
+    }, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      }
     });
     return res.data;
   } catch (error) {
@@ -156,6 +161,7 @@ export const putUserSettings = async (payload, id) => {
 
   }
 }
+
 
 // ************************ User **************************
 

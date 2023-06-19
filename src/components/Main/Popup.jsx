@@ -152,13 +152,10 @@ const EditProfileModal = ({props, onClick, onSave}) => {
     try{
       const data = await putUserInfo({
         name, 
-        avatar: avatarUrl, 
-        cover: coverUrl, 
+        avatar, 
+        cover, 
         introduction
       }, userId)
-      // console.log(data)
-      // console.log(data.message)
-      // console.log(postInfo.data.avatar)
       if(data.message === "修改成功"){
         handleToggleClose()
       }
@@ -167,6 +164,7 @@ const EditProfileModal = ({props, onClick, onSave}) => {
       console.error(error)
     }
   }
+
 
   const handleImgChange = (e, type) => {
     const selectedFile = e.target.files[0]
